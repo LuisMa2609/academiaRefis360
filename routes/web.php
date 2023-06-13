@@ -19,11 +19,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function(){
 
-Route::get('/index', function () {
-    return view('guias/index');
-});
+Route::get('/index', function () { return view('guias/index'); })->name('index');
 
 });
 
 Auth::routes();
-
