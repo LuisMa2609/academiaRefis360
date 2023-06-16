@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('perfiles', function (Blueprint $table) {
             $table->id();
-            $table->string('NombrePerfil');
+            $table->string('nombreperfil');
         });
 
-        Schema::table('users', function (Blueprint $table){
+        Schema::table('usuarioperfils', function (Blueprint $table){
             $table->unsignedBigInteger('perfil_id')->after('id');
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });
@@ -26,7 +26,11 @@ return new class extends Migration
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });
 
-        
+        Schema::table('relacionguias', function (Blueprint $table){
+            $table->unsignedBigInteger('perfil_id')->after('id');
+            $table->foreign('perfil_id')->references('id')->on('perfiles');
+        });
+
     }
 
 

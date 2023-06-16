@@ -17,11 +17,19 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
-        @include('partials.nav')
+    <div id="app" class="d-flex flex-column">
+
+        <header>
+            @include('partials.nav')
+        </header>
+
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer>
+            {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
+        </footer>
     </div>
 </body>
 </html>

@@ -28,6 +28,7 @@ class RegisterController extends Controller
      * Where to redirect users after registration.
      *
      * @var string
+     * 
      */
     protected $redirectTo = RouteServiceProvider::INDEX;
 
@@ -38,7 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**
@@ -61,9 +62,11 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      * @return \App\Models\User
+     * 
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

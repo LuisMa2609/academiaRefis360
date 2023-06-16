@@ -9,7 +9,7 @@
     
         <br>
     @auth
-    <a href="{{ route('projects.create')}}">Crear nuevo proyecto</a>
+    <a href="{{ route('projects.create')}}">Crear nuevo usuario</a>
     @endauth
     
     <ul>

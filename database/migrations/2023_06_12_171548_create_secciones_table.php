@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('secciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombreseccion');
         });
 
         Schema::table('perfilsecciones', function (Blueprint $table){
@@ -21,10 +21,16 @@ return new class extends Migration
             $table->foreign('secciones_id')->references('id')->on('secciones');
         });
 
-        Schema::table('guias', function (Blueprint $table){
+        Schema::table('seccionespermisos', function (Blueprint $table){
             $table->unsignedBigInteger('secciones_id')->after('id');
             $table->foreign('secciones_id')->references('id')->on('secciones');
         });
+
+        Schema::table('relacionguias', function (Blueprint $table){
+            $table->unsignedBigInteger('seccion_id')->after('id');
+            $table->foreign('seccion_id')->references('id')->on('secciones');
+        });
+
     }
 
     /**
