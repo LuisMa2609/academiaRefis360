@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Perfiles;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Perfiles extends Model
 {
@@ -17,6 +17,7 @@ class Perfiles extends Model
      */
     protected $table = 'perfiles';
 
-
-
+    public function usuarios(): BelongsToMany{
+        return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'perfil_id', 'usuario_id');
+    }
 }
