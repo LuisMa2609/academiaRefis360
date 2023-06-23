@@ -4,12 +4,15 @@
 
 @section('content')
 
+    @can('admin')
+    <a href="{{ route('users.index')}}">Usuarios</a>
+    @endcan
+
     <h1 class="text-center py-3">Indice de videos</h1>
     
-
         <div class="container bg-white shadow rounded py-3 px-3 mb-4">
             <h1>Notificaciones de pago</h1>
-            <table class="table ">
+            <table class="table ">                  
                 <thead>
                   <tr>
                     <th scope="col">Nombre</th>

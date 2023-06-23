@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{config('app.name')}}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -15,19 +15,18 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @include('partials.nav')
+    
 </head>
 <body>
-    <div id="app" class="d-flex flex-column">
-
-        <header>
-            @include('partials.nav')
-        </header>
-
+    <div id="app" class="d-flex flex-column h-screen justify-content-between">
+        
         <main class="py-4">
             @yield('content')
         </main>
 
-        <footer>
+        <footer class="py-3 shadow footer-bs">
             {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
         </footer>
     </div>

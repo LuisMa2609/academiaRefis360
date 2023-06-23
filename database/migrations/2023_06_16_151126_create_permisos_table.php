@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
-            $table->boolean('crear');
-            $table->boolean('leer');
-            $table->boolean('eliminar');
+            $table->string('permiso');
+
         });
 
         Schema::table('seccionespermisos', function (Blueprint $table){
@@ -29,8 +28,8 @@ return new class extends Migration
         });
 
         Schema::table('relacionguias', function (Blueprint $table){
-            $table->unsignedBigInteger('relacion_id')->after('id');
-            $table->foreign('relacion_id')->references('id')->on('permisos');
+            $table->unsignedBigInteger('permisos_id')->after('id');
+            $table->foreign('permisos_id')->references('id')->on('permisos');
         });
 
 

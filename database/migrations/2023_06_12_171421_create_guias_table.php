@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('guias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('descripcion');
             $table->string('urlvideo')->unique();
             $table->string('urlpdf')->unique();
             $table->timestamps();
