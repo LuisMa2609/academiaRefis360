@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsuarioPerfil extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['perfil_id'];
+
 }

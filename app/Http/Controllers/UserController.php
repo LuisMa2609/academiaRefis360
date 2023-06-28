@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Perfiles;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +15,7 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::find(1);
         return view('users.index', [
-            'users' => User :: first()->paginate(10)
+            'users' => User :: latest()->paginate(5)
         ]);
     }
 
@@ -23,8 +25,11 @@ class UserController extends Controller
     }
 
     public function detallesDeUsuario(User $user){
+        $this->authorize('admin');
+        $perfiles = DB::table('perfiles')->get();
         return view('users.detallesusuario', [
-            'user' => $user
+            'user' => $user,
+            'perfiles' => $perfiles
         ]);
     }
 

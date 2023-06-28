@@ -1,3 +1,5 @@
+@auth
+    
 <nav class="navbar bg-light shadow-sm ">
     <div class="container">
         <a class="navbar-brand" href="{{ route('index')}}">
@@ -14,12 +16,14 @@
                 href="#"onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 Cerrar sesión
-                </a> 
-            </li>
-        </ul>
-    </div>
+            </a> 
+        </li>
+    </ul>
+</div>
 </nav>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
+
+@endauth

@@ -14,7 +14,7 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Permisos</th>
+                    <th scope="col">Perfiles</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                   </tr>
@@ -30,12 +30,16 @@
                             {{$perfil->nombreperfil}} <br>
                             @endforeach
                           </td>
-                          <td><a href="{{route('users.detallesdeusuario', $user) }}">Editar</a></td>
-                          <td><a href="">Eliminar</a></td>
+                          <td>
+                            <p><a href="{{route('users.detallesdeusuario', $user) }}">Detalles</a></p>
+                            <a href="">Eliminar</a>
+                          </td>
+                          <td></td>
                         </tr>
                     @endforeach
                 </tbody>
-            </table>        
+            </table>
+            {{$users->links()}}        
         </div>
     </div>
     
