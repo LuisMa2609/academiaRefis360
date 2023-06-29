@@ -17,30 +17,32 @@
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">ID: {{$user->id}}</li>
-                    <li class="list-group-item">Correo: {{$user->email}}</li>
-                  </ul>
+                  <li class="list-group-item">ID: {{$user->id}}</li>
+                  <li class="list-group-item">Correo: {{$user->email}}</li>
+                </ul>
             </div>
 
             <div class="tab-pane fade" id="nav-perfiles" role="tabpanel" aria-labelledby="nav-perfiles-tab" tabindex="0">
                 <ul class="list-group list-group-flush">
-                  @foreach ($user->perfiles as $perfil)
-                  <li class="list-group-item">{{$perfil->nombreperfil}}</li>
-                  @endforeach
-                </ul>
+                  
+                  <form method="POST" action="{{ route('users.actualizarUsuariosPerfil', ['user' => $user])}}">
+                    @csrf @method('PATCH')
+                    @foreach ($perfiles as $perfil)
+                    <li class="list-group-item">
+                      <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $usuarioperfils) ? 'checked' : '' }}>
+                      <label>{{ $perfil->nombreperfil }}</label><br>
+                    </li>
+                    @endforeach
 
+                    <button type="submit">Asignar/actualizar perfiles</button>
+                  </form>
+                </ul>            
+              </div>
 
-                @foreach ($perfiles as $prfil)
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      {{$prfil->nombreperfil}}
-                    </label>
-                </div>
-                @endforeach
-
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+              <p>columna 3</p>
             </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+
           </div>
     </div>
 </div>

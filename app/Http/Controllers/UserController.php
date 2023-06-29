@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
-use DB;
+//use DB;
 
 use Illuminate\Http\Request;
 
@@ -26,11 +27,21 @@ class UserController extends Controller
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
-        $perfiles = DB::table('perfiles')->get();
+        //$perfiles = DB::table('perfiles')->get();
+        $perfiles = Perfiles::all();
+        $usuarioperfils = $user->perfiles->pluck('id')->toArray();
+
         return view('users.detallesusuario', [
             'user' => $user,
-            'perfiles' => $perfiles
+            'perfiles' => $perfiles,
+            'usuarioperfils' => $usuarioperfils
         ]);
+    }
+
+    public function actualizarUsuariosPerfil(Request $request, User $user){
+        $perfiles = $request->input('perfiles', []);
+        $user -> perfiles()->sync($perfiles);
+        return redirect()->route('users.detallesdeusuario', $user);
     }
 
 //    public function destroy(User $project){

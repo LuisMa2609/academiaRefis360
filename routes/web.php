@@ -15,8 +15,9 @@ Route::get('/usuarios/registrar', [UserController::class, 'register'])->name('us
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
-Route::get('/usuarios/{user}', [UserController::class, 'detallesDeUsuario'])->name('users.detallesdeusuario');
+Route::get('/usuarios/{user}/', [UserController::class, 'detallesDeUsuario'])->name('users.detallesdeusuario');
 
+Route::patch('/usuarios/{user}/', [UserController::class, 'actualizarUsuariosPerfil'])->name('users.actualizarUsuariosPerfil');
 
 });
 
