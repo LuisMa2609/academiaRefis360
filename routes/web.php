@@ -19,6 +19,10 @@ Route::get('/usuarios/{user}/', [UserController::class, 'detallesDeUsuario'])->n
 
 Route::patch('/usuarios/{user}/', [UserController::class, 'actualizarUsuariosPerfil'])->name('users.actualizarUsuariosPerfil');
 
+Route::post('/usuarios/habilitar', [UserController::class, 'habilitarusuario'])->name('users.habilitarusuario');
+
+Route::post('/usuarios/deshabilitar', [UserController::class, 'deshabilitarusuario'])->name('users.deshabilitarusuario');
+
 });
 
 Auth::routes();

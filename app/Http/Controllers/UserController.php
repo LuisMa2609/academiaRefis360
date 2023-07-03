@@ -16,7 +16,8 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::find(1);
         return view('users.index', [
-            'users' => User :: latest()->paginate(5)
+            'users' => User::where('status', '1')->latest()->paginate(30),
+            'usersoff' => User::where('status', '0')->latest()->paginate(30)
         ]);
     }
 
@@ -42,7 +43,21 @@ class UserController extends Controller
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         return redirect()->route('users.detallesdeusuario', $user);
+        
     }
+    
+    public function habilitarusuario(User $user){
+        $user = User::find($id); 
+        $user->update(['status' => 1]); 
+        return redirect()->route('users.index', $user);
+    }
+
+    public function deshabilitarusuario(User $user){
+        $useroff = User::find($id); 
+        $useruseroff->update(['status' => 0]); 
+        return redirect()->route('users.index', $user);
+    }
+
 
 //    public function destroy(User $project){
 //        $project->delete();
