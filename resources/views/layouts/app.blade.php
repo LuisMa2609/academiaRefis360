@@ -26,9 +26,11 @@
             @yield('content')
         </main>
 
+        <!--
         <footer class="py-3 shadow footer-bs">
             {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
         </footer>
+        -->
     </div>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PerfilController;
 
 Route::middleware(['auth', 'verified'])->group(function(){
 
@@ -17,12 +18,13 @@ Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/usuarios/{user}/', [UserController::class, 'detallesDeUsuario'])->name('users.detallesdeusuario');
 
-Route::patch('/usuarios/{user}/', [UserController::class, 'actualizarUsuariosPerfil'])->name('users.actualizarUsuariosPerfil');
+Route::patch('/usuarios/{user}/', [UserController::class, 'asignarPerfiles'])->name('users.asignarPerfiles');
 
-Route::post('/usuarios/habilitar', [UserController::class, 'habilitarusuario'])->name('users.habilitarusuario');
+Route::patch('/usuarios/habilitar/{user}', [UserController::class, 'habilitarusuario'])->name('users.habilitarusuario');
 
-Route::post('/usuarios/deshabilitar', [UserController::class, 'deshabilitarusuario'])->name('users.deshabilitarusuario');
+Route::patch('/usuarios/deshabilitar/{user}', [UserController::class, 'deshabilitarusuario'])->name('users.deshabilitarusuario');
 
+Route::get('/perfiles', [PerfilController::class, 'index'])->name('permisos');
 });
 
 Auth::routes();

@@ -17,12 +17,13 @@
 
           <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="tablausers-tab-pane" role="tabpanel" aria-labelledby="tablausers-tab" tabindex="0">
+              
+            <div class="container bg-white shadow rounded py-3 px-3 mb-4 ">
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button >
                   <a href="{{ route('users.register')}}" class="disabled link-underline-opacity-0 link-body-emphasis ">Registrar nuevo usuario</a>
                 </button>
               </div>
-            <div class="container bg-white shadow rounded py-3 px-3 mb-4 text-center">
               <table class="table table-striped">                  
                   <thead>
                     <tr>
@@ -47,10 +48,10 @@
                               <p><a href="{{route('users.detallesdeusuario', $user) }}">Detalles</a></p>
                             </td>
                             <td>
-                              <form method="POST" action="{{route ('users.deshabilitarusuario')}}">
+                              <form action="{{ route('users.deshabilitarusuario', ['user' => $user->id]) }}" method="POST">
                                 @csrf @method('PATCH')
                                 <button type="submit">Deshabilitar usuario</button>
-                              </form>
+                            </form>
                             </td>
                           </tr>
                       @endforeach
@@ -83,10 +84,10 @@
                                 @endforeach
                               </td>
                               <td>
-                                <form method="POST" action="{{route ('users.habilitarusuario')}}">
+                                <form action="{{ route('users.habilitarusuario', ['user' => $useroff->id]) }}" method="POST">
                                   @csrf @method('PATCH')
                                   <button type="submit">Habilitar usuario</button>
-                                </form>
+                              </form>
                               </td>
                               <td></td>
                             </tr>

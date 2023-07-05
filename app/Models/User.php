@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class User extends Authenticatable 
 {
 
+    
+
     use HasApiTokens, HasFactory, Notifiable;
     /**
      * The attributes that are mass assignable.
@@ -45,7 +47,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
+    
     public function perfiles(): BelongsToMany{
         return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'usuario_id', 'perfil_id');
+    }
+    
+
+    public function cambiarStatus()
+    {
+        $this->update(['status' => !$this->status]);
     }
 }

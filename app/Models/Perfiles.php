@@ -20,4 +20,9 @@ class Perfiles extends Model
     public function usuarios(): BelongsToMany{
         return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'perfil_id', 'usuario_id');
     }
+
+    public function secciones(): BelongsToMany{
+        return $this->belongsToMany(Perfiles::class, 'perfilsecciones', 'perfil_id', 'seccion_id');
+    }
+
 }

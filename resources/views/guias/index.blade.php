@@ -5,7 +5,10 @@
 @section('content')
 
     @can('admin')
-    <a href="{{ route('users.index')}}">Usuarios</a>
+    <dir>
+      <button><a href="{{ route('users.index')}}">Usuarios</a></button>
+      <button><a href="{{ route('permisos')}}">Perfil de usuario</a></button>
+    </dir>
     @endcan
 
     <h1 class="text-center py-3">Indice de videos</h1>

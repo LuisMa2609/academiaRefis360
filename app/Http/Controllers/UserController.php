@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
+
 //use DB;
 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    
-
     public function index(){
         $this->authorize('admin');
         $user = User::find(1);
@@ -29,9 +28,8 @@ class UserController extends Controller
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
         //$perfiles = DB::table('perfiles')->get();
-        $perfiles = Perfiles::all();
+        $perfiles = Perfiles::with('secciones')->get();
         $usuarioperfils = $user->perfiles->pluck('id')->toArray();
-
         return view('users.detallesusuario', [
             'user' => $user,
             'perfiles' => $perfiles,
@@ -39,23 +37,23 @@ class UserController extends Controller
         ]);
     }
 
-    public function actualizarUsuariosPerfil(Request $request, User $user){
+    public function asignarPerfiles(Request $request, User $user){
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         return redirect()->route('users.detallesdeusuario', $user);
         
     }
     
-    public function habilitarusuario(User $user){
-        $user = User::find($id); 
-        $user->update(['status' => 1]); 
-        return redirect()->route('users.index', $user);
+    public function habilitarusuario($id){
+        $user = User::findOrFail($id);
+        $user -> update (['status' => !$user->status]);
+        return back();
     }
 
-    public function deshabilitarusuario(User $user){
-        $useroff = User::find($id); 
-        $useruseroff->update(['status' => 0]); 
-        return redirect()->route('users.index', $user);
+    public function deshabilitarusuario($id){
+        $useroff = User::findOrFail($id);
+        $useroff -> update (['status' => !$useroff->status]);
+        return back();
     }
 
 
