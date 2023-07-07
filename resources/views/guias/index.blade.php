@@ -7,7 +7,7 @@
     @can('admin')
     <dir>
       <button><a href="{{ route('users.index')}}">Usuarios</a></button>
-      <button><a href="{{ route('permisos')}}">Perfil de usuario</a></button>
+      <button><a href="{{ route('permisos')}}">Perfiles de usuario</a></button>
     </dir>
     @endcan
 

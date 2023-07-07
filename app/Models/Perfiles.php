@@ -18,11 +18,11 @@ class Perfiles extends Model
     protected $table = 'perfiles';
 
     public function usuarios(): BelongsToMany{
-        return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'perfil_id', 'usuario_id');
+        return $this->belongsToMany(usuarios::class, 'usuarioperfils', 'perfil_id', 'usuario_id');
     }
 
     public function secciones(): BelongsToMany{
-        return $this->belongsToMany(Perfiles::class, 'perfilsecciones', 'perfil_id', 'seccion_id');
+        return $this->belongsToMany(Secciones::class, 'perfilsecciones', 'perfil_id', 'seccion_id');
     }
 
 }
