@@ -12,31 +12,22 @@ class PerfilController extends Controller
         $this->authorize('admin');
         $perfiles  = Perfiles::with('secciones')->get();
         $secciones = Secciones::all();
+        $perfilsecciones = $perfil->secciones->pluck('id')->toArray();
         return view('permisos',[
             'perfiles' => $perfiles,
-            'secciones'=> $secciones
+            'secciones'=> $secciones,
+            'perfilsecciones' => $perfilsecciones
         ]);
     }
-    
-   //public function agignarSeccion(Request $request, Perfiles $perfiles){
-   //    $secciones = $request->input('secciones', []);
-   //    $perfiles -> secciones()->sync($secciones);
-   //    return redirect()->route('permisos', $perfil);
-   //}
 
-   public function asignarSeccion(Request $request, int $perfilId)
-   {
-       $perfil = Perfiles::find($perfilId);
-       if ($perfil) {
-           $secciones = $request->input('secciones', []);
-           $perfil->secciones()->sync($secciones);
-       }
-       return redirect()->route('permisos');
-   }    
-   //public function agignarSeccion(Request $request, Perfiles $perfiles){
-   // $secciones = $request->input('secciones', []);
-   // dd($secciones); // Imprime el valor del array $secciones
-   // $perfiles -> secciones()->sync($secciones);
-   // return redirect()->route('permisos', $perfil);
-   // }
+   public function asignarSeccion(Request $request){
+       $perfilesID = $request->input('perfilesID');
+       $secciones = $request->input('secciones');
+       
+       $perfiles = Perfiles::find($perfilesID);
+       $perfiles->secciones()->sync($secciones);
+       
+       //dd($perfiles->secciones);
+        return redirect()->route('permisos');
+    }
 }

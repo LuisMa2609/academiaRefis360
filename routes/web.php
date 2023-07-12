@@ -26,7 +26,7 @@ Route::patch('/usuarios/deshabilitar/{user}', [UserController::class, 'deshabili
 
 Route::get('/perfiles', [PerfilController::class, 'index'])->name('permisos');
 
-Route::patch('/perfiles/{perfil}/seccion-asignada', [PerfilController::class, 'asignarSeccion'])->name('asignarSeccion');
+Route::patch('/perfiles/seccion-asignada', [PerfilController::class, 'asignarSeccion'])->name('asignarSeccion');
 
 });
 

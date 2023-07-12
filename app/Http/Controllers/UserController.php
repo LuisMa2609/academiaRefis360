@@ -40,8 +40,8 @@ class UserController extends Controller
     public function asignarPerfiles(Request $request, User $user){
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
+        //dd($perfiles);
         return redirect()->route('users.detallesdeusuario', $user);
-        
     }
     
     public function habilitarusuario($id){
