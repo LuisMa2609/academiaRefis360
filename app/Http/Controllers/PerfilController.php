@@ -21,13 +21,13 @@ class PerfilController extends Controller
     }
 
    public function asignarSeccion(Request $request){
-       $perfilesID = $request->input('perfilesID');
-       $secciones = $request->input('secciones');
-       
-       $perfiles = Perfiles::find($perfilesID);
-       $perfiles->secciones()->sync($secciones);
-       
-       //dd($perfiles->secciones);
+        $perfil_id = $request->input('perfil_id');
+        $secciones = $request->input('secciones');
+        
+        $perfiles = Perfiles::find($perfil_id);
+        $perfiles->secciones()->sync($secciones);
+        
+        dd($secciones);
         return redirect()->route('permisos');
     }
 }
