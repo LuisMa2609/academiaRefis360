@@ -24,10 +24,12 @@ class PerfilController extends Controller
         $perfil_id = $request->input('perfil_id');
         $secciones = $request->input('secciones');
         
+        $perfilesarray = array($perfil_id);
+
         $perfiles = Perfiles::find($perfil_id);
         $perfiles->secciones()->sync($secciones);
         
-        dd($secciones);
+        dd($secciones, $perfilesarray, $perfiles->secciones);
         return redirect()->route('permisos');
     }
 }
