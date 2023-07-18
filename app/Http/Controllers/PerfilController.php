@@ -12,24 +12,26 @@ class PerfilController extends Controller
         $this->authorize('admin');
         $perfiles  = Perfiles::with('secciones')->get();
         $secciones = Secciones::all();
-        $perfilsecciones = $perfil->secciones->pluck('id')->toArray();
+        //$perfilsecciones = $perfil->secciones->pluck('id')->toArray();
         return view('permisos',[
             'perfiles' => $perfiles,
             'secciones'=> $secciones,
-            'perfilsecciones' => $perfilsecciones
+            //'perfilsecciones' => $perfilsecciones
         ]);
     }
 
-   public function asignarSeccion(Request $request){
+    public function asignarSeccion(Request $request){
+        $this->authorize('admin');
+        //$Aperfiles=[];
         $perfil_id = $request->input('perfil_id');
         $secciones = $request->input('secciones');
-        
-        $perfilesarray = array($perfil_id);
+
+        //$perfilesarray = array($perfil_id);
 
         $perfiles = Perfiles::find($perfil_id);
-        $perfiles->secciones()->sync($secciones);
-        
-        dd($secciones, $perfilesarray, $perfiles->secciones);
+        //$perfiles->secciones()->sync($secciones);
+
+        dd($secciones, $perfil_id);
         return redirect()->route('permisos');
     }
 }
