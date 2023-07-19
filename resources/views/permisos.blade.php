@@ -10,26 +10,45 @@
         <li class="list-group-item">
             <form action="{{ route('asignarSeccion') }}" method="POST">
                 @csrf @method('PATCH')
-                
-                @foreach ($perfiles as $perfil)
-                    <li class="">
-                        <input type="hidden" name="perfil_id[]" value="{{ $perfil->id }}">    
-                        <h4>{{ $perfil->nombreperfil}} {{$perfil->id}}</h4>
-                            <ul class="list-group">
-                                @foreach ($secciones as $seccion)
-                                    <li class="">
-                                        <input type="checkbox" name="secciones[]" value="{{ $seccion->id }}" {{ in_array($seccion->id, $perfil->secciones->pluck('id')->toArray()) ? 'checked' : '' }}> 
-                                        {{$seccion->nombreseccion}} | PerfilID: {{$perfil->id}}
-                                    </li>
+                    @foreach ($perfilesArray as $perfil)
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="hidden" name="perfil_id[]" value="{{ $perfil['id'] }}">
+                                        <h4>{{ $perfil['nombreperfil'] }}</h4>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach ($perfil['secciones'] as $seccion)
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="secciones[{{ $loop->parent->index }}][]" value="{{ $seccion['id'] }}" {{ $seccion['checked'] ? 'checked' : '' }}> 
+                                                {{ $seccion['nombreseccion'] }}
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 @endforeach
-                            </ul>
-                    </li>
-                @endforeach
-                
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                        </table>
+                    @endforeach
+                    <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </li>
     </ul>
+
 </div>
 
 

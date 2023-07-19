@@ -8,30 +8,42 @@ use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    public function index(Perfiles $perfil){
+    public function index(Perfiles $perfil)
+    {
         $this->authorize('admin');
-        $perfiles  = Perfiles::with('secciones')->get();
+        $perfiles = Perfiles::with('secciones')->get();
         $secciones = Secciones::all();
         //$perfilsecciones = $perfil->secciones->pluck('id')->toArray();
-        return view('permisos',[
-            'perfiles' => $perfiles,
-            'secciones'=> $secciones,
-            //'perfilsecciones' => $perfilsecciones
-        ]);
+        $perfilesArray = [];
+        foreach ($perfiles as $perfil) {
+            $perfilArray = [
+                'id' => $perfil->id,
+                'nombreperfil' => $perfil->nombreperfil,
+                'secciones' => [],
+            ];
+            foreach ($secciones as $seccion) {
+                $perfilArray['secciones'][] = [
+                    'id' => $seccion->id,
+                    'nombreseccion' => $seccion->nombreseccion,
+                    'checked' => $perfil->secciones->contains($seccion),
+                ];
+            }
+            $perfilesArray[] = $perfilArray;
+        }
+        return view('permisos', compact('perfilesArray'));
     }
-
-    public function asignarSeccion(Request $request){
+    
+    public function asignarSeccion(Request $request)
+    {
         $this->authorize('admin');
-        //$Aperfiles=[];
-        $perfil_id = $request->input('perfil_id');
-        $secciones = $request->input('secciones');
-
-        //$perfilesarray = array($perfil_id);
-
-        $perfiles = Perfiles::find($perfil_id);
-        //$perfiles->secciones()->sync($secciones);
-
-        dd($secciones, $perfil_id);
+        
+        // Save the sections for each profile
+        foreach ($request->input('perfil_id') as $key => $value) {
+            $perfil = Perfiles::find($value);
+            if ($perfil) {
+                $perfil->secciones()->sync($request->input('secciones.' . $key, []));
+            }
+        }
+    
         return redirect()->route('permisos');
-    }
-}
+    }}
