@@ -36,7 +36,7 @@
                     <label>{{ $perfil->nombreperfil }}</label><br>
                   </li>
                 @endforeach
-              <button type="submit">Asignar/actualizar perfiles</button>
+              <button type="submit" class="btn btn-primary">Asignar/actualizar perfiles</button>
             </form>
           </ul> 
 

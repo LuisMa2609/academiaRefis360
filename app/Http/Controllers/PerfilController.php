@@ -8,35 +8,42 @@ use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    public function index(Perfiles $perfil){
+    public function index(Perfiles $perfil)
+    {
         $this->authorize('admin');
-        $perfiles  = Perfiles::with('secciones')->get();
+        $perfiles = Perfiles::with('secciones')->get();
         $secciones = Secciones::all();
-        return view('permisos',[
-            'perfiles' => $perfiles,
-            'secciones'=> $secciones
-        ]);
+        //$perfilsecciones = $perfil->secciones->pluck('id')->toArray();
+        $perfilesArray = [];
+        foreach ($perfiles as $perfil) {
+            $perfilArray = [
+                'id' => $perfil->id,
+                'nombreperfil' => $perfil->nombreperfil,
+                'secciones' => [],
+            ];
+            foreach ($secciones as $seccion) {
+                $perfilArray['secciones'][] = [
+                    'id' => $seccion->id,
+                    'nombreseccion' => $seccion->nombreseccion,
+                    'checked' => $perfil->secciones->contains($seccion),
+                ];
+            }
+            $perfilesArray[] = $perfilArray;
+        }
+        return view('permisos', compact('perfilesArray'));
     }
     
-   //public function agignarSeccion(Request $request, Perfiles $perfiles){
-   //    $secciones = $request->input('secciones', []);
-   //    $perfiles -> secciones()->sync($secciones);
-   //    return redirect()->route('permisos', $perfil);
-   //}
-
-   public function asignarSeccion(Request $request, int $perfilId)
-   {
-       $perfil = Perfiles::find($perfilId);
-       if ($perfil) {
-           $secciones = $request->input('secciones', []);
-           $perfil->secciones()->sync($secciones);
-       }
-       return redirect()->route('permisos');
-   }    
-   //public function agignarSeccion(Request $request, Perfiles $perfiles){
-   // $secciones = $request->input('secciones', []);
-   // dd($secciones); // Imprime el valor del array $secciones
-   // $perfiles -> secciones()->sync($secciones);
-   // return redirect()->route('permisos', $perfil);
-   // }
-}
+    public function asignarSeccion(Request $request)
+    {
+        $this->authorize('admin');
+        
+        // Save the sections for each profile
+        foreach ($request->input('perfil_id') as $key => $value) {
+            $perfil = Perfiles::find($value);
+            if ($perfil) {
+                $perfil->secciones()->sync($request->input('secciones.' . $key, []));
+            }
+        }
+    
+        return redirect()->route('permisos');
+    }}

@@ -5,27 +5,51 @@
 @section('content')
     
 <div class="container">
-    <h1>Perfiles</h1>
-    <div class="container shadow rounded py-3 px-3 mb-4 ">
-        <ul class="list-group ">
-                @foreach ($perfiles as $profile)
-                <form method="POST" action="{{route('asignarSeccion', ['perfiles' => $perfiles->id])}}">
-                    @csrf @method('PATCH')
-                    <li>
-                        <h4>{{$profile->nombreperfil}}</h4>
-                    </li>
-                    @foreach ($secciones as $seccion)
-                        <li>
-                            <input type="checkbox" name="secciones[]" value="{{ $seccion->id }}" {{ $profile->secciones->contains($seccion) ? 'checked' : '' }}>
-                            <label>{{ $seccion->nombreseccion }}</label>
-                        </li>
+    <h1>Perfil - Seccion</h1>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <form action="{{ route('asignarSeccion') }}" method="POST">
+                @csrf @method('PATCH')
+                    @foreach ($perfilesArray as $perfil)
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="hidden" name="perfil_id[]" value="{{ $perfil['id'] }}">
+                                        <h4>{{ $perfil['nombreperfil'] }}</h4>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach ($perfil['secciones'] as $seccion)
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="secciones[{{ $loop->parent->index }}][]" value="{{ $seccion['id'] }}" {{ $seccion['checked'] ? 'checked' : '' }}> 
+                                                {{ $seccion['nombreseccion'] }}
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+                        </table>
                     @endforeach
-                @endforeach
-                <button type="submit">Asignar secciones</button>
-
+                    <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
-        </ul>
-    </div>
+        </li>
+    </ul>
+
 </div>
+
 
 @endsection

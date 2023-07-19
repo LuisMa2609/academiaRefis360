@@ -10,7 +10,14 @@ class Secciones extends Model
 {
     use HasFactory;
 
-    public function perfiles(): BelongsToMany{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'secciones';
+
+    public function perfiles(){
         return $this->belongsToMany(Perfiles::class, 'perfilsecciones', 'seccion_id', 'perfil_id');
     }   
 
