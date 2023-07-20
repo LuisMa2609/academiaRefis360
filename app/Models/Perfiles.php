@@ -22,7 +22,7 @@ class Perfiles extends Model
     }
 
     public function secciones(){
-        return $this->belongsToMany(Secciones::class, 'perfilsecciones', 'perfil_id', 'seccion_id');
+        return $this->belongsToMany(Secciones::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id', 'permiso_id');
     }
 
 }

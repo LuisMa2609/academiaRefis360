@@ -13,7 +13,7 @@ class PerfilController extends Controller
         $this->authorize('admin');
         $perfiles = Perfiles::with('secciones')->get();
         $secciones = Secciones::all();
-        //$perfilsecciones = $perfil->secciones->pluck('id')->toArray();
+        //$perfil_secciones_permisos = $perfil->secciones->pluck('id')->toArray();
         $perfilesArray = [];
         foreach ($perfiles as $perfil) {
             $perfilArray = [

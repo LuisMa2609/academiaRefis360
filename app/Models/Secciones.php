@@ -18,7 +18,7 @@ class Secciones extends Model
     protected $table = 'secciones';
 
     public function perfiles(){
-        return $this->belongsToMany(Perfiles::class, 'perfilsecciones', 'seccion_id', 'perfil_id');
+        return $this->belongsToMany(Perfiles::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id', 'permiso_id');
     }   
 
 }
