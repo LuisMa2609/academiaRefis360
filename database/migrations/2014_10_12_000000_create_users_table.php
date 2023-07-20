@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('usuarioperfils', function (Blueprint $table){
+        Schema::table('perfiles_users', function (Blueprint $table){
             $table->unsignedBigInteger('usuario_id')->after('id');
             $table->foreign('usuario_id')->references('id')->on('users');
         });

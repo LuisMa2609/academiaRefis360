@@ -29,11 +29,11 @@ class UserController extends Controller
         $this->authorize('admin');
         //$perfiles = DB::table('perfiles')->get();
         $perfiles = Perfiles::with('secciones')->get();
-        $usuarioperfils = $user->perfiles->pluck('id')->toArray();
+        $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
             'user' => $user,
             'perfiles' => $perfiles,
-            'usuarioperfils' => $usuarioperfils
+            'perfiles_users' => $perfiles_users
         ]);
     }
 

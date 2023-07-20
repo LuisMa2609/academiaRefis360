@@ -16,12 +16,7 @@ return new class extends Migration
             $table->string('permiso');
         });
 
-        Schema::table('seccionespermisos', function (Blueprint $table){
-            $table->unsignedBigInteger('permisos_id')->after('id');
-            $table->foreign('permisos_id')->references('id')->on('permisos');
-        });
-
-        Schema::table('usuariopermisos', function (Blueprint $table){
+        Schema::table('perfil_secciones_permisos', function (Blueprint $table){
             $table->unsignedBigInteger('permisos_id')->after('id');
             $table->foreign('permisos_id')->references('id')->on('permisos');
         });

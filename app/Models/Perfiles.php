@@ -18,7 +18,7 @@ class Perfiles extends Model
     protected $table = 'perfiles';
 
     public function usuarios(): BelongsToMany{
-        return $this->belongsToMany(usuarios::class, 'usuarioperfils', 'perfil_id', 'usuario_id');
+        return $this->belongsToMany(usuarios::class, 'perfiles_users', 'perfil_id', 'usuario_id');
     }
 
     public function secciones(){

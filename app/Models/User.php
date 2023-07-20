@@ -49,7 +49,7 @@ class User extends Authenticatable
     
     
     public function perfiles(): BelongsToMany{
-        return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'usuario_id', 'perfil_id');
+        return $this->belongsToMany(Perfiles::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
     
 

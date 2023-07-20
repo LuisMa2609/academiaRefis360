@@ -32,7 +32,7 @@
               @csrf @method('PATCH')
                 @foreach ($perfiles as $perfil)
                   <li class="list-group-item">
-                    <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $usuarioperfils) ? 'checked' : '' }}>
+                    <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }}>
                     <label>{{ $perfil->nombreperfil }}</label><br>
                   </li>
                 @endforeach
