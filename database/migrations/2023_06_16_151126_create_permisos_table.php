@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
             $table->string('permiso');
-
         });
 
         Schema::table('seccionespermisos', function (Blueprint $table){
