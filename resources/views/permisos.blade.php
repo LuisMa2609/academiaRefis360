@@ -31,13 +31,13 @@
                                         {{ $seccion['nombreseccion'] }}
                                     </td>
                                     <td>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="Leer">
                                     </td>
                                     <td>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="Escribir">
                                     </td>
                                     <td>
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="Borrar">
                                     </td>
                                 </tr>
                             </tbody>

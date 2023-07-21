@@ -42,8 +42,11 @@ class PerfilController extends Controller
             $perfil = Perfiles::find($value);
             if ($perfil) {
                 $perfil->secciones()->sync($request->input('secciones.' . $key, []));
+                //dd($perfil);
             }
         }
+        //dd($perfil);
     
         return redirect()->route('permisos');
-    }}
+    }
+}

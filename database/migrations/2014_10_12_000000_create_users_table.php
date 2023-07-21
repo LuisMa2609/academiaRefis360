@@ -16,18 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->bolean('status');
+            $table->boolean('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::table('perfiles_users', function (Blueprint $table){
-            $table->unsignedBigInteger('usuario_id')->after('id');
-            $table->foreign('usuario_id')->references('id')->on('users');
-        });
-
-        Schema::table('usuariopermisos', function (Blueprint $table){
             $table->unsignedBigInteger('usuario_id')->after('id');
             $table->foreign('usuario_id')->references('id')->on('users');
         });
