@@ -46,13 +46,19 @@ class UserController extends Controller
     
     public function habilitarusuario($id){
         $user = User::findOrFail($id);
-        $user -> update (['status' => !$user->status]);
+        //$user -> update (['status' => !$user->status]);
+        $user->status=1;
+        $user->save();
+        //dd($user->status, $id);
         return back();
     }
 
     public function deshabilitarusuario($id){
         $useroff = User::findOrFail($id);
-        $useroff -> update (['status' => !$useroff->status]);
+        //$useroff -> update (['status' => !$useroff->status]);
+        $useroff->status=0;
+        $useroff->save();
+        //dd($useroff->status, $id);
         return back();
     }
 

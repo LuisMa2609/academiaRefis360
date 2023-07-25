@@ -16,32 +16,35 @@
                             <tr>
                                 <th>
                                     <input type="hidden" name="perfil_id[]" value="{{ $perfil['id'] }}">
-                                    <h4>{{ $perfil['nombreperfil'] }}</h4>
-                                </th>
+                                    <h4>{{ $perfil['nombreperfil'] }} {{ $perfil['id'] }}</h4>
+                                    </th>
                                 <th>L</th>
                                 <th>E</th>
                                 <th>B</th>
                             </tr>
                         </thead>
-                        @foreach ($perfil['secciones'] as $seccion)
-                            <tbody>
+                        <tbody>
+                                @foreach ($perfil['secciones'] as $seccion)
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="secciones[{{ $loop->parent->index }}][]" value="{{ $seccion['id'] }}" {{ $seccion['checked'] ? 'checked' : '' }}> 
-                                        {{ $seccion['nombreseccion'] }}
+                                        {{ $seccion['nombreseccion']}}
+                                        {{ $seccion['id']}}
                                     </td>
-                                    <td>
-                                        <input type="checkbox" name="Leer">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="Escribir">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="Borrar">
-                                    </td>
+                                            
+                                        <td>
+                                            <input type="checkbox" name="Leer">lectura
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="Escribir">Escritura
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="Borrar">Borrado
+                                        </td>
+                                        
                                 </tr>
+                                @endforeach
                             </tbody>
-                        @endforeach
                     @endforeach
                 </table>
                 <button type="submit" class="btn btn-primary">Guardar</button>

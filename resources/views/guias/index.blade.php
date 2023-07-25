@@ -13,6 +13,7 @@
 
     <h1 class="text-center py-3">Indice de videos</h1>
     
+    
         <div class="container bg-white shadow rounded py-3 px-3 mb-4">
             <h1>Notificaciones de pago</h1>
             <table class="table ">                  
@@ -20,60 +21,61 @@
                   <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripcion</th>
-                    <th scope="col"></th>
+                    <th scope="col">Video</th>
+                    <th scope="col">PDF</th>
                   </tr>
                 </thead>
+                @foreach ($guias as $guias)
                 <tbody>
                   <tr>
-                    <td>Guia 1</td>
-                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque, dolore laborum expedita laudantium temporibus, atque, earum repellendus quibusdam libero dignissimos iusto! Nemo nisi soluta architecto deleniti. Id dignissimos odit sunt.</td>
-                    <td><a href="">Link</a></td>
-                  </tr>
-                  <tr>
-                    <td>Guia 2</td>
-                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, delectus? Consequatur dicta eos voluptatibus nemo, ipsum, eum consequuntur rerum pariatur fugiat nihil voluptatum soluta, adipisci dignissimos consectetur debitis! Sint, eos.</td>
-                    <td><a href="">Link</a></td>
-                  </tr>
-                  <tr>
-                    <td >Guia 3</td>
-                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim dolorum iure delectus obcaecati ea animi, cum quaerat sequi itaque provident consequuntur. Accusantium earum, aliquam voluptatum minima repellat ab minus odio?</td>
-                    <td><a href="">Link</a></td>
+                    <td>{{$guias->nombre}}</td>
+                    <td>{{$guias->descripcion}}</td>
+                    <td><a href="">link del video</a></td>
+                    <td><a href="">link del PDF</a></td>
                   </tr>
                 </tbody>
+                @endforeach
               </table>        
         </div>
+
         
+    <div class="container bg-white shadow rounded py-3 px-3 mb-4">
+      <h1>Transacciones</h1>
+      <table class="table ">                  
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><a href="">Link</a></td>
+            </tr>
+          </tbody>
+        </table>        
+  </div>
+
         <div class="container bg-white shadow rounded py-3 px-3 mb-4">
-            <h1>Transacciones</h1>
-            <table class="table ">
-                <thead>
-                  <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Guia 1</td>
-                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque, dolore laborum expedita laudantium temporibus, atque, earum repellendus quibusdam libero dignissimos iusto! Nemo nisi soluta architecto deleniti. Id dignissimos odit sunt.</td>
-                    <td><a href="">Link</a></td>
-                  </tr>
-                  <tr>
-                    <td>Guia 2</td>
-                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, delectus? Consequatur dicta eos voluptatibus nemo, ipsum, eum consequuntur rerum pariatur fugiat nihil voluptatum soluta, adipisci dignissimos consectetur debitis! Sint, eos.</td>
-                    <td><a href="">Link</a></td>
-                  </tr>
-                  <tr>
-                    <td >Guia 3</td>
-                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim dolorum iure delectus obcaecati ea animi, cum quaerat sequi itaque provident consequuntur. Accusantium earum, aliquam voluptatum minima repellat ab minus odio?</td>
-                    <td><a href="">Link</a></td>
-                  </tr>
-                </tbody>
-              </table>        
-        </div>
-
-
-        
-
+          <h1>Estado de cuenta</h1>
+          <table class="table ">                  
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><a href="">Link</a></td>
+                </tr>
+              </tbody>
+            </table>        
+      </div>
 @endsection

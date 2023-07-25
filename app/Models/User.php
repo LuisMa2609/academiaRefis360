@@ -52,9 +52,4 @@ class User extends Authenticatable
         return $this->belongsToMany(Perfiles::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
     
-
-    public function cambiarStatus()
-    {
-        $this->update(['status' => !$this->status]);
-    }
 }

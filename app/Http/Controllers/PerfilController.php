@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 use App\Models\Perfiles;
 use App\Models\Secciones;
+use App\Models\Permisos;
 
 use Illuminate\Http\Request;
 
-class PerfilController extends Controller
-{
-    public function index(Perfiles $perfil)
-    {
+class PerfilController extends Controller{
+    public function index(Perfiles $perfil){
         $this->authorize('admin');
         $perfiles = Perfiles::with('secciones')->get();
-        $secciones = Secciones::all();
+        $secciones = Secciones::with('permisos')->get();
+        $permisos = Permisos::all();
         //$perfil_secciones_permisos = $perfil->secciones->pluck('id')->toArray();
         $perfilesArray = [];
         foreach ($perfiles as $perfil) {
@@ -26,7 +26,15 @@ class PerfilController extends Controller
                     'id' => $seccion->id,
                     'nombreseccion' => $seccion->nombreseccion,
                     'checked' => $perfil->secciones->contains($seccion),
+                    'permisos' => [],
                 ];
+                foreach($permisos as $permiso){
+                    $perfilArray['permisos'][] = [
+                        'id' => $permiso->id,
+                        'permiso' => $permiso->permiso,
+                        'checked' => $seccion->permiso->contains($permisos),
+                    ];
+                }
             }
             $perfilesArray[] = $perfilArray;
         }
