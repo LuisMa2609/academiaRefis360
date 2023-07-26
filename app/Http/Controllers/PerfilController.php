@@ -28,11 +28,12 @@ class PerfilController extends Controller{
                     'checked' => $perfil->secciones->contains($seccion),
                     'permisos' => [],
                 ];
-                foreach($permisos as $permiso){
-                    $perfilArray['permisos'][] = [
+
+                foreach ($permisos as $permiso) {
+                    $perfilArray['secciones'][count($perfilArray['secciones'])-1]['permisos'][] = [
                         'id' => $permiso->id,
                         'permiso' => $permiso->permiso,
-                        'checked' => $seccion->permiso->contains($permisos),
+                        'checked' => $perfil->permisos->contains($permiso),
                     ];
                 }
             }
@@ -41,19 +42,15 @@ class PerfilController extends Controller{
         return view('permisos', compact('perfilesArray'));
     }
     
-    public function asignarSeccion(Request $request)
-    {
+    public function asignarSeccion(Request $request){
         $this->authorize('admin');
         
-        // Save the sections for each profile
         foreach ($request->input('perfil_id') as $key => $value) {
             $perfil = Perfiles::find($value);
             if ($perfil) {
                 $perfil->secciones()->sync($request->input('secciones.' . $key, []));
-                //dd($perfil);
             }
         }
-        //dd($perfil);
     
         return redirect()->route('permisos');
     }

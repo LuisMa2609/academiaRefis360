@@ -63,6 +63,9 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                @can('admin')
+                                <a href="{{ route('users.index') }}" class="btn btn-danger btnregistrocancel">Cancelar</a>
+                                @endcan
                                 <button type="submit" class="btn btn-primary">
                                     Registrar
                                 </button>

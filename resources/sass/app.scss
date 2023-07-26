@@ -7,6 +7,9 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// Bootstrap icons
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 .cerrarsesion{
     color: red;
 }
@@ -20,3 +23,6 @@ ul{
     list-style-type: none;
 }
 
+.btnregistrocancel{
+    margin-right: 15px!important;
+}

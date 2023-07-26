@@ -3,27 +3,32 @@
 @section('title')
 
 @section('content')
-    
-<div class="container">
+
+<div class="container py-2">
+    <button><a href="{{ route('index')}}">regresar</a></button>
+</div>
+
+<div class="container bg-white shadow rounded py-3 px-3 mb-4">
     <h1>Permisos de perfiles</h1>
     <ul class="list-group">
         <li class="list-group-item">
             <form action="{{ route('asignarSeccion') }}" method="POST">
                 @csrf @method('PATCH')
-                <table class="table align-middle">
+                <table class="table align-middle table-borderless">
+                    <thead>
+                    <th></th>
+                    <th>L</th>
+                    <th>E</th>
+                    <th>B</th>
                     @foreach ($perfilesArray as $perfil)
-                        <thead>
                             <tr>
                                 <th>
                                     <input type="hidden" name="perfil_id[]" value="{{ $perfil['id'] }}">
                                     <h4>{{ $perfil['nombreperfil'] }} {{ $perfil['id'] }}</h4>
-                                    </th>
-                                <th>L</th>
-                                <th>E</th>
-                                <th>B</th>
+                                </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                                 @foreach ($perfil['secciones'] as $seccion)
                                 <tr>
                                     <td>
@@ -31,17 +36,13 @@
                                         {{ $seccion['nombreseccion']}}
                                         {{ $seccion['id']}}
                                     </td>
+                                        @foreach ($seccion['permisos'] as $permiso)
                                             
-                                        <td>
-                                            <input type="checkbox" name="Leer">lectura
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" name="Escribir">Escritura
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" name="Borrar">Borrado
-                                        </td>
-                                        
+                                            <td>
+                                               <input type="checkbox" name="seccion_{{ $seccion['id'] }}_permiso_{{ $permiso['id'] }}" value="{{ $permiso['id'] }}" {{ $permiso['checked'] ? 'checked' : '' }}>
+                                            </td>
+                                            
+                                        @endforeach
                                 </tr>
                                 @endforeach
                             </tbody>

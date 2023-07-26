@@ -3,6 +3,10 @@
 @section('tittle')
 
 @section('content')
+<div class="container py-2">
+  <button><a href="{{ route('users.index')}}">regresar</a></button>
+</div>
+
 <div class="container">
   <h1>{{$user->name}}</h1>
   <div class="container px-2">
