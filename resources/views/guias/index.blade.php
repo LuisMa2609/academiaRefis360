@@ -3,18 +3,8 @@
 @section('title')
 
 @section('content')
-
-    @can('admin')
-    <dir>
-      <button><a href="{{ route('users.index')}}">Usuarios</a></button>
-      <button><a href="{{ route('permisos')}}">Perfiles de usuario</a></button>
-    </dir>
-    @endcan
-
     <h1 class="text-center py-3">Indice de videos</h1>
-    
-    
-        <div class="container bg-white shadow rounded py-3 px-3 mb-4">
+        <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
             <h1>Notificaciones de pago</h1>
             <table class="table ">                  
                 <thead>
@@ -39,7 +29,7 @@
         </div>
 
         
-    <div class="container bg-white shadow rounded py-3 px-3 mb-4">
+    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
       <h1>Transacciones</h1>
       <table class="table ">                  
           <thead>
@@ -59,7 +49,7 @@
         </table>        
   </div>
 
-        <div class="container bg-white shadow rounded py-3 px-3 mb-4">
+        <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
           <h1>Estado de cuenta</h1>
           <table class="table ">                  
               <thead>

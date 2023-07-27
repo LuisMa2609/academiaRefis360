@@ -3,17 +3,17 @@
 @section('title')
 
 @section('content')
+<div class="container">
+    <h1>Permisos de perfiles</h1>
 
-<div class="container py-2">
-    <button><a href="{{ route('index')}}">regresar</a></button>
 </div>
 
-<div class="container bg-white shadow rounded py-3 px-3 mb-4">
-    <h1>Permisos de perfiles</h1>
-    <ul class="list-group">
+<div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning">
+    <form action="{{ route('asignarSeccion') }}" method="POST">
+        @csrf @method('PATCH')
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <ul class="list-group py-3">
         <li class="list-group-item">
-            <form action="{{ route('asignarSeccion') }}" method="POST">
-                @csrf @method('PATCH')
                 <table class="table align-middle table-borderless">
                     <thead>
                     <th></th>
@@ -48,10 +48,9 @@
                             </tbody>
                     @endforeach
                 </table>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </form>
 </div>
 
 
