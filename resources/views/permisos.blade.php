@@ -8,7 +8,7 @@
 
 </div>
 
-<div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning">
+<div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
     <form action="{{ route('asignarSeccion') }}" method="POST">
         @csrf @method('PATCH')
     <button type="submit" class="btn btn-primary">Guardar</button>
