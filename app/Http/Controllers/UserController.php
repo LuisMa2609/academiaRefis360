@@ -5,6 +5,7 @@ use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
 
+
 //use DB;
 
 use Illuminate\Http\Request;
@@ -15,14 +16,29 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::find(1);
         return view('users.index', [
-            'users' => User::where('status', '1')->latest()->paginate(5),
-            'usersoff' => User::where('status', '0')->latest()->paginate(5)
+            'users' => User:: paginate(10),
+            //'users' => User::where('status', '1')->latest()->paginate(5),
+            //'usersoff' => User::where('status', '0')->latest()->paginate(5)
         ]);
     }
 
     public function register(){
         $this->authorize('admin');
         return view('auth.register');
+    }
+
+    public function updateUsuario(User $user, Request $request){
+        $this->authorize('admin');
+        $user->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email'=> $request->email,
+            'celular' => $request->cellphone,
+            'puesto' => $request->puesto,
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
     }
 
     public function detallesDeUsuario(User $user){

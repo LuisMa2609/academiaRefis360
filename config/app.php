@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'esp',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Form' => Collective\Html\FormFacade::class,
+        
     ])->toArray(),
 
 ];

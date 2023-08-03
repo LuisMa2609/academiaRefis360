@@ -11,9 +11,10 @@ cambiar el layout de las tablas dependiendo el status o buscar manera de cargar 
 cambiar boton de habilitar/deshabilitar usuarios por funcion ajax en formato de checkbox switch
 
 ---------vista de usuario---------
-Cuestionar sobre el layout
-cambiar le layout
-(ver posibilidad de reducir esta vista a un modal en la vista de usuarios
+Cuestionar sobre el layout*
+cambiar le layout +
+(ver posibilidad de reducir esta vista a un modal en la vista de usuarios)*
+Agregar la edicion de campos de datos de usuarios|editar nombre, correo
 
 
 ---------index asignacion de secciones y permisos a perfiles---------------
