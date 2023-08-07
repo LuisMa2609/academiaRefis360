@@ -22,6 +22,8 @@
                                     <tr>
                                         <th class="text-center">ID</th>
                                         <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Puesto</th>
                                         <th class="text-center">Perfiles</th>
                                         <th class="text-center"></th>
                                         <th class="text-center">Status</th>
@@ -32,6 +34,8 @@
                                             <tr>
                                                 <td class="text-center">{{$user->id}}</td>
                                                 <td class="text-center">{{$user->name}}</td>
+                                                <td class="text-center">{{$user->surname}}</td>
+                                                <td class="text-center">{{$user->puesto}}</td>
                                                 <td class="text-center">
                                                     @foreach ($user->perfiles as $perfil)
                                                     {{$perfil->nombreperfil}} <br>

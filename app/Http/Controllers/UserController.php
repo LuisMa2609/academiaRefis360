@@ -5,9 +5,6 @@ use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
 
-
-//use DB;
-
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -46,10 +43,12 @@ class UserController extends Controller
         //$perfiles = DB::table('perfiles')->get();
         $perfiles = Perfiles::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
+        $opciones = ['Practicante', 'Empleado', 'Jefe de área', 'Supervisor', 'Gerente', 'Director'];
         return view('users.detallesusuario', [
             'user' => $user,
             'perfiles' => $perfiles,
-            'perfiles_users' => $perfiles_users
+            'perfiles_users' => $perfiles_users,
+            'opciones' => $opciones
         ]);
     }
 
@@ -58,7 +57,7 @@ class UserController extends Controller
         $user -> perfiles()->sync($perfiles);
         //dd($perfiles);
         //return redirect()->route('users.detallesdeusuario', $user);
-        return back();
+        return back()->with('status', 'Perfil/es asignado/s correctamente');
     }
     
     public function habilitarusuario($id){
