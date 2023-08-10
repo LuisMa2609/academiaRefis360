@@ -43,20 +43,24 @@ class UserController extends Controller
         //$perfiles = DB::table('perfiles')->get();
         $perfiles = Perfiles::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
-        $opciones = ['Practicante', 'Empleado', 'Jefe de área', 'Supervisor', 'Gerente', 'Director'];
         return view('users.detallesusuario', [
             'user' => $user,
             'perfiles' => $perfiles,
             'perfiles_users' => $perfiles_users,
-            'opciones' => $opciones
         ]);
     }
 
     public function asignarPerfiles(Request $request, User $user){
+        if (!$request->has('perfiles')) {
+            return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
+        }
+        $this->validate($request, [
+            'perfiles' => 'required|array|min:1', // Al menos un perfil debe estar seleccionado
+            'perfiles.*' => 'exists:perfiles,id'
+        ]);
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         //dd($perfiles);
-        //return redirect()->route('users.detallesdeusuario', $user);
         return back()->with('status', 'Perfil/es asignado/s correctamente');
     }
     
@@ -78,11 +82,10 @@ class UserController extends Controller
         return back();
     }
 
-
-//    public function destroy(User $project){
-//        $project->delete();
-//
-//        return redirect()->route('projects.index',$project)->with('status', 'Proyecto eliminado correctamente');
-//    }
-
+    public function cambiarStatusUsuario(User $user){
+    $newStatus = request()->input('status');
+    // Actualiza el estado en la base de datos.
+    $user->update(['status' => $newStatus]);
+    return response()->json(['message' => 'Status cambiado exitosamente']);
+}
 }

@@ -54,23 +54,19 @@
         <!--Datos generales-->
           <!--Perfiles-->
           <div class="tab-pane fade" id="nav-perfiles" role="tabpanel" aria-labelledby="nav-perfiles-tab" tabindex="0">
-
             <form method="POST" action="{{ route('users.asignarPerfiles', ['user' => $user])}}">
-              @csrf @method('PATCH')
-            <ul class="list-group list-group-flush py-3">            
-                  @foreach ($perfiles as $perfil)
-                    <li class="list-group-item">
-                      <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }}>
-                      <label>{{ $perfil->nombreperfil }}</label><br>
-                    </li>
-                  @endforeach
-                </ul> 
-                <button type="submit" class="btn btn-primary">Asignar/actualizar perfiles</button>
-              </form>
-
+              	@csrf @method('PATCH')
+            	<ul class="list-group list-group-flush py-3">            
+        			@foreach ($perfiles as $perfil)
+        			  <li class="list-group-item">
+        			    <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }}>
+        			    <label>{{ $perfil->nombreperfil }}</label><br>
+        			  </li>
+        			@endforeach
+            	</ul> 
+            	<button type="submit" class="btn btn-primary">Asignar/actualizar perfiles</button>
+            </form>
           </div>
-          <!--Perfiles-->
-
       </div>
     </div>
   </div>

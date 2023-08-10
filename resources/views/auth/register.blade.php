@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Registro</div>
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -54,41 +55,26 @@
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">Contraseña</label>
                             <div class="col-md-6">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Automatico</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Manual</button>
-                                    </li>
-                                    
-                                  </ul>
-                                  <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                                        
-                                        
-                                    </div>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
 
-                                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                        <div class="col-md-6 py-2">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                            <label for="password-confirm" class=" ">Confirmar contraseña</label>
-                                            <div class="col-md-6">
-                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                            </div>
-                                    </div>
-
-                                  </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="button" value="Generar contraseña" class="btn btn-primary " onclick="generarpswd()">
+                                    <input id="passwordauto" class="form-control-plaintext border-bottom flex-grow-1 m-3" name="password" readonly >
+                                </div>
                             </div>
                         </div>
 
-
+                            <div class="row mb-3">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirmar contraseña</label>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                            </div>
 
                         <div class="row mb-3">
                             <label for="cellphone" class="col-md-4 col-form-label text-md-end">Celular</label>
@@ -143,3 +129,21 @@
     </div>
 </div>
 @endsection
+
+
+<div class="container">
+    <!-- Resto del contenido-->
+
+     <script>
+        function generarpswd() {
+    // Obtener el elemento input donde se mostrará la contraseña
+    var input1 = document.getElementById("password"); 
+    var input2 = document.getElementById("passwordauto");
+    // Generar una cadena aleatoria de 8 caracteres usando Laravel
+    var password = "{{ Str::random(12) }}";
+    // Asignar la cadena al valor del input
+    input1.value = password  ;
+    input2.value = password  ;
+  }
+     </script>
+</div>
