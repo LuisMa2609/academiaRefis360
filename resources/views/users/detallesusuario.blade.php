@@ -19,9 +19,7 @@
 
 
       <div class="tab-content" id="nav-tabContent">
-        <!--Datos generales-->
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
-
           <ul class="list-group list-group-flush">
             <form action="{{ route('users.updateusuarios', ['user' => $user])}}" method="POST">
                 @csrf @method('PATCH')
@@ -47,7 +45,7 @@
                     </div>
                 </li>
 
-                <button type="submit" class="btn btn-primary m-2">Actualizar usuario</button>
+                <button type="submit" class="btn btn-primary mt-3">Actualizar usuario</button>
             </form>
           </ul>
         </div>
@@ -56,15 +54,15 @@
           <div class="tab-pane fade" id="nav-perfiles" role="tabpanel" aria-labelledby="nav-perfiles-tab" tabindex="0">
             <form method="POST" action="{{ route('users.asignarPerfiles', ['user' => $user])}}">
               	@csrf @method('PATCH')
-            	<ul class="list-group list-group-flush py-3">            
+            	<ul class="list-group list-group-flush fs-3">            
         			@foreach ($perfiles as $perfil)
-        			  <li class="list-group-item">
+        			  <li class="list-group-item ">
         			    <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }}>
-        			    <label>{{ $perfil->nombreperfil }}</label><br>
+        			    <label>{{ $perfil->nombreperfil }}</label>
         			  </li>
         			@endforeach
             	</ul> 
-            	<button type="submit" class="btn btn-primary">Asignar/actualizar perfiles</button>
+            	<button type="submit" class="btn btn-primary mt-3">Asignar/actualizar perfiles</button>
             </form>
           </div>
       </div>

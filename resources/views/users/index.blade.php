@@ -15,38 +15,42 @@
     </div>
         <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
             <div class="table-responsive">
-                <table class="table">                  
+                <table class="table table-striped">                  
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellido</th>
-                        <th class="text-center">Puesto</th>
-                        <th class="text-center">Perfiles</th>
-                        <th class="text-center"></th>
-                        <th class="text-center">Status</th>
+                        <th scope="col" class="">ID</th>
+                        <th scope="col" class="">Nombre</th>
+                        <th scope="col" class="">Apellido</th>
+                        <th scope="col" class="">Puesto</th>
+                        <th scope="col" class="text-center">Perfiles</th>
+                        <th scope="col" class="text-center"></th>
+                        <th scope="col" class="">Status</th>
                     </tr>
                 </thead>    
                     <tbody class="table-group-divider">
                         @foreach ($users as $user)
                             <tr>
-                                <td class="text-center">{{$user->id}}</td>
-                                <td class="text-center">{{$user->name}}</td>
-                                <td class="text-center">{{$user->surname}}</td>
-                                <td class="text-center">{{$user->puesto}}</td>
+                                <td class="text-break">{{$user->id}}</td>
+                                <td class="text-break">{{$user->name}}</td>
+                                <td class="text-break">{{$user->surname}}</td>
+                                <td class="text-break">{{$user->puesto}}</td>
                                 <td class="text-center">
                                     @foreach ($user->perfiles as $perfil)
-                                    {{$perfil->nombreperfil}} <br>
+                                        {{$perfil->nombreperfil}} <br>
                                     @endforeach
                                 </td>
-                                <td  class="text-center">
-                                    <a href="{{route('users.detallesdeusuario', $user) }}"><i class="bi bi-info-circle-fill"></i>
-                                    <p>Configurar perfiles</p></a>
-                                </td>
                                 <td class="text-center">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input status-switch" type="checkbox" role="switch" id="switch-{{$user->id}}" data-user-id="{{$user->id}}" {{$user->status == 1 ? 'checked' : ''}}>
-                                    </div>
+                                    <a href="{{route('users.detallesdeusuario', $user) }}"><i class="bi bi-info-circle-fill"></i>
+                                        <p>Configurar perfiles</p>
+                                    </a>
+                                </td>
+                                <td class="">
+                                    <user-status-updater
+                                        :user-id="{{ $user->id }}"
+                                        :status="{{ $user->status }}"
+                                        :csrf-token="'{{ csrf_token() }}'"
+                                        :update-url="{{ json_encode(route('users.updatestatus')) }}"
+                                    ></user-status-updater>
                                 </td>
                             </tr>
                         @endforeach
@@ -57,3 +61,4 @@
         </div>
 </div>
 @endsection
+

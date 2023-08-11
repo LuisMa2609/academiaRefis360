@@ -19,15 +19,13 @@ Route::get('/usuarios/registrar', [UserController::class, 'register'])->name('us
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
+Route::post('/usuarios/actualizar-estado', [UserController::class, 'updateStatus'])->name('users.updatestatus');
+
 Route::patch('/usuarios/update/{user}/', [UserController::class, 'updateUsuario'])->name('users.updateusuarios');
 
 Route::get('/usuarios/{user}/', [UserController::class, 'detallesDeUsuario'])->name('users.detallesdeusuario');
 
 Route::patch('/usuarios/{user}/', [UserController::class, 'asignarPerfiles'])->name('users.asignarPerfiles');
-
-Route::patch('/usuarios/deshabilitar/{user}', [UserController::class, 'deshabilitarusuario'])->name('users.deshabilitarusuario');
-
-Route::patch('/usuarios/habilitar/{user}', [UserController::class, 'habilitarusuario'])->name('users.habilitarusuario');
 
 Route::get('/perfiles', [PerfilController::class, 'index'])->name('permisos');
 

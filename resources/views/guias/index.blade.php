@@ -18,8 +18,8 @@
                 @foreach ($guias as $guias)
                 <tbody>
                   <tr>
-                    <td>{{$guias->nombre}}</td>
-                    <td>{{$guias->descripcion}}</td>
+                    <td class="text-break">{{$guias->nombre}}</td>
+                    <td class="text-break">{{$guias->descripcion}}</td>
                     <td><a href="">link del video</a></td>
                     <td><a href="">link del PDF</a></td>
                   </tr>

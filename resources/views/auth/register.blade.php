@@ -64,7 +64,7 @@
 
                                 <div class="d-flex align-items-center">
                                     <input type="button" value="Generar contraseña" class="btn btn-primary " onclick="generarpswd()">
-                                    <input id="passwordauto" class="form-control-plaintext border-bottom flex-grow-1 m-3" name="password" readonly >
+                                    <input id="passwordauto" class="form-control-plaintext border-bottom flex-grow-1 m-3" name="passwordauto" readonly >
                                 </div>
                             </div>
                         </div>

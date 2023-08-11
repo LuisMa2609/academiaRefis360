@@ -13,7 +13,7 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::find(1);
         return view('users.index', [
-            'users' => User:: paginate(10),
+            'users' => User::latest()-> paginate(20),
             //'users' => User::where('status', '1')->latest()->paginate(5),
             //'usersoff' => User::where('status', '0')->latest()->paginate(5)
         ]);
@@ -64,28 +64,19 @@ class UserController extends Controller
         return back()->with('status', 'Perfil/es asignado/s correctamente');
     }
     
-    public function habilitarusuario($id){
-        $user = User::findOrFail($id);
-        //$user -> update (['status' => !$user->status]);
-        $user->status=1;
+    public function updateStatus(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $newStatus = $request->input('new_status');
+    
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+    
+        $user->status = $newStatus;
         $user->save();
-        //dd($user->status, $id);
-        return back();
+    
+        return response()->json(['message' => 'Estado actualizado correctamente']);
     }
-
-    public function deshabilitarusuario($id){
-        $useroff = User::findOrFail($id);
-        //$useroff -> update (['status' => !$useroff->status]);
-        $useroff->status=0;
-        $useroff->save();
-        //dd($useroff->status, $id);
-        return back();
-    }
-
-    public function cambiarStatusUsuario(User $user){
-    $newStatus = request()->input('status');
-    // Actualiza el estado en la base de datos.
-    $user->update(['status' => $newStatus]);
-    return response()->json(['message' => 'Status cambiado exitosamente']);
-}
 }

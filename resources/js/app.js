@@ -36,4 +36,7 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+import UserStatusUpdate from './components/UserStatusUpdate.vue';
+app.component('user-status-updater', UserStatusUpdate);
+
 app.mount('#app');

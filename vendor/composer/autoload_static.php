@@ -40,6 +40,7 @@ class ComposerStaticInite02403ca7881e7a529eb316e6ec527f0
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         'eed9c7469f94573c0d97cc45de79b754' => __DIR__ . '/..' . '/spatie/laravel-html/src/helpers.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
+        'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (

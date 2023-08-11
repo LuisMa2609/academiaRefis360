@@ -21,15 +21,15 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body class="wrapper">
     <div id="app" class="d-flex flex-column h-screen justify-content-between">
         
-        <main class="py-4">
+        <main class="py-4 content">
             @yield('content')
         </main>
 
         
-        <footer class="py-3 shadow footer-bs">
+        <footer class="py-3 shadow footer-bs stic bg-body-tertiary">
             {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
         </footer>
         
