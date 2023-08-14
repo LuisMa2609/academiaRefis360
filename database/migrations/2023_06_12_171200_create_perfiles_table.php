@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('nombreperfil');
         });
 
-        Schema::table('usuarioperfils', function (Blueprint $table){
+        Schema::table('perfiles_users', function (Blueprint $table){
             $table->unsignedBigInteger('perfil_id')->after('id');
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });
 
-        Schema::table('perfilsecciones', function (Blueprint $table){
+        Schema::table('perfil_secciones_permisos', function (Blueprint $table){
             $table->unsignedBigInteger('perfil_id')->after('id');
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });

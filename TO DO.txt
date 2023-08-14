@@ -1,0 +1,22 @@
+todo 
+----------index videos-------------
+poner las tablas de los elementos separados por categoria
+dimensionar el espacio de texto en las tablas
+preguntar por descripcion corta y larga
+mostrar/ocultar dependiendo el perfil del usuario
+crear vista de reproductor de video y pdfs
+
+----------index usuarios---------------
+cambiar el layout de las tablas dependiendo el status o buscar manera de cargar la tab que se estaba viendo antes de recargar pagina
+cambiar boton de habilitar/deshabilitar usuarios por funcion ajax en formato de checkbox switch
+
+---------vista de usuario---------
+Cuestionar sobre el layout*
+cambiar le layout +
+(ver posibilidad de reducir esta vista a un modal en la vista de usuarios)*
+Agregar la edicion de campos de datos de usuarios|editar nombre, correo
+
+
+---------index asignacion de secciones y permisos a perfiles---------------
+Completar funcionalidad de checkboxes para asignar permisos a cada seccion
+hacer que si no se selecciono una seccion, las checkboxes de la seccion se bloqueen
