@@ -23,6 +23,8 @@ Route::post('/usuarios/actualizar-estado', [UserController::class, 'updateStatus
 
 Route::patch('/usuarios/update/{user}/', [UserController::class, 'updateUsuario'])->name('users.updateusuarios');
 
+Route::get('/usuario/{user}/', [UserController::class, 'configurarUsuario'])->name('users.configurarusuario');
+
 Route::get('/usuarios/{user}/', [UserController::class, 'detallesDeUsuario'])->name('users.detallesdeusuario');
 
 Route::patch('/usuarios/{user}/', [UserController::class, 'asignarPerfiles'])->name('users.asignarPerfiles');
@@ -30,6 +32,7 @@ Route::patch('/usuarios/{user}/', [UserController::class, 'asignarPerfiles'])->n
 Route::get('/perfiles', [PerfilController::class, 'index'])->name('permisos');
 
 Route::patch('/perfiles/seccion-asignada', [PerfilController::class, 'asignarSeccion'])->name('asignarSeccion');
+
 
 });
 

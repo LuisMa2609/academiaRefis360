@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -50,6 +51,18 @@ class UserController extends Controller
         ]);
     }
 
+    public function configurarUsuario(User $user){
+        $user = Auth::user();
+        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles_users = $user->perfiles->pluck('id')->toArray();
+        
+        return view('users.detallesusuario', [
+            'user' => $user,
+            'perfiles' => $perfiles,
+            'perfiles_users' => $perfiles_users,
+        ]);
+    }
+
     public function asignarPerfiles(Request $request, User $user){
         if (!$request->has('perfiles')) {
             return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
@@ -77,6 +90,6 @@ class UserController extends Controller
         $user->status = $newStatus;
         $user->save();
     
-        return response()->json(['message' => 'Estado actualizado correctamente']);
+
     }
 }

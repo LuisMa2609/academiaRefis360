@@ -61,8 +61,10 @@
         			    <label>{{ $perfil->nombreperfil }}</label>
         			  </li>
         			@endforeach
-            	</ul> 
+            	</ul>
+              @can('admin')
             	<button type="submit" class="btn btn-primary mt-3">Asignar/actualizar perfiles</button>
+              @endcan
             </form>
           </div>
       </div>

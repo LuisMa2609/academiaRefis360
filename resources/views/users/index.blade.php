@@ -1,8 +1,3 @@
-<!--
-  todo
-  cambiar el button type="submit" por funcion ajax 
--->
-
 @extends('layouts.app')
 
 @section('title')
