@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
-
-//use DB;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -15,8 +14,9 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::find(1);
         return view('users.index', [
-            'users' => User::where('status', '1')->latest()->paginate(30),
-            'usersoff' => User::where('status', '0')->latest()->paginate(30)
+            'users' => User::latest()-> paginate(20),
+            //'users' => User::where('status', '1')->latest()->paginate(5),
+            //'usersoff' => User::where('status', '0')->latest()->paginate(5)
         ]);
     }
 
@@ -25,42 +25,71 @@ class UserController extends Controller
         return view('auth.register');
     }
 
+    public function updateUsuario(User $user, Request $request){
+        $this->authorize('admin');
+        $user->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email'=> $request->email,
+            'celular' => $request->cellphone,
+            'puesto' => $request->puesto,
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+    }
+
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
         //$perfiles = DB::table('perfiles')->get();
         $perfiles = Perfiles::with('secciones')->get();
-        $usuarioperfils = $user->perfiles->pluck('id')->toArray();
+        $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
             'user' => $user,
             'perfiles' => $perfiles,
-            'usuarioperfils' => $usuarioperfils
+            'perfiles_users' => $perfiles_users,
+        ]);
+    }
+
+    public function configurarUsuario(User $user){
+        $user = Auth::user();
+        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles_users = $user->perfiles->pluck('id')->toArray();
+        
+        return view('users.detallesusuario', [
+            'user' => $user,
+            'perfiles' => $perfiles,
+            'perfiles_users' => $perfiles_users,
         ]);
     }
 
     public function asignarPerfiles(Request $request, User $user){
+        if (!$request->has('perfiles')) {
+            return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
+        }
+        $this->validate($request, [
+            'perfiles' => 'required|array|min:1', // Al menos un perfil debe estar seleccionado
+            'perfiles.*' => 'exists:perfiles,id'
+        ]);
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         //dd($perfiles);
-        return redirect()->route('users.detallesdeusuario', $user);
+        return back()->with('status', 'Perfil/es asignado/s correctamente');
     }
     
-    public function habilitarusuario($id){
-        $user = User::findOrFail($id);
-        $user -> update (['status' => !$user->status]);
-        return back();
+    public function updateStatus(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $newStatus = $request->input('new_status');
+    
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+    
+        $user->status = $newStatus;
+        $user->save();
+    
+
     }
-
-    public function deshabilitarusuario($id){
-        $useroff = User::findOrFail($id);
-        $useroff -> update (['status' => !$useroff->status]);
-        return back();
-    }
-
-
-//    public function destroy(User $project){
-//        $project->delete();
-//
-//        return redirect()->route('projects.index',$project)->with('status', 'Proyecto eliminado correctamente');
-//    }
-
 }

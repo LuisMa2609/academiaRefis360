@@ -23,8 +23,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
+        'celular',
         'password',
+        'puesto'
     ];
 
     /**
@@ -49,12 +52,7 @@ class User extends Authenticatable
     
     
     public function perfiles(): BelongsToMany{
-        return $this->belongsToMany(Perfiles::class, 'usuarioperfils', 'usuario_id', 'perfil_id');
+        return $this->belongsToMany(Perfiles::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
     
-
-    public function cambiarStatus()
-    {
-        $this->update(['status' => !$this->status]);
-    }
 }

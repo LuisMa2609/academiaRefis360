@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perfilseccion', function (Blueprint $table) {
+        Schema::create('perfiles_users', function (Blueprint $table) {
             $table->id();
-            
         });
     }
 
@@ -22,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perfilseccion');
+        Schema::dropIfExists('perfiles_users');
     }
 };

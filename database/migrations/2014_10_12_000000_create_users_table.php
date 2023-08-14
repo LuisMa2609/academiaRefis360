@@ -14,20 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('surname');
             $table->string('email')->unique();
+            $table->string('cellphone');
             $table->string('password');
-            $table->bolean('status');
+            $table->string('puesto');
+            $table->boolean('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::table('usuarioperfils', function (Blueprint $table){
-            $table->unsignedBigInteger('usuario_id')->after('id');
-            $table->foreign('usuario_id')->references('id')->on('users');
-        });
-
-        Schema::table('usuariopermisos', function (Blueprint $table){
+        Schema::table('perfiles_users', function (Blueprint $table){
             $table->unsignedBigInteger('usuario_id')->after('id');
             $table->foreign('usuario_id')->references('id')->on('users');
         });

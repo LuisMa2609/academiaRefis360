@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuariopermisos', function (Blueprint $table) {
+        Schema::create('perfil_secciones_permisos', function (Blueprint $table) {
             $table->id();
         });
     }
@@ -21,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuariopermisos');
+        Schema::dropIfExists('perfil_secciones_permisos');
     }
 };
