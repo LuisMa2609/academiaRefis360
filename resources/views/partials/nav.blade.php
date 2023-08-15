@@ -14,7 +14,7 @@
                 </li>
             @endcan
                 <li class="nav-item">
-                    <a class="nav-link  {{ setActive('users.detalleusuario')}}" href="{{ route('users.configurarusuario', Auth::user()->id)}}">
+                    <a class="nav-link  {{ setActive('users.configurarusuario')}}" href="{{ route('users.configurarusuario', Auth::user()->id)}}">
                         <i class="bi bi-person-fill-gear">  {{Auth::user()->name}}</i>
                     </a>
                 </li>

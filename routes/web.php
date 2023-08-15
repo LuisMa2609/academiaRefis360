@@ -9,7 +9,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
 //Route::get('/', function () { return view('guias/index'); });
 
-Route::get('/   ', [GuiasController::class, 'index'])->name('index');
+Route::get('/', [GuiasController::class, 'index'])->name('index');
 
 //Route::get('/index', function () { return view('guias/index'); })->name('index');
 
