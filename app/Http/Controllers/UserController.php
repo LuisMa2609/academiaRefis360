@@ -25,6 +25,20 @@ class UserController extends Controller
         return view('auth.register');
     }
 
+    public function updateUsuarioAdmin(User $user, Request $request){
+        $this->authorize('admin');
+        $user->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email'=> $request->email,
+            'celular' => $request->cellphone,
+            'puesto' => $request->puesto,
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+    }
+
     public function updateUsuario(User $user, Request $request){
         $this->authorize('admin');
         $user->update([
@@ -38,6 +52,7 @@ class UserController extends Controller
 
         return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
     }
+
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
