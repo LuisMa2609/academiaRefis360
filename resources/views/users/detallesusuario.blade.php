@@ -3,7 +3,6 @@
 @section('tittle')
 
 @section('content')
-
 <div class="container">
     @include('partials.session-status')
   <h1>{{$user->name}}</h1>
@@ -17,8 +16,6 @@
         </div>
       </nav>
 
-      <h1>texto</h1>
-      
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
           <ul class="list-group list-group-flush">
