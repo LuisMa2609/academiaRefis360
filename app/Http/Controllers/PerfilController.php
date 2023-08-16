@@ -21,24 +21,29 @@ class PerfilController extends Controller{
                 'nombreperfil' => $perfil->nombreperfil,
                 'secciones' => [],
             ];
+            
             foreach ($secciones as $seccion) {
-                $perfilArray['secciones'][] = [
+                $seccionArray = [
                     'id' => $seccion->id,
                     'nombreseccion' => $seccion->nombreseccion,
                     'checked' => $perfil->secciones->contains($seccion),
                     'permisos' => [],
                 ];
-
+                
                 foreach ($permisos as $permiso) {
-                    $perfilArray['secciones'][count($perfilArray['secciones'])-1]['permisos'][] = [
+                    $seccionArray['permisos'][] = [
                         'id' => $permiso->id,
                         'permiso' => $permiso->permiso,
-                        'checked' => $perfil->permisos->contains($permiso),
+                        'checked' => $perfil->permisos->contains($permiso) && $seccion->permisos->contains($permiso),
                     ];
                 }
+                
+                $perfilArray['secciones'][] = $seccionArray;
             }
+            
             $perfilesArray[] = $perfilArray;
         }
+        // dd($perfilArray);
         return view('permisos', compact('perfilesArray'));
     }
     

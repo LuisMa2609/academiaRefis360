@@ -21,7 +21,7 @@ Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
 Route::post('/usuarios/actualizar-estado', [UserController::class, 'updateStatus'])->name('users.updatestatus');
 
-Route::patch('/usuarios/update/{user}/', [UserController::class, 'updateUsuarioAdmin'])->name('users.updateusuarios');
+Route::patch('/usuarios/update/{user}/', [UserController::class, 'updateUsuario'])->name('users.updateusuarios');
 
 Route::get('/usuario/{user}/', [UserController::class, 'configurarUsuario'])->name('users.configurarusuario');
 
