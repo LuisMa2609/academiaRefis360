@@ -23,18 +23,25 @@ class PerfilController extends Controller{
             ];
             
             foreach ($secciones as $seccion) {
+                $pivotData = $perfil->secciones->firstWhere('id', $seccion->id)->pivot;
+                // $pivotData = $perfil->secciones->where('id', $seccion->id)->where('pivot.status', 1)->first()->pivot;
+
                 $seccionArray = [
                     'id' => $seccion->id,
                     'nombreseccion' => $seccion->nombreseccion,
-                    'checked' => $perfil->secciones->contains($seccion),
+                    'status' => $pivotData->status,
+                    'checked' => $pivotData->status == 1, // Estado de la relación perfil-sección en la tabla pivote
                     'permisos' => [],
                 ];
                 
                 foreach ($permisos as $permiso) {
+                    $pivotDatos = $perfil->permisos->firstWhere('id', $permiso->id)->pivot;
+                
                     $seccionArray['permisos'][] = [
                         'id' => $permiso->id,
                         'permiso' => $permiso->permiso,
-                        'checked' => $perfil->permisos->contains($permiso) && $seccion->permisos->contains($permiso),
+                        'statuspermiso' => $pivotDatos->status,
+                        'checked' => $pivotDatos->status == 1, // Estado del permiso en la relación perfil-sección-permiso
                     ];
                 }
                 
@@ -44,7 +51,8 @@ class PerfilController extends Controller{
             $perfilesArray[] = $perfilArray;
         }
         // dd($perfilArray);
-        return view('permisos', compact('perfilesArray'));
+        dd($perfilesArray);
+        // return view('permisos', compact('perfilesArray'));
     }
     
     public function asignarSeccion(Request $request){

@@ -29,22 +29,43 @@
                             </tr>
                         </thead>
                         <tbody class="fs-5">
-                                @foreach ($perfil['secciones'] as $seccion)
+                                {{-- @foreach ($perfil['secciones'] as $seccion)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="secciones[{{ $loop->parent->index }}][]" value="{{ $seccion['id'] }}" @if ($seccion['status'] == 1) checked @endif> 
+                                            {{ $seccion['nombreseccion']}}
+                                            {{ $seccion['id']}}
+                                        </td>
+                                            @foreach ($seccion['permisos'] as $permiso)
+                                                
+                                                <td>
+                                                   <input type="checkbox" name="perfil_seccion_permiso_status [{{ $perfil['id'] }}] [{{ $seccion['id'] }}] [{{ $permiso['id'] }}]"  value="0" @if ($permiso['statuspermiso'] == 1) checked @endif>
+                                                   {{ $permiso['permiso'] }}
+                                                </td>
+                                                
+                                            @endforeach
+                                    </tr>
+                                @endforeach --}}
+                                
+
+                            @foreach ($perfil['secciones'] as $seccion)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="secciones[{{ $loop->parent->index }}][]" value="{{ $seccion['id'] }}" {{ $seccion['checked'] ? 'checked' : '' }}> 
+                                        <input type="hidden" name="perfil_seccion[{{ $perfil['id'] }}][{{ $seccion['id'] }}]" value="0">
+                                        <input type="checkbox" name="perfil_seccion[{{ $perfil['id'] }}][{{ $seccion['id'] }}]" value="1" @if ($seccion['checked']) checked @endif>
                                         {{ $seccion['nombreseccion']}}
                                         {{ $seccion['id']}}
                                     </td>
-                                        @foreach ($seccion['permisos'] as $permiso)
-                                            
-                                            <td>
-                                               <input type="checkbox" name="seccion_{{ $seccion['id'] }}_permiso_{{ $permiso['id'] }}" value="{{ $permiso['id'] }}" {{ $permiso['checked'] ? 'checked' : '' }}>
-                                            </td>
-                                            
-                                        @endforeach
+                                    @foreach ($seccion['permisos'] as $permiso)
+                                        <td>
+                                            <input type="hidden" name="perfil_seccion_permiso_status[{{ $perfil['id'] }}][{{ $seccion['id'] }}][{{ $permiso['id'] }}]" value="0">
+                                            <input type="checkbox" name="perfil_seccion_permiso_status[{{ $perfil['id'] }}][{{ $seccion['id'] }}][{{ $permiso['id'] }}]" value="0" @if ($permiso['statuspermiso'] == 1 && $seccion['checked']) checked @endif>
+                                        </td>
+                                    @endforeach
                                 </tr>
-                                @endforeach
+                            @endforeach
+
+                            
                             </tbody>
                     @endforeach
                 </table>
