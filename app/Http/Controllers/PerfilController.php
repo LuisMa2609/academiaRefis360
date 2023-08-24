@@ -57,16 +57,22 @@ class PerfilController extends Controller{
     }
     
     
-    public function asignarSeccion(Request $request){
-        $this->authorize('admin');
-        
-        foreach ($request->input('perfil_id') as $key => $value) {
-            $perfil = Perfiles::find($value);
-            if ($perfil) {
-                $perfil->secciones()->sync($request->input('secciones.' . $key, []));
+    public function asignarSeccion(Request $request)
+{
+    $this->authorize('admin');
+    
+    foreach ($request->input('perfil_seccion_permiso_status') as $perfilId => $secciones) {
+        foreach ($secciones as $seccionId => $permisos) {
+            foreach ($permisos as $permisoId => $status) {
+                Perfiles::find($perfilId)->secciones()->updateExistingPivot($seccionId, [
+                    'status' => $status,
+                ]);
             }
         }
-    
-        return redirect()->route('permisos');
     }
+
+    return redirect()->route('permisos');
 }
+}
+// dd($permisoStatus);
+// dd($permisoId);
