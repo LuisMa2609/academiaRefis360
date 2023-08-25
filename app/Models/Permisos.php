@@ -24,11 +24,11 @@ class Permisos extends Model{
     //}
 
     public function secciones(){
-        return $this->belongsToMany(Secciones::class, 'perfil_secciones_permisos', 'permiso_id', 'seccion_id')->withPivot('perfil_id');
+        return $this->belongsToMany(Secciones::class, 'perfil_secciones_permisos', 'permiso_id', 'seccion_id')->withPivot('status');
     }
 
     public function perfiles(){
-        return $this->belongsToMany(Perfiles::class, 'perfil_secciones_permisos', 'permiso_id', 'perfil_id')->withPivot('seccion_id');
+        return $this->belongsToMany(Perfiles::class, 'perfil_secciones_permisos', 'permiso_id', 'perfil_id')->withPivot('status');
     }
 
 }

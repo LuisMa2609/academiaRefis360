@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('cellphone');
             $table->string('password');
             $table->string('puesto');
-            $table->boolean('status');
+            $table->tinyInteger('status');
+            $table->tinyInteger('rol');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

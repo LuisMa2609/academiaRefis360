@@ -5,6 +5,7 @@ use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfiles;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Http\Request;
 
@@ -26,7 +27,6 @@ class UserController extends Controller
     }
 
     public function updateUsuario(User $user, Request $request){
-        $this->authorize('admin');
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -36,8 +36,28 @@ class UserController extends Controller
             'updated_at' => now()
         ]);
 
-        return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+        // return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+
+        if (Gate::allows('admin')) {
+            return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+        } else {
+            return redirect()->route('users.configurarusuario', $user)->with('status', 'Su usuario ha sido actualizado correctamente');
+        }
     }
+
+    //public function updateUsuario(User $user, Request $request){
+    //    $user->update([
+    //        'name' => $request->name,
+    //        'surname' => $request->surname,
+    //        'email'=> $request->email,
+    //        'celular' => $request->cellphone,
+    //        'puesto' => $request->puesto,
+    //        'updated_at' => now()
+    //    ]);
+//
+    //    return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+    //}
+
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
@@ -68,7 +88,7 @@ class UserController extends Controller
             return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
         }
         $this->validate($request, [
-            'perfiles' => 'required|array|min:1', // Al menos un perfil debe estar seleccionado
+            'perfiles' => 'required|array|min:1',
             'perfiles.*' => 'exists:perfiles,id'
         ]);
         $perfiles = $request->input('perfiles', []);

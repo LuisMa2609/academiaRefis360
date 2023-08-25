@@ -55,7 +55,7 @@
             	<ul class="list-group list-group-flush fs-3">            
         			@foreach ($perfiles as $perfil)
         			  <li class="list-group-item ">
-        			    <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }}>
+                  <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}" {{ in_array($perfil->id, $perfiles_users) ? 'checked' : '' }} {{ Gate::allows('admin') ? '' : 'disabled' }}>
         			    <label>{{ $perfil->nombreperfil }}</label>
         			  </li>
         			@endforeach

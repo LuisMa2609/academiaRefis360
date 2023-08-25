@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('perfil_secciones_permisos', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('status');
         });
     }
 
