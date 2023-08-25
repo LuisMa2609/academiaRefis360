@@ -3,7 +3,6 @@
 @section('tittle')
 
 @section('content')
-
 <div class="container">
     @include('partials.session-status')
   <h1>{{$user->name}}</h1>
@@ -16,7 +15,6 @@
           <button class="nav-link" id="nav-perfiles-tab" data-bs-toggle="tab" data-bs-target="#nav-perfiles" type="button" role="tab" aria-controls="nav-perfiles" aria-selected="false">Perfiles</button>
         </div>
       </nav>
-
 
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
