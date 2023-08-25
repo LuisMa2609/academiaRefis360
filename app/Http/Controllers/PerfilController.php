@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Perfiles;
 use App\Models\Secciones;
 use App\Models\Permisos;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -57,22 +58,28 @@ class PerfilController extends Controller{
     }
     
     
-    public function asignarSeccion(Request $request)
-{
-    $this->authorize('admin');
+    public function asignarSeccion(Request $request){
+        $this->authorize('admin');
+        $perfilSeccionPermisoStatusArray = $request->input('perfil_seccion_permiso_status');
     
-    foreach ($request->input('perfil_seccion_permiso_status') as $perfilId => $secciones) {
-        foreach ($secciones as $seccionId => $permisos) {
-            foreach ($permisos as $permisoId => $status) {
-                Perfiles::find($perfilId)->secciones()->updateExistingPivot($seccionId, [
-                    'status' => $status,
-                ]);
+        foreach ($perfilSeccionPermisoStatusArray as $perfilId => $secciones) {
+            foreach ($secciones as $seccionId => $permisos) {
+                foreach ($permisos as $permisoId => $status) {
+                    DB::table('perfil_secciones_permisos')
+                        ->where([
+                            'perfil_id' => $perfilId,
+                            'seccion_id' => $seccionId,
+                            'permiso_id' => $permisoId,
+                        ])
+                        ->update(['status' => $status]);
+                }
             }
         }
+    
+        return redirect()->route('permisos');
     }
 
-    return redirect()->route('permisos');
-}
+
 }
 // dd($permisoStatus);
 // dd($permisoId);
