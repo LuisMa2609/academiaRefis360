@@ -29,9 +29,9 @@
         </main>
 
         
-        <footer class="py-3 shadow footer-bs stic bg-body-tertiary">
+        {{-- <footer class="py-3 shadow footer-bs stic bg-body-tertiary">
             {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
-        </footer>
+        </footer> --}}
         
     </div>
 </body>

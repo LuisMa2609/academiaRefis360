@@ -78,8 +78,7 @@ class UserController extends Controller
         return back()->with('status', 'Perfil/es asignado/s correctamente');
     }
     
-    public function updateStatus(Request $request)
-    {
+    public function updateStatus(Request $request){
         $userId = $request->input('user_id');
         $newStatus = $request->input('new_status');
     
