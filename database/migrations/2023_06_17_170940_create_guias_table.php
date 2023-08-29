@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('urlvideo')->unique();
             $table->string('urlpdf')->unique();
+            $table->tinyInteger('status');
             $table->timestamps();
         });
 
