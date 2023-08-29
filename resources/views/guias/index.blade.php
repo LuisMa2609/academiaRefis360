@@ -6,7 +6,7 @@
     <h1 class="text-center py-3">Indice de videos</h1>
         <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
             <h1>Notificaciones de pago</h1>
-            <table id="example" class="table ">                  
+            <table id="guias" class="table ">                  
                 <thead>
                   <tr>
                     <th scope="col">Nombre</th>

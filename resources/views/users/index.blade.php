@@ -10,7 +10,7 @@
     </div>
         <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
             <div class="table-responsive">
-                <table id="example" class="table table-striped">                  
+                <table id="usertable" class="table table-striped">                  
                 <thead>
                     <tr>
                         <th scope="col" class="">ID</th>

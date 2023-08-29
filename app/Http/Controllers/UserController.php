@@ -13,11 +13,9 @@ class UserController extends Controller
 {
     public function index(){
         $this->authorize('admin');
-        $user = User::find(1);
+        $users = User::latest()->get();
         return view('users.index', [
-            'users' => User::latest()-> paginate(30),
-            //'users' => User::where('status', '1')->latest()->paginate(5),
-            //'usersoff' => User::where('status', '0')->latest()->paginate(5)
+            'users' => $users,
         ]);
     }
 
@@ -36,8 +34,6 @@ class UserController extends Controller
             'updated_at' => now()
         ]);
 
-        // return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
-
         if (Gate::allows('admin')) {
             return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
         } else {
@@ -45,23 +41,8 @@ class UserController extends Controller
         }
     }
 
-    //public function updateUsuario(User $user, Request $request){
-    //    $user->update([
-    //        'name' => $request->name,
-    //        'surname' => $request->surname,
-    //        'email'=> $request->email,
-    //        'celular' => $request->cellphone,
-    //        'puesto' => $request->puesto,
-    //        'updated_at' => now()
-    //    ]);
-//
-    //    return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
-    //}
-
-
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
-        //$perfiles = DB::table('perfiles')->get();
         $perfiles = Perfiles::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
@@ -109,7 +90,5 @@ class UserController extends Controller
     
         $user->status = $newStatus;
         $user->save();
-    
-
     }
 }

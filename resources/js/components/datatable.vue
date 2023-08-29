@@ -5,9 +5,17 @@ import 'datatables.net';
 
 
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#usertable').DataTable( {
         dom: 'Bfrtip',
         pagingType: 'full_numbers'
+    } );
+} );
+
+
+
+$(document).ready(function() {
+    $('#guias').DataTable( {
+        dom: 'Bfrtip',
     } );
 } );
 </script>
