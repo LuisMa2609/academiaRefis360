@@ -16,6 +16,9 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
-        "bootstrap-icons": "^1.10.5"
+        "@types/jquery": "^3.5.17",
+        "bootstrap-icons": "^1.10.5",
+        "datatables.net-bs5": "^1.13.6",
+        "jquery": "^3.7.1"
     }
 }
