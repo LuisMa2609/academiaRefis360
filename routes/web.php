@@ -15,7 +15,11 @@ Route::get('/', [GuiasController::class, 'index'])->name('index');
 
 Route::get('/index', [GuiasController::class, 'index'])->name('index');
 
-Route::get('/guias/crud', [GuiasController::class, 'crud'])->name('guias.crud');
+Route::get('/guías/listado', [GuiasController::class, 'crud'])->name('guias.crud');
+
+Route::get('/guías/crear', [GuiasController::class, 'create'])->name('guias.create');
+
+Route::post('/guías/crear/store', [GuiasController::class, 'store'])->name('guias.store');
 
 Route::post('/guias/actualizar-estado', [GuiasController::class, 'updateStatus'])->name('guias.updatestatus');
 

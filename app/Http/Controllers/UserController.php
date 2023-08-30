@@ -79,6 +79,7 @@ class UserController extends Controller
     }
     
     public function updateStatus(Request $request){
+        $this->authorize('admin');
         $userId = $request->input('user_id');
         $newStatus = $request->input('new_status');
     

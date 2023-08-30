@@ -74,6 +74,66 @@ class GuiaSeeder extends Seeder
                 'urlvideo' => 'https://www.ejemplo.com/guia-decoracion-interiores/video',
                 'urlpdf' => 'https://www.ejemplo.com/guia-decoracion-interiores/pdf',
             ],
+            [
+                'nombre' => 'Guía de Fotografía de Paisajes en Blanco y Negro',
+                'descripcion' => 'Domina la técnica de capturar la belleza de los paisajes en blanco y negro con esta guía especializada.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-paisajes-byn/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-paisajes-byn/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Entrenamiento en Casa sin Equipo',
+                'descripcion' => 'Mantén tu rutina de ejercicios con esta guía que te enseñará a entrenar en casa sin necesidad de equipos costosos.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-entrenamiento-casa/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-entrenamiento-casa/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Cocina Vegana para Principiantes',
+                'descripcion' => 'Descubre deliciosas recetas veganas y aprende a cocinar platillos sabrosos y saludables.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-cocina-vegana/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-cocina-vegana/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Inversiones en Criptomonedas',
+                'descripcion' => 'Aprende los conceptos básicos para invertir en criptomonedas de manera segura y eficiente.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-inversion-criptomonedas/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-inversion-criptomonedas/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Meditación para Reducción del Estrés',
+                'descripcion' => 'Explora técnicas de meditación que te ayudarán a reducir el estrés y encontrar la tranquilidad interior.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-meditacion-estres/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-meditacion-estres/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Fotografía de Alimentos para Redes Sociales',
+                'descripcion' => 'Aprende a tomar fotografías atractivas de alimentos para compartir en redes sociales y captar la atención de tu audiencia.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-alimentos/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-alimentos/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Programación en Python para Principiantes',
+                'descripcion' => 'Inicia tu viaje en la programación con Python, uno de los lenguajes más amigables para principiantes.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-programacion-python/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-programacion-python/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Crianza Positiva para Padres',
+                'descripcion' => 'Aprende técnicas y enfoques de crianza positiva para fomentar un desarrollo saludable en tus hijos.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-crianza-positiva/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-crianza-positiva/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Fotografía de Retratos en Exteriores',
+                'descripcion' => 'Descubre cómo tomar retratos impresionantes en entornos al aire libre y aprovecha la luz natural.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-retratos-exteriores/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-retratos-exteriores/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Aprendizaje de Idiomas para Viajeros',
+                'descripcion' => 'Aprende estrategias efectivas para adquirir habilidades en un nuevo idioma antes de tu próximo viaje.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-aprendizaje-idiomas/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-aprendizaje-idiomas/pdf',
+            ],
         ];
 
         foreach ($guias as $guia) {

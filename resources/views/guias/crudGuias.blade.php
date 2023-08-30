@@ -4,8 +4,11 @@
     
 @section('content')
 <div class="container">
-    <h1 class="text-center">GUIAS</h1>
+    <h1 class="text-center">GUIÁS</h1>
 
+    <div class="d-grid gap-2 d-md-flex justify-content py-3">
+        <a href="{{ route('guias.create')}}" class="btn btn-primary">Crear nueva guía</a>
+    </div>
 
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <div class="table-responsive">
@@ -23,14 +26,14 @@
                         <th>status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     @foreach ($guias as $guia)
                         <tr>
                             <td class="">{{$guia->id}}</td>
-                            <td class="text-break">{{$guia->nombre}}</td>
-                            <td class="text-break">{{$guia->descripcion}}</td>
-                            <td class="">{{$guia->urlvideo}}</td>
-                            <td class="">{{$guia->urlpdf}}</td>
+                            <td class="">{{$guia->nombre}}</td>
+                            <td class="">{{$guia->descripcion}}</td>
+                            <td class="text-break">{{$guia->urlvideo}}</td>
+                            <td class="text-break">{{$guia->urlpdf}}</td>
                             <td class="">
                                 @foreach ($guia->perfiles as $perfil)
                                     {{$perfil->nombreperfil}}
