@@ -35,9 +35,9 @@
                   @endforeach
                 </table>         --}}
 
-                @foreach ($guiasPorSeccion as $seccionId => $guias)
+                @foreach ($guiasPorSeccion as $seccionNombre => $guias)
                 <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                    <h1>Sección ID: {{ $seccionId }}</h1>
+                    <h1>{{ $seccionNombre }}</h1>
                     <table id="guias" class="table ">
                         <thead>
                           <tr>

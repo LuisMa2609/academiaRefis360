@@ -22,7 +22,7 @@ class GuiasController extends Controller
 
         $guias = Guias::with(['perfiles', 'secciones', 'permisos'])->get();
         $guiasPorSeccion = $guias->groupBy(function ($guia) {
-            return $guia->secciones->first()->id;
+            return $guia->secciones->first()->nombreseccion;
         });
 
         return view('guias.index', [
