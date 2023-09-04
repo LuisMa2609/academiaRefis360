@@ -12,7 +12,7 @@
 
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <div class="table-responsive">
-            <table id="guias" class="table">                  
+            <table class="table tabla-guias">                  
                 <thead>
                     <tr>
                         <th scope="col">ID</th>

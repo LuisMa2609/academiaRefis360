@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Relacionguias extends Model
 {
     use HasFactory;
+
+    protected $table = 'relacionguias';
+
 }

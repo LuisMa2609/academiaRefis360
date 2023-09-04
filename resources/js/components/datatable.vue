@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    $('#guias').DataTable( {
+    $('.tabla-guias').DataTable( {
         dom: 'Bfrtip',
     } );
 } );
