@@ -10,6 +10,8 @@
 // Bootstrap icons
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
+@import 'https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css';
+
 .cerrarsesion{
     color: red;
 }
@@ -34,4 +36,9 @@ ul{
 .active a{
     color:darkgoldenrod;
     text-decoration:none;
+}
+
+.large-checkbox {
+    transform: scale(1.5);
+    margin-right: 10px;
 }
