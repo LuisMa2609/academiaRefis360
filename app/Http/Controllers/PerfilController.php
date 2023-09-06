@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Perfiles;
-use App\Models\Secciones;
-use App\Models\Permisos;
+use App\Models\Perfil;
+use App\Models\Seccion;
+use App\Models\Permiso;
 use DB;
 
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller{
 
-    public function index(Perfiles $perfil){
+    public function index(Perfil $perfil){
         $this->authorize('admin');
-        $perfiles = Perfiles::with('secciones', 'permisos')->get();
-        $secciones = Secciones::with('permisos')->get();
-        $permisos = Permisos::all();
+        $perfiles = Perfil::with('secciones', 'permisos')->get();
+        $secciones = Seccion::with('permisos')->get();
+        $permisos = Permiso::all();
         
+
         $perfilesArray = [];
         foreach ($perfiles as $perfil) {
             $perfilArray = [
@@ -50,7 +51,7 @@ class PerfilController extends Controller{
             $perfilesArray[] = $perfilArray;
         }
         
-        // dd($perfilArray);
+        // dd($secciones);
         // dd($perfilesArray);
         // dd($pivotDatos);
         return view('permisos', compact('perfilesArray'));    

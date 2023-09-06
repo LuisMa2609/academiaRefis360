@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
-use App\Models\Perfiles;
+use App\Models\Perfil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
-        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
             'user' => $user,
@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function configurarUsuario(User $user){
         $user = Auth::user();
-        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         
         return view('users.detallesusuario', [

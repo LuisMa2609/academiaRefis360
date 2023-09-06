@@ -12,8 +12,8 @@
       </div>
       @endcan
 
-          {{-- <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3"> --}}
-              {{-- <h1>Notificaciones de pago</h1>
+            {{-- <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3"> 
+              <h1>Notificaciones de pago</h1>
               <table id="guias" class="table ">                  
                   <thead>
                     <tr>
@@ -24,44 +24,43 @@
                     </tr>
                   </thead>
                   @foreach ($guias as $guias)
-                  <tbody>
-                    <tr>
-                      <td class="text-break">{{$guias->nombre}}</td>
-                      <td class="text-break">{{$guias->descripcion}}</td>
-                      <td><a href="{{$guias->urlvideo}}">link del video</a></td>
-                      <td><a href="{{$guias->urlpdf}}">link del PDF</a></td>
-                    </tr>
-                  </tbody>
+                    <tbody>
+                      <tr>
+                        <td class="text-break">{{$guias->nombre}}</td>
+                        <td class="text-break">{{$guias->descripcion}}</td>
+                        <td><a href="{{$guias->urlvideo}}">link del video</a></td>
+                        <td><a href="{{$guias->urlpdf}}">link del PDF</a></td>
+                      </tr>
+                    </tbody>
                   @endforeach
-                </table>         --}}
+              </table>    
+            </div> --}}
 
-                @foreach ($guiasPorSeccion as $seccionNombre => $guias)
-                <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                    <h1>{{ $seccionNombre }}</h1>
-                    <table id="guias" class="table ">
-                        <thead>
-                          <tr>
+            @foreach ($secciones as $seccion)
+            <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
+                <h2>{{ $seccion->nombreseccion }}</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Video</th>
                             <th scope="col">PDF</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($guias as $guia)
-                                <tr>
-                                  <td class="text-break">{{$guia->nombre}}</td>
-                                  <td class="text-break">{{$guia->descripcion}}</td>
-                                  <td><a href="{{$guia->urlvideo}}">link del video</a></td>
-                                  <td><a href="{{$guia->urlpdf}}">link del PDF</a></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>        
-                </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($guiasRelacionadas[$seccion->nombreseccion] as $guia)
+                        <tr>
+                            <td class="text-break">{{ $guia->nombre }}</td>
+                            <td class="text-break">{{ $guia->descripcion }}</td>
+                            <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                            <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             @endforeach
-          </div>
-
           
       {{-- <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <h1>Transacciones</h1>
@@ -82,7 +81,6 @@
             </tbody>
           </table>        
     </div>
-
           <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
             <h1>Estado de cuenta</h1>
             <table class="table ">                  

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Secciones extends Model{
+class Seccion extends Model{
     use HasFactory;
 
     /**
@@ -25,10 +25,10 @@ class Secciones extends Model{
     //}
 
     public function perfiles(){
-        return $this->belongsToMany(Perfiles::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')->withPivot('status');
+        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')->withPivot('status');
     }
     public function permisos(){
-        return $this->belongsToMany(Permisos::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')->withPivot('status');
+        return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')->withPivot('status');
     }
 
 }

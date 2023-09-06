@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Guias;
-use App\Models\Perfiles;
-use App\Models\Secciones;
-use App\Models\Permisos;
-
+use App\Models\Guia;
+use App\Models\Perfil;
+use App\Models\Seccion;
+use App\Models\User;
+use App\Models\Permiso;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -20,29 +21,47 @@ class GuiasController extends Controller
         // ]);
 
 
-        $guias = Guias::with(['perfiles', 'secciones', 'permisos'])->get();
-        $guiasPorSeccion = $guias->groupBy(function ($guia) {
-            return $guia->secciones->first()->nombreseccion;
-        });
+        $usuarioAutenticado = Auth::user();
 
+        // Obtener las secciones asignadas al usuario autenticado
+        $seccionesDelUsuario = $usuarioAutenticado->secciones;
+    
+        // Inicializar un arreglo para almacenar las guías relacionadas
+        $guiasRelacionadas = [];
+    
+        // Iterar a través de las secciones del usuario
+        foreach ($seccionesDelUsuario as $seccion) {
+            // Obtener las guías que compartan perfil, usuario y permiso
+            $guias = Guia::whereHas('relacion', function ($query) use ($usuarioAutenticado, $seccion) {
+                $query->where('perfil_id', $usuarioAutenticado->perfiles->pluck('id'))
+                      ->where('seccion_id', $seccion->id)
+                      ->whereIn('permisos_id', $usuarioAutenticado->perfiles->pluck('pivot.permiso_id'));
+            })->get();
+    
+            // Agregar las guías relacionadas al arreglo
+            $guiasRelacionadas[$seccion->nombreseccion] = $guias;
+        }
+    
+        // Renderizar la vista y pasar los datos
         return view('guias.index', [
-            'guiasPorSeccion' => $guiasPorSeccion
+            'secciones' => $seccionesDelUsuario,
+            'guiasRelacionadas' => $guiasRelacionadas,
         ]);
     }
 
 
     public function crud(){
-        $guias = Guias::all();
+        $guias = Guia::all();
         return view('guias.crudGuias',[
             'guias' =>$guias
         ]);
     }
 
     public function create(){
-        $guias = Guias::all();
-        $perfiles = Perfiles::all();
-        $secciones = Secciones::all();
-        $permisos = Permisos::all();
+        $guias = Guia::all();
+        $perfiles = Perfil::all();
+        $secciones = Seccion::all();
+        $permisos = Permiso::all();
 
         return view('guias.createGuias',[
             'guias' =>$guias,
@@ -70,7 +89,7 @@ class GuiasController extends Controller
         $permiso = $request->input('permiso_id');
         
 
-        $guia = new Guias();
+        $guia = new Guia();
         $guia->nombre = $nombre;
         $guia->descripcion = $descripcion;
         $guia->urlvideo = $urlvideo;
@@ -90,7 +109,7 @@ class GuiasController extends Controller
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
     
-        $guia = Guias::find($guiaId);
+        $guia = Guia::find($guiaId);
         if (!$guia) {
             return response()->json(['message' => 'Guia no encontrado'], 404);
         }

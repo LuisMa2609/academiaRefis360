@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Secciones;
 
 class User extends Authenticatable 
 {
@@ -52,7 +53,14 @@ class User extends Authenticatable
     
     
     public function perfiles(): BelongsToMany{
-        return $this->belongsToMany(Perfiles::class, 'perfiles_users', 'usuario_id', 'perfil_id');
+        return $this->belongsToMany(Perfil::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
-    
+
+    public function secciones(): BelongsToMany {
+        return $this->belongsToMany(Seccion::class, 'perfiles_users', 'usuario_id', 'perfil_id');
+    }
+
+    public function permisos(): BelongsToMany{
+        return $this->belongsToMany(Permiso::class, 'perfiles_users', 'usuario_id', 'perfil_id');
+    }
 }
