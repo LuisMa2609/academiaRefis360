@@ -9,8 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void{
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->string('cellphone');
             $table->string('password');
             $table->string('puesto');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->tinyInteger('rol');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

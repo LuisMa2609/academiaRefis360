@@ -6,6 +6,7 @@ use App\Models\Perfil;
 use App\Models\Seccion;
 use App\Models\User;
 use App\Models\Permiso;
+use App\Models\PerfilSeccionPermiso;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -14,39 +15,72 @@ use Illuminate\Http\Request;
 
 class GuiasController extends Controller
 {
+    // $guias = Guias::all();
+    // return view('guias.index', [
+    //     'guias' =>$guias
+    // ]);
+
     public function index(){
-        // $guias = Guias::all();
+        // $perfiles = $user->perfilesAsignados;
+    
+        $user = Auth::user();
+        $perfiles = $user->perfiles;
+        // $secciones = $perfiles->seccionesasignados;
+
+        $secciones = [];
+        foreach ($perfiles as $perfil) {
+            $secciones[] = $perfil->seccionesasignados;
+        }
+        $permisos = $user->permisos()->with('secciones')->get();
+        // $permisos = $user->permisos;
+
+        dd($permisos);
+        
+        // $asignados = [$perfiles];
+
+        $perfilesArray = [];
+        foreach ($perfiles as $perfil) {
+            $perfilArray = [
+                'id' => $perfil->id,
+                'nombreperfil' => $perfil->nombreperfil,
+                'secciones' => [],
+            ];
+        
+            foreach ($secciones as $seccion) {
+                $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
+        
+                $seccionArray = [
+                    'id' => $seccion->id,
+                    'nombreseccion' => $seccion->nombreseccion,
+                    'checked' => $pivotData->pluck('status')->contains(1),
+                    'permisos' => [],
+                ];
+        
+                foreach ($permisos as $permiso) {
+                    $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
+        
+                    $seccionArray['permisos'][] = [
+                        'id' => $permiso->id,
+                        'permiso' => $permiso->permiso,
+                        'statuspermiso' => $pivotDatos->pluck('status'), 
+                    ];
+                }
+        
+                $perfilArray['secciones'][] = $seccionArray;
+            }
+        
+            $perfilesArray[] = $perfilArray;
+        }
+
+
+        
+        // dd($perfilArray);
+        
         // return view('guias.index', [
-        //     'guias' =>$guias
         // ]);
 
+        return view('guias.index', compact('perfilesArray'));    
 
-        $usuarioAutenticado = Auth::user();
-
-        // Obtener las secciones asignadas al usuario autenticado
-        $seccionesDelUsuario = $usuarioAutenticado->secciones;
-    
-        // Inicializar un arreglo para almacenar las guías relacionadas
-        $guiasRelacionadas = [];
-    
-        // Iterar a través de las secciones del usuario
-        foreach ($seccionesDelUsuario as $seccion) {
-            // Obtener las guías que compartan perfil, usuario y permiso
-            $guias = Guia::whereHas('relacion', function ($query) use ($usuarioAutenticado, $seccion) {
-                $query->where('perfil_id', $usuarioAutenticado->perfiles->pluck('id'))
-                      ->where('seccion_id', $seccion->id)
-                      ->whereIn('permisos_id', $usuarioAutenticado->perfiles->pluck('pivot.permiso_id'));
-            })->get();
-    
-            // Agregar las guías relacionadas al arreglo
-            $guiasRelacionadas[$seccion->nombreseccion] = $guias;
-        }
-    
-        // Renderizar la vista y pasar los datos
-        return view('guias.index', [
-            'secciones' => $seccionesDelUsuario,
-            'guiasRelacionadas' => $guiasRelacionadas,
-        ]);
     }
 
 

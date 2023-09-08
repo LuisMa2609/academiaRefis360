@@ -18,6 +18,7 @@
                             <th scope="col" class="">Apellido</th>
                             <th scope="col" class="">Puesto</th>
                             <th scope="col" class="text-center">Perfiles</th>
+                            <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center"></th>
                             <th scope="col" class="">Status</th>
                         </tr>
@@ -34,6 +35,8 @@
                                             {{$perfil->nombreperfil}} <br>
                                         @endforeach
                                     </td>
+                                    <td class="text-break">{{$user->email}}</td>
+
                                     <td class="text-center">
                                         <a href="{{route('users.detallesdeusuario', $user) }}"><i class="bi bi-info-circle-fill"></i>
                                             <p>Configurar perfiles</p>

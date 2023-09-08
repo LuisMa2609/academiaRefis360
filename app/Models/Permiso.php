@@ -31,4 +31,7 @@ class Permiso extends Model{
         return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'permiso_id', 'perfil_id')->withPivot('status');
     }
 
+    public function usuarios(): BelongsToMany{
+        return $this->belongsToMany(usuarios::class, 'perfil_secciones_permisos', 'perfil_id', 'usuario_id');
+    }
 }

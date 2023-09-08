@@ -36,30 +36,32 @@
               </table>    
             </div> --}}
 
-            @foreach ($secciones as $seccion)
-            <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                <h2>{{ $seccion->nombreseccion }}</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Video</th>
-                            <th scope="col">PDF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($guiasRelacionadas[$seccion->nombreseccion] as $guia)
-                        <tr>
-                            <td class="text-break">{{ $guia->nombre }}</td>
-                            <td class="text-break">{{ $guia->descripcion }}</td>
-                            <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
-                            <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+            @foreach ($perfilesArray as $perfil)
+                @foreach ($perfil['secciones'] as $seccion)
+                    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
+                        <h2>{{ $seccion['nombreseccion']}}</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- @foreach ($seccionGuias as $guia)
+                                <tr>
+                                    <td class="text-break">{{ $guia->nombre }}</td>
+                                    <td class="text-break">{{ $guia->descripcion }}</td>
+                                    <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                    <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                </tr>
+                                @endforeach --}}
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
             @endforeach
           
       {{-- <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
