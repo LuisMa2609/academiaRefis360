@@ -20,66 +20,33 @@ class GuiasController extends Controller
     //     'guias' =>$guias
     // ]);
 
-    public function index(){
-        // $perfiles = $user->perfilesAsignados;
-    
+    // comparacion de seccion y permisos existentes y asignados en la tabla pivote 
+
+    public function index(){    
         $user = Auth::user();
         $perfiles = $user->perfiles;
-        // $secciones = $perfiles->seccionesasignados;
+        // $secciones = $user->secciones;
+        $guias = Guia::with('secciones')->get();
 
+        
         $secciones = [];
+        $permisos = [];
         foreach ($perfiles as $perfil) {
             $secciones[] = $perfil->seccionesasignados;
-        }
-        $permisos = $user->permisos()->with('secciones')->get();
-        // $permisos = $user->permisos;
-
-        dd($permisos);
-        
-        // $asignados = [$perfiles];
-
-        $perfilesArray = [];
-        foreach ($perfiles as $perfil) {
-            $perfilArray = [
-                'id' => $perfil->id,
-                'nombreperfil' => $perfil->nombreperfil,
-                'secciones' => [],
-            ];
-        
-            foreach ($secciones as $seccion) {
-                $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
-        
-                $seccionArray = [
-                    'id' => $seccion->id,
-                    'nombreseccion' => $seccion->nombreseccion,
-                    'checked' => $pivotData->pluck('status')->contains(1),
-                    'permisos' => [],
-                ];
-        
-                foreach ($permisos as $permiso) {
-                    $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
-        
-                    $seccionArray['permisos'][] = [
-                        'id' => $permiso->id,
-                        'permiso' => $permiso->permiso,
-                        'statuspermiso' => $pivotDatos->pluck('status'), 
-                    ];
-                }
-        
-                $perfilArray['secciones'][] = $seccionArray;
-            }
-        
-            $perfilesArray[] = $perfilArray;
+            $permisos[] = $perfil->permisosasignados;
         }
 
-
+        $secciones[] = $secciones;
+        $permisos[] =  $permisos;
         
-        // dd($perfilArray);
-        
-        // return view('guias.index', [
-        // ]);
-
-        return view('guias.index', compact('perfilesArray'));    
+        // dd($secciones);
+        return view('guias.index',[
+            'perfiles' => $perfiles,
+            'secciones' => $secciones,
+            'permisos' => $permisos,
+            'guias' => $guias
+            // 'secciones' => $secciones
+        ]);    
 
     }
 

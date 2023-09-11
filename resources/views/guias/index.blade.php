@@ -36,11 +36,11 @@
               </table>    
             </div> --}}
 
-            @foreach ($perfilesArray as $perfil)
-                @foreach ($perfil['secciones'] as $seccion)
-                    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                        <h2>{{ $seccion['nombreseccion']}}</h2>
-                        <table class="table">
+            @foreach ($perfiles as $perfil)
+			    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
+			        <h2>{{$perfil['nombreperfil']}}</h2>
+                    <div class="continer">
+                        <table id="table-guias" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre</th>
@@ -50,18 +50,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($seccionGuias as $guia)
+                                @foreach ($secciones as $seccion)
                                 <tr>
-                                    <td class="text-break">{{ $guia->nombre }}</td>
+                                
+                                    {{-- <td class="text-break">{{ $guia->nombre }}</td>
                                     <td class="text-break">{{ $guia->descripcion }}</td>
                                     <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
-                                    <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                    <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td> --}}
                                 </tr>
-                                @endforeach --}}
+                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                @endforeach
+                </div>
             @endforeach
           
       {{-- <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
