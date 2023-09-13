@@ -12,15 +12,17 @@
       </div>
       @endcan
       
-      @foreach ($perfiles as $perfil)
-        <h1>*Perfil:{{$perfil['nombreperfil']}}</h1>
-            @foreach ($secciones as $seccion)
-                <h2>Seccion: {{$seccion['nombreseccion']}}</h2>
-                    @foreach ($permisos as $permiso)
-                        Permisos: {{$permiso->permiso}}
-                    @endforeach
+        @foreach ($perfiles as $perfil)
+            <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
+      
+            @foreach ($perfil->seccionesasignados as $seccion)
+                <h3>Sección: {{ $seccion->nombreseccion }}</h3>
+      
+                @foreach ($seccion->permisosasignados as $permiso)
+                    <p>Permiso: {{ $permiso->permiso }}</p>
+                @endforeach
             @endforeach
-      @endforeach
+        @endforeach
 
             {{-- @foreach ($perfiles as $perfil)
 			    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
