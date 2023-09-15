@@ -63,6 +63,17 @@ class User extends Authenticatable
 
     public function permisos(): BelongsToMany{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        ->wherePivot('status', 1);
+            ->wherePivot('status', 1)
+            ->whereIn('seccion_id', $this->secciones->pluck('id')->toArray());
     }
+
+    public function guias(){
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
+        ->whereIn('perfil_id', $this->perfiles->pluck('id')->toArray())
+        ->whereIn('seccion_id', $this->secciones->pluck('id')->toArray())
+        ->whereIn('permisos_id', $this->permisos->pluck('id')->toArray())
+        ->select('guias.*')
+        ->distinct();
+    }
+    
 }

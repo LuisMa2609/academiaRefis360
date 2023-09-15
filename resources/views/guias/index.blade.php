@@ -11,18 +11,75 @@
         <a href="{{ route('guias.crud')}}" class="btn btn-primary">Gestionar guías</a>
       </div>
       @endcan
+                {{-- @foreach ($profile as $asd)
+                    <h1>Perfil: {{ $asd->nombreperfil }}</h1>
+                        @foreach ($section as $sec)
+                            <h2>{{$sec->nombreseccion}}</h2>
+                            @foreach ($permition as $per)
+                                <p>{{$per->permiso}}</p>
+                            @endforeach
+                        @endforeach
+                    
+                @endforeach --}}
       
         @foreach ($perfiles as $perfil)
-            <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
-      
-            @foreach ($perfil->seccionesasignados as $seccion)
-                <h3>Sección: {{ $seccion->nombreseccion }}</h3>
-      
-                @foreach ($seccion->permisosasignados as $permiso)
-                    <p>Permiso: {{ $permiso->permiso }}</p>
-                @endforeach
-            @endforeach
+            <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
+                <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
+                    {{-- @php
+                    $seccionesImpresas = [];
+                    @endphp
+                    @foreach ($perfil->seccionesasignados as $seccion)
+                        @if (!in_array($seccion->id, $seccionesImpresas))
+                            <h3>Sección: {{ $seccion->nombreseccion }}</h3>
+                            @php
+                                $seccionesImpresas[] = $seccion->id;
+                            @endphp
+                        @endif
+                        
+                        @php
+                        $permisosImpresos = [];
+                        @endphp
+                            @foreach ($perfil->permisosasignados as $permiso)
+                                @if (!in_array($permiso->id, $permisosImpresos))
+                                <p>Permiso: {{ $permiso->permiso }}| {{$seccion->nombreseccion}}| {{$perfil->nombreperfil}}</p>
+                                    @php
+                                        $permisosImpresos[] = $permiso->id;
+                                    @endphp
+                                @endif
+                            @endforeach
+
+                    @endforeach --}}
+
+                    <div class="continer">
+                        <table id="table-guias" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach ($guias as $guia)
+                                    <tr>
+                                        <td class="text-break">{{ $guia->nombre }}</td>
+                                        <td class="text-break">{{ $guia->descripcion }}</td>
+                                        <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                        <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
+            </div>
         @endforeach
+
+               
+
+        
 
             {{-- @foreach ($perfiles as $perfil)
 			    <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
