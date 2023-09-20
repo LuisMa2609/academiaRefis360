@@ -68,12 +68,8 @@ class User extends Authenticatable
     }
 
     public function guias(){
-        return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
-        ->whereIn('perfil_id', $this->perfiles->pluck('id')->toArray())
-        ->whereIn('seccion_id', $this->secciones->pluck('id')->toArray())
-        ->whereIn('permisos_id', $this->permisos->pluck('id')->toArray())
-        ->select('guias.*')
-        ->distinct();
+    return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
+        ->withPivot('perfil_id', 'seccion_id', 'permisos_id');
     }
     
 }

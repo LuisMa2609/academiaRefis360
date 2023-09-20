@@ -56,6 +56,7 @@
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Descripción</th>
+                                    <th scope="col">seccion</th>
                                     <th scope="col">Video</th>
                                     <th scope="col">PDF</th>
                                 </tr>
@@ -65,6 +66,7 @@
                                     <tr>
                                         <td class="text-break">{{ $guia->nombre }}</td>
                                         <td class="text-break">{{ $guia->descripcion }}</td>
+                                        <td class="text-break">{{ $guia->id  }}</td>
                                         <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
                                         <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
                                     </tr>

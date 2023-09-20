@@ -33,4 +33,13 @@ class Guia extends Model
         return $this->belongsToMany(PerfilSeccionPermiso:: class, 'perfil_secciones_permisos', 'guia_id', 'perfil_id')
         ->withPivot(['permiso_id', 'seccion_id']);
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class, 'relacionguias', 'guia_id', 'perfil_id')
+        ->whereIn('perfil_id', $this->perfiles->pluck('id')->toArray())
+        ->whereIn('seccion_id', $this->secciones->pluck('id')->toArray())
+        ->whereIn('permisos_id', $this->permisos->pluck('id')->toArray())
+        ->select('guias.*')
+        ->distinct();
+    }
 }

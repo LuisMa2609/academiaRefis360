@@ -27,10 +27,11 @@ class GuiasController extends Controller
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-
+        
         $guias = $user->guias;
+        // $guias = Guia::all();
         // dd($guias);
-
+        
         // $guias = Guia::with('secciones')->get();
 
         // dd($secciones);
