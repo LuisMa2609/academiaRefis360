@@ -27,31 +27,23 @@ class GuiasController extends Controller
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-        
         $guias = $user->guias;
-        // $guias = Guia::all();
-        // dd($guias);
         
-        // $guias = Guia::with('secciones')->get();
+        $guias = collect();
 
-        // dd($secciones);
-
-        
-        // $secciones = [];
-        // $permisos = [];
-        // foreach ($perfiles as $perfil) {
-        //     $secciones[] = $perfil->seccionesasignados;
-        //     $permisos[] = $perfil->permisosasignados;
-        // }
-
-        // $secciones[] = $secciones;
-        // $permisos[] =  $permisos;
+        foreach ($perfiles as $perfil) {
+            foreach ($secciones as $seccion) {
+                foreach ($permisos as $permiso) {
+                    $guias = $guias->merge($perfil->guiasPorSeccionYPermiso($seccion, $permiso));
+                }
+            }
+        }        // dd($datas);
         
         return view('guias.index',[
             'perfiles' => $perfiles,
             'secciones' => $secciones,
             'permisos' => $permisos,
-            'guias' => $guias
+            'guias' => $guias,
             // 'secciones' => $secciones
         ]);    
 

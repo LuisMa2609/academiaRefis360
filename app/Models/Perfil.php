@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Seccion;
+use App\Models\Guia;
 
 class Perfil extends Model{
     use HasFactory;
@@ -35,6 +36,11 @@ class Perfil extends Model{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')->withPivot('status');
     }
 
+    public function guias() {
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id');
+         // Suponiendo que sea una relación de muchos a muchos
+    }
+
     public function seccionesasignados(){
         return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
         ->wherePivot('status', 1);
@@ -43,4 +49,10 @@ class Perfil extends Model{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
         ->wherePivot('status', 1);
     }
-}
+
+public function guiasPorSeccionYPermiso($seccion, $permiso) {
+    return $this->guias()
+                ->where('seccion_id', $seccion->id)
+                ->where('permisos_id', $permiso->id)
+                ->get();
+}}

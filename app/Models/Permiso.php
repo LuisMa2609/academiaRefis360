@@ -34,4 +34,8 @@ class Permiso extends Model{
     public function usuarios(): BelongsToMany{
         return $this->belongsToMany(usuarios::class, 'perfil_secciones_permisos', 'perfil_id', 'usuario_id');
     }
+
+    public function guias(): BelongsToMany{
+        return $this->belongsToMany(Permiso::class, 'relacionguias', 'permisos_id', 'guia_id');
+    }
 }
