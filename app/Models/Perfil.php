@@ -38,21 +38,18 @@ class Perfil extends Model{
 
     public function guias() {
         return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id');
-         // Suponiendo que sea una relación de muchos a muchos
+        // ->wherePivot('status', 1);
     }
 
-    public function seccionesasignados(){
-        return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
-        ->wherePivot('status', 1);
-    }
-    public function permisosasignados(){
-        return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        ->wherePivot('status', 1);
-    }
+    // public function guias() {
+    //     return $this->belongsToMany(Guia::class, 'perfil_secciones_permisos', 'perfil_id', 'guia_id')
+    //                 ->wherePivot('status', 1);
+    // }
 
-public function guiasPorSeccionYPermiso($seccion, $permiso) {
-    return $this->guias()
-                ->where('seccion_id', $seccion->id)
-                ->where('permisos_id', $permiso->id)
-                ->get();
-}}
+    public function guiasPorSeccionYPermiso($seccion, $permiso) {
+        return $this->guias()
+                    ->where('seccion_id', $seccion->id)
+                    ->where('permisos_id', $permiso->id)
+                    ->get();
+    }
+}

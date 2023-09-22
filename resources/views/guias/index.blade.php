@@ -15,38 +15,32 @@
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
-                    <div class="continer">
-                        <table id="table-guias" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
-                                    {{-- <th scope="col">Sección</th>
-                                    <th scope="col">Permiso</th> --}}
-                                    <th scope="col">Video</th>
-                                    <th scope="col">PDF</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($perfil->guias as $guia)
-                                    @if ($guia->status === 1 )
-                                        <tr>
-                                            <td class="">{{ $guia->id}}</td>
-                                            <td class="text-break">{{ $guia->nombre }}</td>
-                                            <td class="text-break">{{ $guia->nombre }}</td>
-                                            {{-- <td>{{ $guia->secciones->nombreseccion }}</td>
-                                            <td>{{ $guia->permiso->permiso }}</td> --}}
-                                            <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
-                                            <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    
+                <div class="table-responsive">
+                    <table id="" class="table tabla-guias table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Video</th>
+                                <th scope="col">PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($perfil->guias as $guia)
+                                @if ($guia->status === 1 )
+                                    <tr>
+                                        <td class="">{{ $guia->id}}</td>
+                                        <td class="text-break">{{ $guia->nombre }}</td>
+                                        <td class="text-break">{{ $guia->nombre }}</td>
+                                        <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                        <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         @endforeach
         

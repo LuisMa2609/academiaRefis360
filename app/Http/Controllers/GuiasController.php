@@ -49,15 +49,30 @@ class GuiasController extends Controller
 
     }
 
-
     public function crud(){
+        $this->authorize('admin');
         $guias = Guia::all();
         return view('guias.crudGuias',[
             'guias' =>$guias
         ]);
     }
 
+    public function editguia(Guia $guia){
+        $this->authorize('admin');
+        $perfiles = Perfil::all();
+        $secciones = Seccion::all();
+        $permisos = Permiso::all();
+
+        return view('guias.createGuias', [
+            'guia' => $guia,
+            'perfiles' => $perfiles,
+            'secciones' => $secciones,
+            'permisos' => $permisos,
+        ]);
+    }
+
     public function create(){
+        $this->authorize('admin');
         $guias = Guia::all();
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
@@ -72,6 +87,7 @@ class GuiasController extends Controller
     }
 
     public function store(Request $request){
+        $this->authorize('admin');
         $request->validate([
             'perfil_id' => 'required|numeric',
             'seccion_id' => 'required|numeric',
@@ -106,6 +122,7 @@ class GuiasController extends Controller
     }
 
     public function updateStatus(Request $request){
+        $this->authorize('admin');
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
     

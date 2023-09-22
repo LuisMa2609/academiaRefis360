@@ -12,7 +12,7 @@
 
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <div class="table-responsive">
-            <table class="table tabla-guias">                  
+            <table class="table tabla-guias table-striped">                  
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -24,6 +24,7 @@
                         <th scope="col">Seccion</th>
                         <th scope="col">Permiso</th>
                         <th>status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -56,6 +57,9 @@
                                     :csrf-token="'{{ csrf_token() }}'"
                                     :update-url="{{ json_encode(route('guias.updatestatus')) }}"
                                 ></guia-status-updater>
+                            </td>
+                            <td class="">
+                                <a href="{{route('guias.edit', $guia)}}">Editar</a>
                             </td>
                         </tr>
                     @endforeach

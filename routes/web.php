@@ -17,6 +17,8 @@ Route::get('/index', [GuiasController::class, 'index'])->name('index');
 
 Route::get('/guías/listado', [GuiasController::class, 'crud'])->name('guias.crud');
 
+Route::get('/guias/listado/{guia}', [GuiasController::class, 'editguia'])->name('guias.edit');
+
 Route::get('/guías/crear', [GuiasController::class, 'create'])->name('guias.create');
 
 Route::post('/guías/crear/store', [GuiasController::class, 'store'])->name('guias.store');
