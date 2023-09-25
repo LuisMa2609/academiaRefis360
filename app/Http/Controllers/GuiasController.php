@@ -62,16 +62,29 @@ class GuiasController extends Controller
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
         $permisos = Permiso::all();
-
+        $guiasperfil = $guia->perfiles;
+        $guiasseccion = $guia->secciones;
+        $guiaspermiso = $guia->permisos;
+        
+        $guia->load('perfiles');
+        // dd($guiasseccion);
+        
         return view('guias.createGuias', [
             'guia' => $guia,
             'perfiles' => $perfiles,
             'secciones' => $secciones,
             'permisos' => $permisos,
+            'guiasperfil' => $guiasperfil,
+            'guiasseccion' => $guiasseccion,
+            'guiaspermiso' => $guiaspermiso,
         ]);
     }
 
-    public function create(){
+    public function updateguia(){
+
+    }
+
+    public function createGuia(){
         $this->authorize('admin');
         $guias = Guia::all();
         $perfiles = Perfil::all();

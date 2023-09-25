@@ -17,9 +17,11 @@ Route::get('/index', [GuiasController::class, 'index'])->name('index');
 
 Route::get('/guías/listado', [GuiasController::class, 'crud'])->name('guias.crud');
 
-Route::get('/guias/listado/{guia}', [GuiasController::class, 'editguia'])->name('guias.edit');
+Route::get('/guias/listado/{guia}', [GuiasController::class, 'editGuia'])->name('guias.edit');
 
-Route::get('/guías/crear', [GuiasController::class, 'create'])->name('guias.create');
+Route::patch('/guias/listado/{guia}/update', [GuiasController::class, 'updateGuia'])->name('guias.update');
+
+Route::get('/guías/crear', [GuiasController::class, 'createGuia'])->name('guias.create');
 
 Route::post('/guías/crear/store', [GuiasController::class, 'store'])->name('guias.store');
 
