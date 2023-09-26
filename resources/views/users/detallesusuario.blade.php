@@ -48,6 +48,7 @@
           </ul>
         </div>
         <!--Datos generales-->
+        
           <!--Perfiles-->
           <div class="tab-pane fade" id="nav-perfiles" role="tabpanel" aria-labelledby="nav-perfiles-tab" tabindex="0">
             <form method="POST" action="{{ route('users.asignarPerfiles', ['user' => $user])}}">

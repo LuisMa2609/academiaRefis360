@@ -10,10 +10,10 @@
     {{-- <h1 class="text-center">{{isset($guia_id) ? $guia->nombre: 'Crear nueva guia'}}</h1> --}}
     <h1 class="text-center">{{ isset($guia->id) ? 'Editando: ' . $guia->nombre : 'Crear nueva guía' }}</h1>
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-        <form method="POST" action="{{isset($guia->id) ? route('guias.update', $guia->id) : route('guias.store')}}">
+        <form method="POST" action="{{isset($guia->id) ? route('guias.update', ['guia' => $guia]) : route('guias.store')}}">
             @csrf
                 @if(isset($guia->id))
-                    @method('PUT') 
+                    @method('PATCH')
                 @endif
             <div class="row mb-3">
                 <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre</label>
@@ -112,9 +112,9 @@
                 <div class="col-md-6">
                     <div class="input-group mb-3">
                         <select class="form-select @error('permiso_id') is-invalid @enderror" id="inputGroupSelect01" name="permiso_id">
-                          <option selected>Selecciona alguno</option>
+                          <option selected{{ isset($guia->id) ? 'selected' : '' }}>Selecciona alguno</option>
                             @foreach ($permisos as $permiso)
-                                <option value="{{$seccion->id}}" {{ (isset($guia->id) && in_array($permiso->id, $guiaspermiso->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                <option value="{{$permiso->id}}" {{ (isset($guia->id) && in_array($permiso->id, $guiaspermiso->pluck('id')->toArray())) ? 'selected' : '' }}>
                                     {{$permiso->permiso}}
                                 </option>
                             @endforeach                          

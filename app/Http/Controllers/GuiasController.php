@@ -80,8 +80,38 @@ class GuiasController extends Controller
         ]);
     }
 
-    public function updateguia(){
+    public function updateguia(Guia $guia, Request $request){
+        $this->authorize('admin');
 
+        $this->validate($request, [
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'urlvideo' => 'required|string|max:255',
+            'urlpdf' => 'required|string|max:255',
+            
+        ]);
+
+
+
+        $guia->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'urlvideo' => $request->urlvideo,
+            'urlpdf' => $request->urlpdf,
+            'updated_at' => now()
+        ]);
+
+        $permiso = $request->input('permiso_id');
+        $seccion = $request->input('seccion_id');
+        $perfil = $request->input('perfil_id');
+
+        // dd($guia, $perfil, $seccion, $permiso);
+
+        
+        $guia->perfiles()->sync([$perfil], ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
+        // dd($guia);
+
+        return redirect()->route('guias.edit', $guia)->with('status', 'Guia actualizada');
     }
 
     public function createGuia(){
