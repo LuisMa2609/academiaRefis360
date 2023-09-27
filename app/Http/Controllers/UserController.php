@@ -35,9 +35,9 @@ class UserController extends Controller
         ]);
 
         if (Gate::allows('admin')) {
-            return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+            return redirect()->route('users.detallesdeusuario', $user)->with('succes', 'Usuario actualizado correctamente');
         } else {
-            return redirect()->route('users.configurarusuario', $user)->with('status', 'Su usuario ha sido actualizado correctamente');
+            return redirect()->route('users.configurarusuario', $user)->with('succes', 'Su usuario ha sido actualizado correctamente');
         }
     }
 
@@ -66,7 +66,7 @@ class UserController extends Controller
 
     public function asignarPerfiles(Request $request, User $user){
         if (!$request->has('perfiles')) {
-            return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
+            return back()->with('error', 'Porfavor selecciona al menos 1 perfil');
         }
         $this->validate($request, [
             'perfiles' => 'required|array|min:1',
@@ -75,7 +75,7 @@ class UserController extends Controller
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         //dd($perfiles);
-        return back()->with('status', 'Perfil/es asignado/s correctamente');
+        return back()->with('succes', 'Perfil/es asignado/s correctamente');
     }
     
     public function updateStatus(Request $request){

@@ -6,6 +6,8 @@ use App\Models\Perfil;
 use App\Models\Seccion;
 use App\Models\User;
 use App\Models\Permiso;
+use App\Models\RelacionGuias;
+use DB;
 use App\Models\PerfilSeccionPermiso;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,8 +93,6 @@ class GuiasController extends Controller
             
         ]);
 
-
-
         $guia->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -104,14 +104,19 @@ class GuiasController extends Controller
         $permiso = $request->input('permiso_id');
         $seccion = $request->input('seccion_id');
         $perfil = $request->input('perfil_id');
-
-        // dd($guia, $perfil, $seccion, $permiso);
-
         
-        $guia->perfiles()->sync([$perfil], ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
-        // dd($guia);
+        DB::table('relacionguias')->where('guia_id', $guia->id)->update([
+            'perfil_id' => $perfil,
+            'permisos_id' => $permiso,
+            'seccion_id' => $seccion,
+        ]);
 
-        return redirect()->route('guias.edit', $guia)->with('status', 'Guia actualizada');
+        // return redirect()->route('guias.edit', $guia)->with('status', 'Guia actualizada');
+
+        $request->session()->flash('succes', 'Guia actualizada');
+        $request->session()->flash('status_expires_at', now()->addSeconds(5)); // Mensaje desaparecerá en 5 segundos
+
+        return redirect()->route('guias.edit', $guia);
     }
 
     public function createGuia(){
@@ -160,7 +165,7 @@ class GuiasController extends Controller
         $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
 
         // return view('guias.createGuias');
-        return back()->with('status', 'Guiá creada con exito');
+        return back()->with('succes', 'Guiá creada con exito');
 
     }
 

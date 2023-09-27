@@ -45,5 +45,7 @@ app.component('datatable', datatable);
 import GuiaStatusUpdate from './components/GuiaStatusUpdate.vue';
 app.component('guia-status-updater', GuiaStatusUpdate);
 
+import Partials from './components/Partials.vue';
+app.component('partials', Partials);
 
 app.mount('#app');

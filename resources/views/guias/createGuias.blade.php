@@ -7,7 +7,6 @@
 <div class="container">
     @include('partials.session-status')
 
-    {{-- <h1 class="text-center">{{isset($guia_id) ? $guia->nombre: 'Crear nueva guia'}}</h1> --}}
     <h1 class="text-center">{{ isset($guia->id) ? 'Editando: ' . $guia->nombre : 'Crear nueva guía' }}</h1>
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <form method="POST" action="{{isset($guia->id) ? route('guias.update', ['guia' => $guia]) : route('guias.store')}}">
@@ -127,6 +126,7 @@
                     @enderror
                 </div>
             </div>
+
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
