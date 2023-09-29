@@ -77,7 +77,7 @@ class PerfilController extends Controller{
             }
         }
     
-        return redirect()->route('permisos');
+        return redirect()->route('permisos')->with('succes', "secciones y permisos actual<actualizados");
     }
 
 

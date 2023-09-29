@@ -31,6 +31,10 @@ class Seccion extends Model{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')->withPivot('status');
     }
 
+    public function guias(){
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'seccion_id', 'guia_id');
+    }
+
     public function perfilesasignados(){
         return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')
         ->wherePivot('status', 1);

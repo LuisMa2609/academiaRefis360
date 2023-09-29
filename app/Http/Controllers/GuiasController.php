@@ -39,7 +39,8 @@ class GuiasController extends Controller
                     $guias = $guias->merge($perfil->guiasPorSeccionYPermiso($seccion, $permiso));
                 }
             }
-        }        // dd($datas);
+        }
+        // dd($guias);
         
         return view('guias.index',[
             'perfiles' => $perfiles,

@@ -25,18 +25,18 @@ class Guia extends Model
     ];
 
     public function perfiles(): BelongsToMany{
-        return $this->belongsToMany(Perfil::class, 'relacionguias', 'guia_id', 'perfil_id')
-            ->withPivot(['seccion_id', 'permisos_id']);
+        return $this->belongsToMany(Perfil::class, 'relacionguias', 'guia_id', 'perfil_id');
+            // ->withPivot(['seccion_id', 'permisos_id']);
     }
 
     public function secciones(): BelongsToMany{
-        return $this->belongsToMany(Seccion::class, 'relacionguias', 'guia_id', 'seccion_id')
-            ->withPivot(['perfil_id', 'permisos_id']);
+        return $this->belongsToMany(Seccion::class, 'relacionguias', 'guia_id', 'seccion_id');
+            // ->withPivot(['perfil_id', 'permisos_id']);
     }
 
     public function permisos(): BelongsToMany{
-        return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id')
-            ->withPivot(['perfil_id', 'seccion_id']);
+        return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id');
+            // ->withPivot(['perfil_id', 'seccion_id']);
     }
     
     public function perfilAsignado(): BelongsToMany{
@@ -46,12 +46,12 @@ class Guia extends Model
 
     public function seccionAsignado(): BelongsToMany{
         return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'seccion_id')
-        ->withPivot('status');
+        ->wherePivot('status', 1);
     }
 
     public function permisoAsignado(): BelongsToMany{
-        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'permisos_id', 'permisos_id')
-        ->withPivot('status');
+        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'permiso_id', 'permiso_id')
+        ->wherePivot('status', 1);
     }
 
     public function perfil_secciones_permisos(): BelongsToMany{
@@ -59,9 +59,11 @@ class Guia extends Model
         ->withPivot(['permiso_id', 'seccion_id']);
     }
 
-    // public function relacionguias(): BelongsToMany{
-    //     return $this->belongsToMany(RelacionGuias::class, 'relacionguias', 'guia_id', 'perfil_id')
-    //         ->withPivot('permisos_id', 'seccion_id');
-    // }
+    public function relacionguias(): BelongsToMany{
+        return $this->belongsToMany(RelacionGuias::class, 'relacionguias', 'guia_id', 'perfil_id')
+            ->withPivot('permisos_id', 'seccion_id');
+    }
+
+    
 
 }

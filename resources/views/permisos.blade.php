@@ -5,6 +5,9 @@
 @section('content')
 <div class="container">
     <h1>Permisos de perfiles</h1>
+    
+    @include('partials.session-status')
+
 
 </div>
 

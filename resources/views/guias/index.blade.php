@@ -22,21 +22,25 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
+                                <th>Perfil</th>
+                                <th>Seccion</th>
+                                <th>permiso</th>
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($perfil->guias as $guia)
-                                @if ($guia->status === 1 )
-                                    <tr>
-                                        <td class="">{{ $guia->id}}</td>
-                                        <td class="text-break">{{ $guia->nombre }}</td>
-                                        <td class="text-break">{{ $guia->nombre }}</td>
-                                        <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
-                                        <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
-                                    </tr>
-                                @endif
+                                        <tr>
+                                            <td class="">{{ $guia->id}}</td>
+                                            <td class="text-break">{{ $guia->nombre }}</td>
+                                            <td class="text-break">{{ $guia->descripcion }}</td>
+                                            <td class="text-break">{{$guia->perfiles}}</td>
+                                            <td class="text-break">{{$guia->secciones}}</td>
+                                            <td class="text-break">{{$guia->permisos}}</td>
+                                            <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                            <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                        </tr>
                             @endforeach
                         </tbody>
                     </table>
