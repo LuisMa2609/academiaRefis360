@@ -30,7 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perfil->guias as $guia)
+                            @foreach ($perfil->secciones as $seccion)
+                                @foreach ($seccion->permisos as $permiso)
+                                    @foreach ($permiso->guias as $guia)
+                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso))
                                         <tr>
                                             <td class="">{{ $guia->id}}</td>
                                             <td class="text-break">{{ $guia->nombre }}</td>
@@ -41,6 +44,9 @@
                                             <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
                                             <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
                                         </tr>
+                                        @endif
+                                    @endforeach
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

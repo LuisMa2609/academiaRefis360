@@ -27,12 +27,16 @@ class Seccion extends Model{
     public function perfiles(){
         return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')->withPivot('status');
     }
-    public function permisos(){
-        return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')->withPivot('status');
+    public function permisos():BelongsToMany{
+        return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')
+        ->withPivot('status')
+        ->where('status', 1);
     }
 
     public function guias(){
-        return $this->belongsToMany(Guia::class, 'relacionguias', 'seccion_id', 'guia_id');
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'seccion_id', 'guia_id')
+        ->withPivot(['permisos_id', 'perfil_id'])
+        ->where('status', 1);
     }
 
     public function perfilesasignados(){

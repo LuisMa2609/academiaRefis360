@@ -29,24 +29,24 @@ class GuiasController extends Controller
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-        $guias = $user->guias;
+        // $guias = $user->guias;
         
-        $guias = collect();
+        // $guias = collect();
 
-        foreach ($perfiles as $perfil) {
-            foreach ($secciones as $seccion) {
-                foreach ($permisos as $permiso) {
-                    $guias = $guias->merge($perfil->guiasPorSeccionYPermiso($seccion, $permiso));
-                }
-            }
-        }
-        // dd($guias);
+        // foreach ($user->perfiles as $perfil) {
+        //     foreach ($user->secciones as $seccion) {
+        //         // dd($seccion);
+        //         foreach ($permisos as $permiso) {
+        //             $guias = $guias->merge($perfil->guiasPorSeccionYPermiso($seccion, $permiso));
+        //         }
+        //     }
+        // }
         
         return view('guias.index',[
             'perfiles' => $perfiles,
             'secciones' => $secciones,
             'permisos' => $permisos,
-            'guias' => $guias,
+            // 'guias' => $guias,
             // 'secciones' => $secciones
         ]);    
 

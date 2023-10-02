@@ -36,6 +36,8 @@ class Permiso extends Model{
     }
 
     public function guias(): BelongsToMany{
-        return $this->belongsToMany(Permiso::class, 'relacionguias', 'permisos_id', 'guia_id');
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'permisos_id', 'guia_id')
+        ->withPivot(['seccion_id', 'perfil_id'])
+        ->where('status', 1);
     }
 }

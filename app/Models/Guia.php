@@ -61,7 +61,9 @@ class Guia extends Model
 
     public function relacionguias(): BelongsToMany{
         return $this->belongsToMany(RelacionGuias::class, 'relacionguias', 'guia_id', 'perfil_id')
-            ->withPivot('permisos_id', 'seccion_id');
+            ->withPivot('permisos_id', 'seccion_id')
+            ->wherePivot('status', 1);
+
     }
 
     
