@@ -26,27 +26,36 @@ class GuiasController extends Controller
 
     public function index(){    
         $user = Auth::user();
-        $perfiles = $user->perfiles;
-        $secciones = $user->secciones;
-        $permisos = $user->permisos;
-        // $guias = $user->guias;
+        $perfiles = $user->perfiles->unique();
+        // $secciones = $user->secciones->unique();
+        // $permisos = $user->permisos->unique();
+        // $guias = $user->guias->unique();
         
         // $guias = collect();
-
-        // foreach ($user->perfiles as $perfil) {
-        //     foreach ($user->secciones as $seccion) {
-        //         // dd($seccion);
-        //         foreach ($permisos as $permiso) {
-        //             $guias = $guias->merge($perfil->guiasPorSeccionYPermiso($seccion, $permiso));
+        
+        // foreach($perfiles as $perfil){
+        //     foreach($perfil->secciones as $seccion){
+        //         foreach($seccion->permisos as $permiso){
+        //             $guiasKey = "{$perfil->id}_{$seccion->id}_{$permiso->id}";
+        //             $guias = $guias[$guiasKey] ?? collect();
+    
+        //             foreach ($permiso->guias as $guia) {
+        //                 if (!$guias->contains('id', $guia->id)) {
+        //                     $guias->push($guia);
+        //                 }
+        //             }
+    
+        //             $guias[$guiasKey] = $guias;
         //         }
+            
         //     }
         // }
         
         return view('guias.index',[
             'perfiles' => $perfiles,
-            'secciones' => $secciones,
-            'permisos' => $permisos,
-            // 'guias' => $guias,
+            // 'secciones' => $secciones,
+            // 'permisos' => $permisos,
+            // 'guias' => $guias
             // 'secciones' => $secciones
         ]);    
 
