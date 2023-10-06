@@ -53,26 +53,31 @@ class GuiasController extends Controller
         foreach($perfiles as $perfil){
             $perfilarray = [
                 'id' => $perfil->id,
-                'nombreperfil' => $perfil->nombreperfil,
-                'secciones'=>[],
+                '--PERFIL--' => $perfil->nombreperfil,
+                '--SECCIONES--'=>[],
             ];
 
             foreach($perfil->secciones as $seccion){
                 $seccionarray = [
                     'id' => $seccion->id,
-                    'nombreseccion' => $seccion->nombreseccion,
-                    'permisos'=>[]
+                    '--SECCION--' => $seccion->nombreseccion,
+                    '--PERMISOS--'=>[]
                 ];
 
                 foreach($seccion->permisos as $permiso){
-                    
-                    $seccionarray['permisos'][] = [
+                    $seccionarray['--PERMISOS--'][] = [
                         'id'=>$permiso->id,
-                        'permiso' => $permiso->permiso
+                        '--PERMISO--' => $permiso->permiso,
+                        // 'guias' => []
                     ];
+                    // foreach( $permiso->guias as $guia ){
+                    //   $seccionarray['permisos']['guias'][] = [
+                    //       'id'=>$guia->id,
+                    //       'nombre' => $guia->nombre
+                    //   ];
+                    // }
                 }
-
-                $perfilarray['secciones'][] = $seccionarray;
+                $perfilarray['--SECCIONES--'][] = $seccionarray;
             }
             $perfilesarray[] = $perfilarray;
         }
