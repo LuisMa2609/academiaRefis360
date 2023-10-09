@@ -31,13 +31,15 @@ class Perfil extends Model{
     public function permisos(){
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
         ->withPivot('status');
+        // ->where('status', 1);
+
     }
 
-    public function guias() {
-        return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
-        ->withPivot(['permisos_id', 'seccion_id'])
-        ->where('status', 1);
-    }
+    // public function guias() {
+    //     return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
+    //     ->withPivot(['permisos_id', 'seccion_id'])
+    //     ->where('status', 1);
+    // }
 
     // public function guiasPorSeccionYPermiso($seccion, $permiso) {
     //     return $this->guias()

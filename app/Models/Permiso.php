@@ -23,12 +23,16 @@ class Permiso extends Model{
     //    return $this->belongsToMany(Secciones::class, 'perfil_secciones_permisos', 'permiso_id', 'seccion_id', 'perfil_id');
     //}
 
-    public function secciones(){
-        return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'permiso_id', 'seccion_id')->withPivot('status');
-    }
+    // public function secciones(){
+    //     return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'permiso_id', 'seccion_id')
+    //     ->withPivot('status')
+    //     ->where('status', 1);
+    // }
 
     public function perfiles(){
-        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'permiso_id', 'perfil_id')->withPivot('status');
+        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'permiso_id', 'perfil_id')
+        ->withPivot('status')
+        ->where('status', 1);
     }
 
     public function usuarios(): BelongsToMany{

@@ -40,10 +40,11 @@ class Seccion extends Model{
         ->where('status', 1);
     }
 
-    public function perfilesasignados(){
-        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')
-        ->wherePivot('status', 1);
-    }
+    // public function perfilesasignados(){
+    //     return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')
+    //     ->wherePivot('status', 1);
+    // }
+    
     public function permisosasignados(){
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')
         ->wherePivot('status', 1);

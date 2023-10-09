@@ -27,6 +27,8 @@ class GuiasController extends Controller
     public function index(){    
         $user = Auth::user();
         $perfiles = $user->perfiles;
+        $guiaIdsMostradas = [];
+        
         // $secciones = $user->secciones->unique();
         // $permisos = $user->permisos->unique();
         // $guias = $user->guias->unique();
@@ -49,43 +51,44 @@ class GuiasController extends Controller
         // }
         // // dd($guia);
         
-        $perfilesarray=[];
-        foreach($perfiles as $perfil){
-            $perfilarray = [
-                'id' => $perfil->id,
-                '--PERFIL--' => $perfil->nombreperfil,
-                '--SECCIONES--'=>[],
-            ];
+        // $perfilesarray=[];
+        // foreach($perfiles as $perfil){
+        //     $perfilarray = [
+        //         'id' => $perfil->id,
+        //         '--PERFIL--' => $perfil->nombreperfil,
+        //         '--SECCIONES--'=>[],
+        //     ];
 
-            foreach($perfil->secciones as $seccion){
-                $seccionarray = [
-                    'id' => $seccion->id,
-                    '--SECCION--' => $seccion->nombreseccion,
-                    '--PERMISOS--'=>[]
-                ];
+        //     foreach($perfil->secciones as $seccion){
+        //         $seccionarray = [
+        //             'id' => $seccion->id,
+        //             '--SECCION--' => $seccion->nombreseccion,
+        //             '--PERMISOS--'=>[]
+        //         ];
 
-                foreach($seccion->permisos as $permiso){
-                    $seccionarray['--PERMISOS--'][] = [
-                        'id'=>$permiso->id,
-                        '--PERMISO--' => $permiso->permiso,
-                        // 'guias' => []
-                    ];
-                    // foreach( $permiso->guias as $guia ){
-                    //   $seccionarray['permisos']['guias'][] = [
-                    //       'id'=>$guia->id,
-                    //       'nombre' => $guia->nombre
-                    //   ];
-                    // }
-                }
-                $perfilarray['--SECCIONES--'][] = $seccionarray;
-            }
-            $perfilesarray[] = $perfilarray;
-        }
-        dd($perfilesarray);
+        //         foreach($seccion->permisos as $permiso){
+        //             $seccionarray['--PERMISOS--'][] = [
+        //                 'id'=>$permiso->id,
+        //                 '--PERMISO--' => $permiso->permiso,
+        //                 // 'guias' => []
+        //             ];
+        //             // foreach( $permiso->guias as $guia ){
+        //             //   $seccionarray['permisos']['guias'][] = [
+        //             //       'id'=>$guia->id,
+        //             //       'nombre' => $guia->nombre
+        //             //   ];
+        //             // }
+        //         }
+        //         $perfilarray['--SECCIONES--'][] = $seccionarray;
+        //     }
+        //     $perfilesarray[] = $perfilarray;
+        // }
+        // dd($perfilesarray);
 
 
         return view('guias.index',[
             'perfiles' => $perfiles,
+            'guiaIdsMostradas' => $guiaIdsMostradas,
             // 'secciones' => $secciones,
             // 'permisos' => $permisos,
             // 'guias' => $guias

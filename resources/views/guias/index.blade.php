@@ -32,7 +32,7 @@
                             @foreach ($perfil->secciones as $seccion)
                                 @foreach ($seccion->permisos as $permiso)
                                     @foreach ($permiso->guias as $guia)
-                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso))
+                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiaIdsMostradas) )
                                         <tr>
                                             <td class="">{{ $guia->id}}</td>
                                             <td class="text-break">{{ $guia->nombre }}</td>
@@ -43,6 +43,7 @@
                                             <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
                                             <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
                                         </tr>
+                                        <?php $guiaIdsMostradas[] = $guia->id; ?>
                                         @endif
                                     @endforeach
                                 @endforeach
