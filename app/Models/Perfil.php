@@ -24,13 +24,16 @@ class Perfil extends Model{
 
     public function secciones(): BelongsToMany{
         return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
-        ->withPivot('status')
+        // ->withPivot('status')
+        ->withPivot(['permiso_id', 'status'])
         ->where('status', 1);
     }
     
     public function permisos(){
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        ->withPivot('status');
+        // ->withPivot('status');
+        ->withPivot(['seccion_id', 'status']);
+
         // ->where('status', 1);
 
     }

@@ -51,6 +51,7 @@ class PerfilController extends Controller{
             $perfilesArray[] = $perfilArray;
         }
         
+        
         // dd($secciones);
         // dd($perfilesArray);
         // dd($pivotDatos);

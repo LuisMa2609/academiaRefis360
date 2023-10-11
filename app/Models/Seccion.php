@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
+
 
 class Seccion extends Model{
     use HasFactory;
@@ -25,13 +27,22 @@ class Seccion extends Model{
     //}
 
     public function perfiles(){
-        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')->withPivot('status');
+        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'seccion_id', 'perfil_id')
+        ->withPivot(['permiso_id', 'status']);
+        // ->withPivot('status');
     }
     
     public function permisos():BelongsToMany{
+
+        $user = Auth::User();
+        $perfil = $user->perfiles;
+
+        // dd($perfil);
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')
-        ->withPivot('status')
-        ->where('status', 1);
+        // ->withPivot('status')
+        ->withPivot(['perfil_id', 'status'])
+        ->where('status', 1)
+        ->wherePivot('perfil_id', $perfil->id);
     }
 
     public function guias(){

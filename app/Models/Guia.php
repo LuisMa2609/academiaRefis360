@@ -35,8 +35,8 @@ class Guia extends Model
     }
 
     public function permisos(): BelongsToMany{
-        return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id');
-            // ->withPivot(['perfil_id', 'seccion_id']);
+        return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id')
+            ->withPivot(['perfil_id', 'seccion_id']);
     }
     
     public function perfilAsignado(): BelongsToMany{

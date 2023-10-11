@@ -28,8 +28,16 @@ class GuiasController extends Controller
         $user = Auth::user();
         $perfiles = $user->perfiles;
         $guiaIdsMostradas = [];
-        
-        // $secciones = $user->secciones->unique();
+
+        // dd($perfiles);
+
+        return view('guias.index',[
+            'perfiles' => $perfiles,
+            'guiaIdsMostradas' => $guiaIdsMostradas,
+        ]);
+    }
+
+            // $secciones = $user->secciones->unique();
         // $permisos = $user->permisos->unique();
         // $guias = $user->guias->unique();
         
@@ -49,7 +57,6 @@ class GuiasController extends Controller
         //         }
         //     }
         // }
-        // // dd($guia);
         
         // $perfilesarray=[];
         // foreach($perfiles as $perfil){
@@ -85,16 +92,11 @@ class GuiasController extends Controller
         // }
         // dd($perfilesarray);
 
-
-        return view('guias.index',[
-            'perfiles' => $perfiles,
-            'guiaIdsMostradas' => $guiaIdsMostradas,
-            // 'secciones' => $secciones,
+                    // 'secciones' => $secciones,
             // 'permisos' => $permisos,
             // 'guias' => $guias
             // 'secciones' => $secciones
-        ]);
-    }
+
 
     public function crud(){
         $this->authorize('admin');

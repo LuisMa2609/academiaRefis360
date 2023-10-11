@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Seccion;
+use App\Models\Perfil;
 
 class User extends Authenticatable 
 {
@@ -56,11 +57,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Perfil::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
 
-    // public function secciones(): BelongsToMany {
-    //     return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
-    //     ->whitpivot('status')
-    //     ->wherePivot('status', 1);
-    // }
+    
+
+    public function secciones(): BelongsToMany {
+        return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
+        ->whitpivot('status')
+        ->wherePivot('status', 1);
+    }
 
     // public function permisos(): BelongsToMany{
     //     return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
