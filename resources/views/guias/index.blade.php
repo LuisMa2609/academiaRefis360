@@ -13,7 +13,7 @@
       @endcan
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
+                <h2>Perfil: {{ $perfil->nombreperfil }} = {{$perfil->id}}</h2>
                 <div class="table-responsive">
                     <table id="{{$perfil->id}}" class="table tabla-guias table-striped">
                         <thead>
@@ -21,7 +21,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
-                                <th>Perfil</th>
+                                {{-- <th>Perfil</th> --}}
                                 <th>Seccion</th>
                                 <th>permiso</th>
                                 <th scope="col">Video</th>
@@ -32,18 +32,18 @@
                             @foreach ($perfil->secciones as $seccion)
                                 @foreach ($seccion->permisos as $permiso)
                                     @foreach ($permiso->guias as $guia)
-                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiaIdsMostradas) )
+                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiasIds) )
                                         <tr>
                                             <td class="">{{ $guia->id}}</td>
                                             <td class="text-break">{{ $guia->nombre }}</td>
                                             <td class="text-break">{{ $guia->descripcion }}</td>
-                                            <td class="text-break">{{$guia->perfiles}}</td>
-                                            <td class="text-break">{{$guia->secciones}}</td>
-                                            <td class="text-break">{{$guia->permisos}}</td>
+                                            {{-- <td class="">{{$guia->perfiles}}</td> --}}
+                                            <td class="">{{$guia->secciones}}</td>
+                                            <td class="">{{$guia->permisos}}</td>
                                             <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
                                             <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
                                         </tr>
-                                        <?php $guiaIdsMostradas[] = $guia->id; ?>
+                                        <?php $guiasIds[] = $guia->id; ?>
                                         @endif
                                     @endforeach
                                 @endforeach

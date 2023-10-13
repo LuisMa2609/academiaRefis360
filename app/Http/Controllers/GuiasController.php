@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-class GuiasController extends Controller
-{
+class GuiasController extends Controller{
     // $guias = Guias::all();
     // return view('guias.index', [
     //     'guias' =>$guias
@@ -27,13 +26,11 @@ class GuiasController extends Controller
     public function index(){    
         $user = Auth::user();
         $perfiles = $user->perfiles;
-        $guiaIdsMostradas = [];
-
-        // dd($perfiles);
+        $guiasIds = [];
 
         return view('guias.index',[
             'perfiles' => $perfiles,
-            'guiaIdsMostradas' => $guiaIdsMostradas,
+            'guiasIds' => $guiasIds,
         ]);
     }
 

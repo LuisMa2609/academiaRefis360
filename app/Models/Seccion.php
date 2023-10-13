@@ -33,16 +33,16 @@ class Seccion extends Model{
     }
     
     public function permisos():BelongsToMany{
-
-        $user = Auth::User();
-        $perfil = $user->perfiles;
-
-        // dd($perfil);
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')
         // ->withPivot('status')
         ->withPivot(['perfil_id', 'status'])
-        ->where('status', 1)
-        ->wherePivot('perfil_id', $perfil->id);
+        ->where('status', 1);
+        // ->wherePivot('perfil_id', [1, 2, 3,4]);
+    }
+
+    public function usuarios():BelongsToMany{
+        return $this->belongsToMany(User:: class, 'perfiles_users', 'perfil_id', 'usuario_id');
+
     }
 
     public function guias(){
