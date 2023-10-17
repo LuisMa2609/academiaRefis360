@@ -26,11 +26,18 @@ class GuiasController extends Controller{
     public function index(){    
         $user = Auth::user();
         $perfiles = $user->perfiles;
+        $secciones = $user->secciones;
+        $permisos = $user->permisos;
+        
+        // dd($permisos);
         $guiasIds = [];
 
         return view('guias.index',[
             'perfiles' => $perfiles,
             'guiasIds' => $guiasIds,
+            'permisos' => $permisos
+            // 'secciones' => $secciones
+            // 'perfilPermiso' => $perfilPermiso
         ]);
     }
 

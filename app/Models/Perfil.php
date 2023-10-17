@@ -29,15 +29,22 @@ class Perfil extends Model{
         ->where('status', 1);
     }
     
-    public function permisos(){
+    public function permisos():BelongsToMany{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        // ->withPivot('status');
         ->withPivot(['seccion_id', 'status']);
-
-        // ->where('status', 1);
-
     }
 
+    public function permisosasignados():BelongsToMany{
+        return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
+        ->withPivot(['seccion_id', 'status'])
+        ->where('status', 1);
+    }
+
+    public function guias(): BelongsToMany{
+        return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
+        ->withPivot(['seccion_id', 'permisos_id'])
+        ->where('status', 1);
+    }
     // public function guias() {
     //     return $this->belongsToMany(Guia::class, 'relacionguias', 'perfil_id', 'guia_id')
     //     ->withPivot(['permisos_id', 'seccion_id'])

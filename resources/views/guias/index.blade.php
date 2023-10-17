@@ -31,22 +31,26 @@
                         <tbody>
                             @foreach ($perfil->secciones as $seccion)
                                 @foreach ($seccion->permisos as $permiso)
-                                    @foreach ($permiso->guias as $guia)
-                                        @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiasIds) )
-                                        <tr>
-                                            <td class="">{{ $guia->id}}</td>
-                                            <td class="text-break">{{ $guia->nombre }}</td>
-                                            <td class="text-break">{{ $guia->descripcion }}</td>
-                                            {{-- <td class="">{{$guia->perfiles}}</td> --}}
-                                            <td class="">{{$guia->secciones}}</td>
-                                            <td class="">{{$guia->permisos}}</td>
-                                            <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
-                                            <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
-                                        </tr>
-                                        <?php $guiasIds[] = $guia->id; ?>
+                                    @foreach ($permiso->perfiles as $permisoperfil)
+                                        @if ($permisoperfil->id === $perfil->id)
+                                            @foreach ($permiso->guias as $guia)
+                                                @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiasIds) )
+                                                <tr>
+                                                    <td class="">{{ $guia->id}}</td>
+                                                    <td class="text-break">{{ $guia->nombre }}</td>
+                                                    <td class="text-break">{{ $guia->descripcion }}</td>
+                                                    {{-- <td class="">{{$guia->perfiles}}</td> --}}
+                                                    <td class="">{{$guia->secciones}}</td>
+                                                    <td class="">{{$guia->permisos}}</td>
+                                                    <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                                    <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
+                                                </tr>
+                                                <?php $guiasIds[] = $guia->id; ?>
+                                                @endif
+                                            @endforeach
                                         @endif
                                     @endforeach
-                                @endforeach
+                                @endforeach 
                             @endforeach
                         </tbody>
                     </table>
