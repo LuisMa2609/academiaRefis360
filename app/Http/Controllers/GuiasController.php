@@ -135,7 +135,7 @@ class GuiasController extends Controller{
 
     public function updateguia(Guia $guia, Request $request){
         $this->authorize('admin');
-
+        
         $this->validate($request, [
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
@@ -143,7 +143,6 @@ class GuiasController extends Controller{
             'urlpdf' => 'required|string|max:255',
             
         ]);
-
         $guia->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -151,7 +150,7 @@ class GuiasController extends Controller{
             'urlpdf' => $request->urlpdf,
             'updated_at' => now()
         ]);
-
+        
         $permiso = $request->input('permiso_id');
         $seccion = $request->input('seccion_id');
         $perfil = $request->input('perfil_id');

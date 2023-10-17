@@ -20,7 +20,9 @@ class Guia extends Model
 
     protected $fillable = [
         'nombre',
-        'descripcion'
+        'descripcion',
+        'urlvideo',
+        'urlpdf'
 
     ];
 

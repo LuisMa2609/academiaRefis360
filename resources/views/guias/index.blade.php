@@ -13,7 +13,7 @@
       @endcan
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
-                <h2>Perfil: {{ $perfil->nombreperfil }} = {{$perfil->id}}</h2>
+                <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
                 <div class="table-responsive">
                     <table id="{{$perfil->id}}" class="table tabla-guias table-striped">
                         <thead>
@@ -21,9 +21,6 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
-                                {{-- <th>Perfil</th> --}}
-                                <th>Seccion</th>
-                                <th>permiso</th>
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
                             </tr>
@@ -39,10 +36,33 @@
                                                     <td class="">{{ $guia->id}}</td>
                                                     <td class="text-break">{{ $guia->nombre }}</td>
                                                     <td class="text-break">{{ $guia->descripcion }}</td>
-                                                    {{-- <td class="">{{$guia->perfiles}}</td> --}}
-                                                    <td class="">{{$guia->secciones}}</td>
-                                                    <td class="">{{$guia->permisos}}</td>
-                                                    <td><a href="{{ $guia->urlvideo }}">link del video</a></td>
+                                                    <td>
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$guia->id}}">
+                                                            Video
+                                                          </button>
+                                                    </td>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal{{$guia->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-fullscreen">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{$guia->nombre}}</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            
+                                                                <iframe width="720" height="360" src="{{$guia->urlvideo}}" title=" video player" frameborder="0" allow="accelerometer ; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                                {{-- <video src="https://www.youtube.com/embed/O5O3yK8DJCc?si=NSU2wrJ-5vlkce4i class="object-fit-scale" autoplay></video> --}}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+
                                                     <td><a href="{{ $guia->urlpdf }}">link del PDF</a></td>
                                                 </tr>
                                                 <?php $guiasIds[] = $guia->id; ?>
