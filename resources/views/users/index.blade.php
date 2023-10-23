@@ -13,10 +13,10 @@
                     <table id="usertable" class="table table-striped">                  
                     <thead>
                         <tr>
-                            <th scope="col" class="">ID</th>
-                            <th scope="col" class="">Nombre</th>
-                            <th scope="col" class="">Apellido</th>
-                            <th scope="col" class="">Puesto</th>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Nombre</th>
+                            <th scope="col" class="text-center">Apellido</th>
+                            <th scope="col" class="text-center">Puesto</th>
                             <th scope="col" class="text-center">Perfiles</th>
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center"></th>
@@ -26,16 +26,16 @@
                         <tbody class="table-group-divider">
                             @foreach ($users as $user)
                                 <tr>
-                                    <td class="text-break">{{$user->id}}</td>
-                                    <td class="text-break">{{$user->name}}</td>
-                                    <td class="text-break">{{$user->surname}}</td>
-                                    <td class="text-break">{{$user->puesto}}</td>
+                                    <td class="text-center">{{$user->id}}</td>
+                                    <td class="text-center">{{$user->name}}</td>
+                                    <td class="text-center">{{$user->surname}}</td>
+                                    <td class="text-center">{{$user->puesto}}</td>
                                     <td class="text-center">
                                         @foreach ($user->perfiles as $perfil)
                                             {{$perfil->nombreperfil}} <br>
                                         @endforeach
                                     </td>
-                                    <td class="text-break">{{$user->email}}</td>
+                                    <td class="text-center">{{$user->email}}</td>
 
                                     <td class="text-center">
                                         <a href="{{route('users.detallesdeusuario', $user) }}"><i class="bi bi-info-circle-fill"></i>

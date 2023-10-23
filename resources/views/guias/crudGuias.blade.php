@@ -59,7 +59,7 @@
                                 ></guia-status-updater>
                             </td>
                             <td class="">
-                                <a href="{{route('guias.edit', $guia)}}">Editar</a>
+                                <a class="btn btn-primary" href="{{route('guias.edit', $guia)}}"><i class="bi bi-gear-fill"></i></a>
                             </td>
                         </tr>
                     @endforeach
