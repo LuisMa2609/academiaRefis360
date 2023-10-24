@@ -4,7 +4,7 @@
     
 @section('content')
 <div class="container">
-    <h1 class="text-center">GUIÁS</h1>
+    <h1 class="">Guiás</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content py-3">
         <a href="{{ route('guias.create')}}" class="btn btn-primary">Crear nueva guía</a>

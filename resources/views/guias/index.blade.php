@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="container">
-      <h1 class="text-center py-3">Indice de videos</h1>
+      <h1 class="text-center py-3">GUIÁS</h1>
 
       @can('admin')
       <div class="d-grid gap-2 d-md-flex justify-content py-3">
@@ -34,8 +34,8 @@
                                                 @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiasIds) )
                                                     <tr>
                                                         <td class="">{{ $guia->id}}</td>
-                                                        <td class="text-break">{{ $guia->nombre }}</td>
-                                                        <td class="text-break">{{ $guia->descripcion }}</td>
+                                                        <td class="">{{ $guia->nombre }}</td>
+                                                        <td class="text-justify">{{ $guia->descripcion }}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlvideo{{$guia->id}}"><i class="bi bi-play-btn-fill"></i></button>
                                                         </td>
@@ -48,7 +48,7 @@
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <div class="container-sm" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                                            <div class="" style="display: flex; justify-content: center; align-items: center; height: 100%;">
                                                                                 <iframe id="videoguia{{$guia->id}}" width="100%" height="100%" src="{{$guia->urlvideo}}" title="" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                                                             </div>
                                                                         </div>
@@ -68,8 +68,8 @@
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <div class="container-sm" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                                                <iframe id="" width="100%" height="100%" src="{{$guia->urlpdf}}" title="" frameborder="0"  webkitallowfullscreen=""  allowfullscreen=""></iframe>
+                                                                            <div class="" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                                                <iframe id="" width="100%" height="100%" src="{{$guia->urlpdf}}" title="" frameborder="0" ></iframe>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">

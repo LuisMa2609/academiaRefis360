@@ -23,16 +23,12 @@
 </head>
 <body class="wrapper">
     <div id="app" class="d-flex flex-column h-screen justify-content-between">
-        
         <main class="py-4 content">
             @yield('content')
         </main>
-
-        
-        {{-- <footer class="py-3 shadow footer-bs stic bg-body-tertiary">
-            {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
-        </footer> --}}
-        
     </div>
+    <footer class="py-3 shadow footer-bs stic bg-body-tertiary border-top border-black">
+        {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
+    </footer>
 </body>
 </html>
