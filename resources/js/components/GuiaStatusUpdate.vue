@@ -65,7 +65,7 @@ export default {
     methods: {
         updateStatus() {
             const newStatus = this.status === 1 ? 0 : 1;
-
+            console.log(this.status);
             fetch(this.updateUrl, {
                 method: 'POST',
                 headers: {

@@ -21,14 +21,14 @@ class GuiasController extends Controller{
     //     'guias' =>$guias
     // ]);
 
-    // comparacion de seccion y permisos existentes y asignados en la tabla pivote 
+    // comparacion de seccion y permisos existentes y asignados en la tabla pivote
 
-    public function index(){    
+    public function index(){
         $user = Auth::user();
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-        
+
         // dd($permisos);
         $guiasIds = [];
 
@@ -44,9 +44,9 @@ class GuiasController extends Controller{
             // $secciones = $user->secciones->unique();
         // $permisos = $user->permisos->unique();
         // $guias = $user->guias->unique();
-        
+
         // $guias = collect();
-        
+
         // foreach($perfiles as $perfil){
         //     foreach($perfil->secciones as $seccion){
         //         foreach($seccion->permisos as $permiso){
@@ -61,7 +61,7 @@ class GuiasController extends Controller{
         //         }
         //     }
         // }
-        
+
         // $perfilesarray=[];
         // foreach($perfiles as $perfil){
         //     $perfilarray = [
@@ -118,10 +118,10 @@ class GuiasController extends Controller{
         $guiasperfil = $guia->perfiles;
         $guiasseccion = $guia->secciones;
         $guiaspermiso = $guia->permisos;
-        
+
         $guia->load('perfiles');
         // dd($guiasseccion);
-        
+
         return view('guias.createGuias', [
             'guia' => $guia,
             'perfiles' => $perfiles,
@@ -135,13 +135,13 @@ class GuiasController extends Controller{
 
     public function updateguia(Guia $guia, Request $request){
         $this->authorize('admin');
-        
+
         $this->validate($request, [
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'urlvideo' => 'required|string|max:255',
             'urlpdf' => 'required|string|max:255',
-            
+
         ]);
         $guia->update([
             'nombre' => $request->nombre,
@@ -150,11 +150,11 @@ class GuiasController extends Controller{
             'urlpdf' => $request->urlpdf,
             'updated_at' => now()
         ]);
-        
+
         $permiso = $request->input('permiso_id');
         $seccion = $request->input('seccion_id');
         $perfil = $request->input('perfil_id');
-        
+
         DB::table('relacionguias')->where('guia_id', $guia->id)->update([
             'perfil_id' => $perfil,
             'permisos_id' => $permiso,
@@ -201,16 +201,16 @@ class GuiasController extends Controller{
         $perfil = $request->input('perfil_id');
         $seccion = $request->input('seccion_id');
         $permiso = $request->input('permiso_id');
-        
+
 
         $guia = new Guia();
         $guia->nombre = $nombre;
         $guia->descripcion = $descripcion;
         $guia->urlvideo = $urlvideo;
         $guia->urlpdf = $urlpdf;
-        
+
         // dd($nombre, $descripcion, $urlvideo, $urlpdf, $perfil, $seccion, $permiso);
-        
+
         $guia->save();
         $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
 
@@ -223,14 +223,16 @@ class GuiasController extends Controller{
         $this->authorize('admin');
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
-    
+
         $guia = Guia::find($guiaId);
         if (!$guia) {
             return response()->json(['message' => 'Guia no encontrado'], 404);
         }
-    
+
         $guia->status = $newStatus;
         $guia->save();
+
+        return json_encode(true);
     }
 
 }
