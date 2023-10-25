@@ -39,6 +39,7 @@ class UserController extends Controller
         } else {
             return redirect()->route('users.configurarusuario', $user)->with('succes', 'Su usuario ha sido actualizado correctamente');
         }
+
     }
 
     public function detallesDeUsuario(User $user){
@@ -90,5 +91,8 @@ class UserController extends Controller
     
         $user->status = $newStatus;
         $user->save();
+
+        return json_decode(true);
+
     }
 }

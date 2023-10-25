@@ -80,7 +80,7 @@ export default {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.message); // Manejar la respuesta del servidor si es necesario
+                // console.log(this.status); // Manejar la respuesta del servidor si es necesario
             })
             .catch(error => {
                 console.error('Error:', error);

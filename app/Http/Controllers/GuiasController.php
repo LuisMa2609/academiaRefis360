@@ -223,6 +223,7 @@ class GuiasController extends Controller{
         $this->authorize('admin');
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
+        $status = $request->input('status');
     
         $guia = Guia::find($guiaId);
         if (!$guia) {
@@ -231,6 +232,8 @@ class GuiasController extends Controller{
     
         $guia->status = $newStatus;
         $guia->save();
+
+        return json_decode(true);
     }
 
 }
