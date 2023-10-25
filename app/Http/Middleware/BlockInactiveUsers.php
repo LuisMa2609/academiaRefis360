@@ -17,7 +17,7 @@ class BlockInactiveUsers
     {
         if (auth()->check() && auth()->user()->status == 0) {
             auth()->logout(); // Cierra la sesión del usuario inactivo
-            return redirect('/login')->with('status', 'Tu cuenta está desactivada, pongase en contacto con RH para dudas y aclaraciones.');
+            return redirect('/login')->with('error', 'Tu cuenta está desactivada, pongase en contacto con RH para dudas y aclaraciones.');
         }
 
         return $next($request);

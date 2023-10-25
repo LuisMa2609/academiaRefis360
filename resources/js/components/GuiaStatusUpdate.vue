@@ -66,6 +66,7 @@ export default {
         updateStatus() {
             const newStatus = this.status === 1 ? 0 : 1;
 
+
             fetch(this.updateUrl, {
                 method: 'POST',
                 headers: {
@@ -75,12 +76,13 @@ export default {
                 },
                 body: JSON.stringify({
                     guia_id: this.guiaId,
-                    new_status: newStatus
+                    new_status: newStatus,
+                    status: this.status
                 }),
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.message); // Manejar la respuesta del servidor si es necesario
+                // console.log(data.message); // Manejar la respuesta del servidor si es necesario
             })
             .catch(error => {
                 console.error('Error:', error);

@@ -134,6 +134,90 @@ class GuiaSeeder extends Seeder
                 'urlvideo' => 'https://www.ejemplo.com/guia-aprendizaje-idiomas/video',
                 'urlpdf' => 'https://www.ejemplo.com/guia-aprendizaje-idiomas/pdf',
             ],
+            [
+                'nombre' => 'Guía de Fotografía de Aves en la Naturaleza',
+                'descripcion' => 'Aprende técnicas avanzadas para capturar la belleza de las aves en su entorno natural.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-aves-naturaleza/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-aves-naturaleza/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Costura DIY para Principiantes',
+                'descripcion' => 'Domina los fundamentos de la costura y crea tus propias prendas y proyectos de moda.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-costura-diy/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-costura-diy/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Marketing en Redes Sociales',
+                'descripcion' => 'Aprende estrategias efectivas para promocionar tu negocio en plataformas de redes sociales.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-marketing-redes-sociales/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-marketing-redes-sociales/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Nutrición y Dietética',
+                'descripcion' => 'Comprende los principios de una alimentación saludable y equilibrada para mejorar tu bienestar.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-nutricion-dietetica/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-nutricion-dietetica/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Photoshop para Retoque Fotográfico',
+                'descripcion' => 'Aprende a utilizar Photoshop para retocar y mejorar tus fotos de manera profesional.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-photoshop-retoque-fotografico/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-photoshop-retoque-fotografico/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Inversiones en Bienes Raíces',
+                'descripcion' => 'Descubre estrategias y consejos para invertir en propiedades y generar ingresos pasivos.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-inversion-bienes-raices/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-inversion-bienes-raices/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Escritura de Guiones para Cine y TV',
+                'descripcion' => 'Aprende a escribir guiones cinematográficos y televisivos que cautiven al público.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-escritura-guiones/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-escritura-guiones/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Viaje para Aventureros en Patagonia',
+                'descripcion' => 'Descubre los destinos más emocionantes y actividades extremas en la región de la Patagonia.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-viaje-patagonia/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-viaje-patagonia/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Fotografía Subacuática para Buceadores',
+                'descripcion' => 'Aprende a capturar la vida marina y los paisajes submarinos con tu cámara bajo el agua.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-subacuatica/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-subacuatica/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Yoga para Aliviar el Dolor de Espalda',
+                'descripcion' => 'Practica posturas de yoga diseñadas específicamente para reducir el dolor y mejorar la salud de la espalda.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-yoga-aliviar-dolor-espalda/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-yoga-aliviar-dolor-espalda/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Juegos de Mesa para Noches Divertidas',
+                'descripcion' => 'Descubre juegos de mesa emocionantes para pasar noches inolvidables con amigos y familiares.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-juegos-mesa-divertidas/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-juegos-mesa-divertidas/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Marketing de Afiliados en Línea',
+                'descripcion' => 'Aprende a ganar dinero promocionando productos y servicios como afiliado en línea.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-marketing-afiliados/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-marketing-afiliados/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Fotografía de Moda y Estilo',
+                'descripcion' => 'Captura la esencia de la moda y el estilo en tus fotografías con esta guía especializada.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-fotografia-moda-estilo/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-fotografia-moda-estilo/pdf',
+            ],
+            [
+                'nombre' => 'Guía de Aprendizaje de Piano para Principiantes',
+                'descripcion' => 'Inicia tu viaje musical y aprende a tocar el piano desde cero con esta guía práctica.',
+                'urlvideo' => 'https://www.ejemplo.com/guia-aprendizaje-piano/video',
+                'urlpdf' => 'https://www.ejemplo.com/guia-aprendizaje-piano/pdf',
+            ],
         ];
 
         foreach ($guias as $guia) {

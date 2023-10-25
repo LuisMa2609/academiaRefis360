@@ -11,10 +11,14 @@ $(document).ready(function() {
     } );
 } );
 
-
-
 $(document).ready(function() {
     $('.tabla-guias').DataTable( {
+        dom: 'Bfrtip',
+    } );
+} );
+
+$(document).ready(function() {
+    $('#tabla-guias').DataTable( {
         dom: 'Bfrtip',
     } );
 } );

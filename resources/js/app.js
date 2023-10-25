@@ -36,6 +36,7 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+
 import UserStatusUpdate from './components/UserStatusUpdate.vue';
 app.component('user-status-updater', UserStatusUpdate);
 
@@ -45,5 +46,10 @@ app.component('datatable', datatable);
 import GuiaStatusUpdate from './components/GuiaStatusUpdate.vue';
 app.component('guia-status-updater', GuiaStatusUpdate);
 
+import Partials from './components/Partials.vue';
+app.component('partials', Partials);
+
+// import Iframe from './components/Iframe.vue';
+// app.component('Iframe', Iframe);
 
 app.mount('#app');

@@ -4,7 +4,7 @@
     
 @section('content')
 <div class="container">
-    <h1 class="text-center">GUIÁS</h1>
+    <h1 class="">Guiás</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content py-3">
         <a href="{{ route('guias.create')}}" class="btn btn-primary">Crear nueva guía</a>
@@ -12,7 +12,7 @@
 
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <div class="table-responsive">
-            <table class="table tabla-guias">                  
+            <table class="table tabla-guias table-striped">                  
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -24,6 +24,7 @@
                         <th scope="col">Seccion</th>
                         <th scope="col">Permiso</th>
                         <th>status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -56,6 +57,9 @@
                                     :csrf-token="'{{ csrf_token() }}'"
                                     :update-url="{{ json_encode(route('guias.updatestatus')) }}"
                                 ></guia-status-updater>
+                            </td>
+                            <td class="">
+                                <a class="btn btn-primary" href="{{route('guias.edit', $guia)}}"><i class="bi bi-gear-fill"></i></a>
                             </td>
                         </tr>
                     @endforeach

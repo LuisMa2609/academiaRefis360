@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
-use App\Models\Perfiles;
+use App\Models\Perfil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -35,15 +35,16 @@ class UserController extends Controller
         ]);
 
         if (Gate::allows('admin')) {
-            return redirect()->route('users.detallesdeusuario', $user)->with('status', 'Usuario actualizado correctamente');
+            return redirect()->route('users.detallesdeusuario', $user)->with('succes', 'Usuario actualizado correctamente');
         } else {
-            return redirect()->route('users.configurarusuario', $user)->with('status', 'Su usuario ha sido actualizado correctamente');
+            return redirect()->route('users.configurarusuario', $user)->with('succes', 'Su usuario ha sido actualizado correctamente');
         }
+
     }
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
-        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
             'user' => $user,
@@ -54,7 +55,7 @@ class UserController extends Controller
 
     public function configurarUsuario(User $user){
         $user = Auth::user();
-        $perfiles = Perfiles::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         
         return view('users.detallesusuario', [
@@ -66,7 +67,7 @@ class UserController extends Controller
 
     public function asignarPerfiles(Request $request, User $user){
         if (!$request->has('perfiles')) {
-            return back()->with('status', 'Porfavor selecciona al menos 1 perfil');
+            return back()->with('error', 'Porfavor selecciona al menos 1 perfil');
         }
         $this->validate($request, [
             'perfiles' => 'required|array|min:1',
@@ -75,7 +76,7 @@ class UserController extends Controller
         $perfiles = $request->input('perfiles', []);
         $user -> perfiles()->sync($perfiles);
         //dd($perfiles);
-        return back()->with('status', 'Perfil/es asignado/s correctamente');
+        return back()->with('succes', 'Perfil/es asignado/s correctamente');
     }
     
     public function updateStatus(Request $request){
@@ -90,5 +91,8 @@ class UserController extends Controller
     
         $user->status = $newStatus;
         $user->save();
+
+        return json_decode(true);
+
     }
 }
