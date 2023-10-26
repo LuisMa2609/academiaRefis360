@@ -15,7 +15,7 @@
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <h2>Perfil: {{ $perfil->nombreperfil }}</h2>
                 <div class="table-responsive">
-                    <table id="{{$perfil->id}}" class="table tabla-guias table-striped">
+                    <table id="{{$perfil->id}}" class="table tabla-guias table-striped hover">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>

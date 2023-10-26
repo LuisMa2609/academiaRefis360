@@ -12,7 +12,7 @@
 
     <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
         <div class="table-responsive">
-            <table class="table tabla-guias table-striped">                  
+            <table class="table tabla-guias  hover">                  
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
