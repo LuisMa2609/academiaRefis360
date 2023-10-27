@@ -6,6 +6,7 @@
             :checked="status === 1"
             @change="updateStatus"
             class="status-switch"
+            ref="userCheckBox"
         />
         <label :for="'switch-' + userId" class="switch"></label>
     </div>
@@ -64,7 +65,7 @@ export default {
     },
     methods: {
         updateStatus() {
-            const newStatus = this.status === 1 ? 0 : 1;
+            const newStatus = this.$refs.userCheckBox.checked ? 1 : 0;
 
             fetch(this.updateUrl, {
                 method: 'POST',
@@ -80,7 +81,7 @@ export default {
             })
             .then(response => response.json())
             .then(data => {
-                // console.log(this.status); // Manejar la respuesta del servidor si es necesario
+                // console.log(data.message); // Manejar la respuesta del servidor si es necesario
             })
             .catch(error => {
                 console.error('Error:', error);

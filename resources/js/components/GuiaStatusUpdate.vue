@@ -6,6 +6,7 @@
             :checked="status === 1"
             @change="updateStatus"
             class="status-switch"
+            ref="guiaCheckBox"
         />
         <label :for="'switch-' + guiaId" class="switch"></label>
     </div>
@@ -64,8 +65,7 @@ export default {
     },
     methods: {
         updateStatus() {
-            const newStatus = this.status === 1 ? 0 : 1;
-
+            const newStatus = this.$refs.guiaCheckBox.checked ? 1 : 0;
 
             fetch(this.updateUrl, {
                 method: 'POST',
@@ -76,8 +76,7 @@ export default {
                 },
                 body: JSON.stringify({
                     guia_id: this.guiaId,
-                    new_status: newStatus,
-                    status: this.status
+                    new_status: newStatus
                 }),
             })
             .then(response => response.json())
