@@ -15,11 +15,11 @@ class UsuariosTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::tabble('users')->insert([
+        DB::table('users')->insert([
             'name' => 'Admin',
             'surname' => 'AdminSurname',
             'email' => 'CorreoAdmin@hotmail.com',
-            'celular' => '1234567890',
+            'cellphone' => '1234567890',
             'password' => Hash::make('123456789'),
             'puesto' => 'Director',
             'status' => '1',
