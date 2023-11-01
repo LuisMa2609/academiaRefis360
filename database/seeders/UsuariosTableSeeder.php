@@ -19,7 +19,7 @@ class UsuariosTableSeeder extends Seeder
             'name' => 'Admin',
             'surname' => 'AdminSurname',
             'email' => 'CorreoAdmin@hotmail.com',
-            'cellphone' => '1234567890',
+            'celular' => '1234567890',
             'password' => Hash::make('123456789'),
             'puesto' => 'Director',
             'status' => '1',

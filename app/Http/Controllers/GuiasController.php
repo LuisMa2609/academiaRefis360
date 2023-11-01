@@ -65,10 +65,13 @@ class GuiasController extends Controller{
         $this->authorize('admin');
         
         $this->validate($request, [
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'urlvideo' => 'required|string|max:255',
-            'urlpdf' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255|unique:guias,nombre,'.$guia->id,
+            'descripcion' => 'required|string|unique:guias,descripcion,'.$guia->id,
+            'urlvideo' => 'required|string|max:255|unique:guias,urlvideo,'.$guia->id,
+            'urlpdf' => 'required|string|max:255|unique:guias,urlpdf,'.$guia->id,
+            'perfil_id' => 'required|numeric',
+            'seccion_id' => 'required|numeric',
+            'permiso_id' => 'required|numeric',
             
         ]);
         $guia->update([
@@ -82,15 +85,19 @@ class GuiasController extends Controller{
         $permiso = $request->input('permiso_id');
         $seccion = $request->input('seccion_id');
         $perfil = $request->input('perfil_id');
-        
+
         DB::table('relacionguias')->where('guia_id', $guia->id)->update([
             'perfil_id' => $perfil,
             'permisos_id' => $permiso,
             'seccion_id' => $seccion,
         ]);
 
+        // dd($permiso, $seccion, $perfil);
+
         $request->session()->flash('succes', 'Guia actualizada');
         $request->session()->flash('status_expires_at', now()->addSeconds(5)); 
+
+        // dd($perfil);
 
         return redirect()->route('guias.edit', $guia);
     }
@@ -144,6 +151,8 @@ class GuiasController extends Controller{
         
         $guia->save();
         $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
+
+        // dd($guia);
 
         return back()->with('succes', 'Guiá creada con exito');
 

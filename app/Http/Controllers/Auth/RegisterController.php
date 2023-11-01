@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 
 
 
@@ -50,16 +51,23 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
+    protected function validator(array $data){
+
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cellphone' => ['required', 'string',  'regex:/^[0-9]{10}$/', 'unique:users'],
+            'celular' => ['required', 'string',  'regex:/^[0-9]{10}$/', 'unique:users'],
             'puesto' => ['required', 'string']
-        ]);
+        ];
+        if(Gate::allows('admin')){
+            $rules['perfil'] = ['required', 'numeric'];
+        }
+        
+        return Validator::make($data, $rules);
+        // dd($data);
+
     }
 
     /**
@@ -71,15 +79,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
 
         return User::create([
             'name' => $data['name'],
             'surname'=> $data['surname'],
             'email' => $data['email'],
-            'celular' => $data['cellphone'],
+            'celular' => $data['celular'],
             'puesto' => $data['puesto'],
             'password' => Hash::make($data['password']),
         ]);
-
+        
     }
 }
