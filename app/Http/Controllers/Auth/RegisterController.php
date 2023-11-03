@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Perfil;
 
 
 
@@ -81,7 +82,8 @@ class RegisterController extends Controller
     {
         // dd($data);
 
-        return User::create([
+        
+        $user = User::create([
             'name' => $data['name'],
             'surname'=> $data['surname'],
             'email' => $data['email'],
@@ -89,6 +91,13 @@ class RegisterController extends Controller
             'puesto' => $data['puesto'],
             'password' => Hash::make($data['password']),
         ]);
-        
+
+        if (Gate::allows('admin') && isset($data['perfil'])){
+            $user->perfiles()->attach($data['perfil']);
+        }     
+        else{
+            $user->perfiles()->attach('4');
+        }   
+        return $user;
     }
 }

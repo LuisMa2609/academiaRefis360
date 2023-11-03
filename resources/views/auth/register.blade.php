@@ -115,7 +115,10 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('perfil')
+
+                                       
+
+                                        @error('perfil[]')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
