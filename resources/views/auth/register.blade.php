@@ -107,18 +107,15 @@
                             <div class="row mb-3">
                                 <label for="" class="col-md-4 col-form-label text-md-end">Perfil</label>
                                 <div class="col-md-6">
-                                        <select name="perfil" id="perfil" class="form-select @error('perfil') is-invalid @enderror">
-                                            <option value="">Seleccione un perfil</option>
+                                        <ul class="list-group list-group-flush @error('perfiles') is-invalid @enderror fs-5">            
                                             @foreach ($perfiles as $perfil)
-                                                <option value="{{$perfil->id}}">
-                                                {{$perfil->nombreperfil}}
-                                                </option>
+                                              <li class="list-group-item ">
+                                                <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}">
+                                                <label>{{ $perfil->nombreperfil }}</label>
+                                              </li>
                                             @endforeach
-                                        </select>
-
-                                       
-
-                                        @error('perfil[]')
+                                        </ul>
+                                        @error('perfiles')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

@@ -63,7 +63,8 @@ class RegisterController extends Controller
             'puesto' => ['required', 'string']
         ];
         if(Gate::allows('admin')){
-            $rules['perfil'] = ['required', 'numeric'];
+            $rules['perfiles'] = ['required', 'array', 'min:1'];
+            $rules['perfiles.*'] = ['exists:perfiles,id'];
         }
         
         return Validator::make($data, $rules);
@@ -92,8 +93,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        if (Gate::allows('admin') && isset($data['perfil'])){
-            $user->perfiles()->attach($data['perfil']);
+        if (Gate::allows('admin') && isset($data['perfiles'])){
+            $user->perfiles()->sync($data['perfiles']);
         }     
         else{
             $user->perfiles()->attach('4');
