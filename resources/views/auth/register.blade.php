@@ -77,12 +77,10 @@
                             </div>
 
                         <div class="row mb-3">
-                            <label for="cellphone" class="col-md-4 col-form-label text-md-end">Celular</label>
-
+                            <label for="celular" class="col-md-4 col-form-label text-md-end">Celular</label>
                             <div class="col-md-6">
-                                <input id="cellphone" type="text" class="form-control @error('cellphone') is-invalid @enderror" name="cellphone" value="{{ old('cellphone') }}" required autocomplete="cellphone" autofocus>
-
-                                @error('cellphone')
+                                <input id="celular" type="text" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="celular" autofocus>
+                                @error('celular')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -91,26 +89,47 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">Puesto</label>
+                            <label for="puesto" class="col-md-4 col-form-label text-md-end">Puesto</label>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {!! Form::select('puesto', ['practicante' => 'Practicante', 'empleado' => 'Empleado', 'jefe de área' => 'Jefe de Área', 'supervisor' => 'Supervisor', 'gerente' => 'Gerente', 'director' => 'Director'], null, ['class' => 'form-select', 'id' => 'floatingSelect', 'aria-label' => 'Floating label select example']) !!}
+                                    {!! Form::select('puesto', ['practicante' => 'Practicante', 'empleado' => 'Empleado', 'jefe de área' => 'Jefe de Área', 'supervisor' => 'Supervisor', 'gerente' => 'Gerente', 'director' => 'Director'], null, ['class' => 'form-select ', 'id' => 'floatingSelect', 'aria-label' => 'Floating label select example']) !!}
                                     <label for="floatingSelect">Especifique su puesto</label>
                                   </div>
-                                @error('name')
+                                @error('puesto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
+                        
+                        @can('admin')                            
+                            <div class="row mb-3">
+                                <label for="" class="col-md-4 col-form-label text-md-end">Perfil</label>
+                                <div class="col-md-6">
+                                        <ul class="list-group list-group-flush @error('perfiles') is-invalid @enderror fs-5">            
+                                            @foreach ($perfiles as $perfil)
+                                              <li class="list-group-item ">
+                                                <input type="checkbox" name="perfiles[]" value="{{ $perfil->id }}">
+                                                <label>{{ $perfil->nombreperfil }}</label>
+                                              </li>
+                                            @endforeach
+                                        </ul>
+                                        @error('perfiles')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                </div>
+                            </div>
+                        @endcan
 
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
 
                                 @can('admin')
-                                <a href="{{ route('users.index') }}" class="btn btn-danger btnregistrocancel">Cancelar</a>
+                                <a href="{{ route('users.index') }}" class="btn btn-danger btnregistrocancel">Regresar</a>
                                 @endcan
                                 
                                 @guest

@@ -10,7 +10,7 @@
         </div>
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <div class="table-responsive">
-                    <table id="usertable" class="table table-striped">                  
+                    <table id="usertable" class="table  hover">                  
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">ID</th>
@@ -23,7 +23,7 @@
                             <th scope="col" class="">Status</th>
                         </tr>
                     </thead>    
-                        <tbody class="table-group-divider">
+                        <tbody>
                             @foreach ($users as $user)
                                 <tr>
                                     <td class="text-center">{{$user->id}}</td>
@@ -36,13 +36,12 @@
                                         @endforeach
                                     </td>
                                     <td class="text-center">{{$user->email}}</td>
-
                                     <td class="text-center">
                                         <a href="{{route('users.detallesdeusuario', $user) }}"><i class="bi bi-info-circle-fill"></i>
                                             <p>Configurar perfiles</p>
                                         </a>
                                     </td>
-                                    <td class="">
+                                    <td>
                                         <user-status-updater
                                             :user-id="{{ $user->id }}"
                                             :status="{{ $user->status }}"

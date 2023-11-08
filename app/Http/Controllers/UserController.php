@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\UsuarioPerfil;
 use App\Models\User;
 use App\Models\Perfil;
+use App\Models\Seccion;
+use App\Models\Permiso;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,24 +23,37 @@ class UserController extends Controller
 
     public function register(){
         $this->authorize('admin');
-        return view('auth.register');
+        $perfiles = Perfil::all();
+        return view('auth.register', [
+            'perfiles' => $perfiles,
+        ]);
     }
 
     public function updateUsuario(User $user, Request $request){
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'celular' => 'required|string|regex:/^[0-9]{10}$/|unique:users,celular,'.$user->id,
+        ]);
+
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,
             'email'=> $request->email,
-            'celular' => $request->cellphone,
+            'celular' => $request->celular,
             'puesto' => $request->puesto,
             'updated_at' => now()
         ]);
+        // dd($user);
 
+        
         if (Gate::allows('admin')) {
             return redirect()->route('users.detallesdeusuario', $user)->with('succes', 'Usuario actualizado correctamente');
         } else {
             return redirect()->route('users.configurarusuario', $user)->with('succes', 'Su usuario ha sido actualizado correctamente');
         }
+
     }
 
     public function detallesDeUsuario(User $user){
@@ -90,5 +105,8 @@ class UserController extends Controller
     
         $user->status = $newStatus;
         $user->save();
+
+        return json_decode(true);
+
     }
 }

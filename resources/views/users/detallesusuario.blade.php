@@ -22,10 +22,33 @@
             <form action="{{ route('users.updateusuarios', ['user' => $user])}}" method="POST">
                 @csrf @method('PATCH')
                 <li class="list-group-item border-0">ID: {{$user->id}} </li>
-                <li class="list-group-item border-0">Nombre/s: <input class="form-control border-2" type="text" id="name" name="name" value="{{($user->name)}}" required></li>
-                <li class="list-group-item border-0">Apellido/s: <input class="form-control border-2" type="text" id="surname" name="surname" value="{{$user->surname}}" required></li>
-                <li class="list-group-item border-0">Correo: <input class="form-control border-2" type="email" id="email" name="email" value="{{$user->email}}" required></li>
-                <li class="list-group-item border-0">Numero de telefono: <input class="form-control border-2" type="text" id="cellphone" name="cellphone" value="{{$user->celular}}" required></li>
+                <li class="list-group-item border-0">Nombre/s: 
+                  <input class="form-control border-2 @error('name') is-invalid @enderror" type="text" id="name" name="name" value="{{($user->name)}}" required autocomplete="name" autofocus>
+                </li>
+                <li class="list-group-item border-0">Apellido/s: 
+                  <input class="form-control border-2 @error('surname') is-invalid @enderror" type="text" id="surname" name="surname" value="{{$user->surname}}" required autocomplete="surname" autofocus>
+                    @error('email')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                </li>
+                <li class="list-group-item border-0">Correo: 
+                  <input class="form-control border-2 @error('email') is-invalid @enderror" type="email" id="email" name="email" value="{{$user->email}}" required autocomplete="email" autofocus>
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </li>
+                <li class="list-group-item border-0">Numero de telefono: 
+                  <input class="form-control border-2 @error('celular') is-invalid @enderror" type="text" id="celular" name="celular" value="{{$user->celular}}" required autocomplete="celular" autofocus>
+                  @error('celular')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+                </li>
                 <li class="list-group-item border-0">
                     <div class="row mb-3">
                         <label for="name" class="col-md-4  "></label>

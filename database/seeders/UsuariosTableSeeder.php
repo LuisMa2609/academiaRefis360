@@ -15,7 +15,7 @@ class UsuariosTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::tabble('users')->insert([
+        DB::table('users')->insert([
             'name' => 'Admin',
             'surname' => 'AdminSurname',
             'email' => 'CorreoAdmin@hotmail.com',
