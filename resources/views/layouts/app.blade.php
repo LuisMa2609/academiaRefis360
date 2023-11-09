@@ -25,8 +25,6 @@
     </div>
     <footer class="py-3 shadow footer-bs stic  border-top border-black">
         {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
-
-        {{-- Arreglar el footer en la vista de registro de nuevo usuario, se sube automaticamente --}}
     </footer>
 </body>
 </html>
