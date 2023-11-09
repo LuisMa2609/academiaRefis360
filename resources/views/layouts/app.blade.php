@@ -12,13 +12,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    
-    
-    
     @include('partials.nav')
 </head>
 <body class="wrapper">
@@ -27,7 +23,7 @@
             @yield('content')
         </main>
     </div>
-    <footer class="py-3 shadow footer-bs stic bg-body-tertiary border-top border-black">
+    <footer class="py-3 shadow footer-bs stic  border-top border-black">
         {{config('app.name')}} | Tap terminal | Copyright @ {{date('Y')}}
 
         {{-- Arreglar el footer en la vista de registro de nuevo usuario, se sube automaticamente --}}
