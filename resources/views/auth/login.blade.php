@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-header">{{ __('Login') }}</div>
                         
-                            <div class="card-body">
+                            <div class="card-body border-top border-warning border-3">
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                 
