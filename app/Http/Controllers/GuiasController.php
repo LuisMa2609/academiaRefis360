@@ -16,28 +16,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class GuiasController extends Controller{
-<<<<<<< HEAD
-    // $guias = Guias::all();
-    // return view('guias.index', [
-    //     'guias' =>$guias
-    // ]);
-
-    // comparacion de seccion y permisos existentes y asignados en la tabla pivote
-
     public function index(){
-=======
-    public function index(){    
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
         $user = Auth::user();
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-<<<<<<< HEAD
 
-        // dd($permisos);
-=======
-        
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
         $guiasIds = [];
 
         return view('guias.index',[
@@ -47,70 +31,6 @@ class GuiasController extends Controller{
         ]);
     }
 
-<<<<<<< HEAD
-            // $secciones = $user->secciones->unique();
-        // $permisos = $user->permisos->unique();
-        // $guias = $user->guias->unique();
-
-        // $guias = collect();
-
-        // foreach($perfiles as $perfil){
-        //     foreach($perfil->secciones as $seccion){
-        //         foreach($seccion->permisos as $permiso){
-        //             // $guiasKey = "{$perfil->id}_{$seccion->id}_{$permiso->id}";
-        //             // $guias = $guias[$guiasKey] ?? collect();
-        //             foreach ($permiso->guias as $guia) {
-        //                 if (!$guias->contains('id', $guia->id)) {
-        //                     $guias->push($guia);
-        //                 }
-        //             }
-        //             // $guias[$guiasKey] = $guias;
-        //         }
-        //     }
-        // }
-
-        // $perfilesarray=[];
-        // foreach($perfiles as $perfil){
-        //     $perfilarray = [
-        //         'id' => $perfil->id,
-        //         '--PERFIL--' => $perfil->nombreperfil,
-        //         '--SECCIONES--'=>[],
-        //     ];
-
-        //     foreach($perfil->secciones as $seccion){
-        //         $seccionarray = [
-        //             'id' => $seccion->id,
-        //             '--SECCION--' => $seccion->nombreseccion,
-        //             '--PERMISOS--'=>[]
-        //         ];
-
-        //         foreach($seccion->permisos as $permiso){
-        //             $seccionarray['--PERMISOS--'][] = [
-        //                 'id'=>$permiso->id,
-        //                 '--PERMISO--' => $permiso->permiso,
-        //                 // 'guias' => []
-        //             ];
-        //             // foreach( $permiso->guias as $guia ){
-        //             //   $seccionarray['permisos']['guias'][] = [
-        //             //       'id'=>$guia->id,
-        //             //       'nombre' => $guia->nombre
-        //             //   ];
-        //             // }
-        //         }
-        //         $perfilarray['--SECCIONES--'][] = $seccionarray;
-        //     }
-        //     $perfilesarray[] = $perfilarray;
-        // }
-        // dd($perfilesarray);
-
-                    // 'secciones' => $secciones,
-            // 'permisos' => $permisos,
-            // 'guias' => $guias
-            // 'secciones' => $secciones
-
-
-=======
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
     public function crud(){
         $this->authorize('admin');
         $guias = Guia::all();
@@ -129,12 +49,7 @@ class GuiasController extends Controller{
         $guiaspermiso = $guia->permisos;
 
         $guia->load('perfiles');
-<<<<<<< HEAD
-        // dd($guiasseccion);
 
-=======
-        
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
         return view('guias.createGuias', [
             'guia' => $guia,
             'perfiles' => $perfiles,
@@ -150,13 +65,6 @@ class GuiasController extends Controller{
         $this->authorize('admin');
 
         $this->validate($request, [
-<<<<<<< HEAD
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'urlvideo' => 'required|string|max:255',
-            'urlpdf' => 'required|string|max:255',
-
-=======
             'nombre' => 'required|string|max:255|unique:guias,nombre,'.$guia->id,
             'descripcion' => 'required|string|unique:guias,descripcion,'.$guia->id,
             'urlvideo' => 'required|string|max:255|unique:guias,urlvideo,'.$guia->id,
@@ -164,8 +72,7 @@ class GuiasController extends Controller{
             'perfil_id' => 'required|numeric',
             'seccion_id' => 'required|numeric',
             'permiso_id' => 'required|numeric',
-            
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
+
         ]);
         $guia->update([
             'nombre' => $request->nombre,
@@ -188,7 +95,7 @@ class GuiasController extends Controller{
         // dd($permiso, $seccion, $perfil);
 
         $request->session()->flash('succes', 'Guia actualizada');
-        $request->session()->flash('status_expires_at', now()->addSeconds(5)); 
+        $request->session()->flash('status_expires_at', now()->addSeconds(5));
 
         // dd($perfil);
 
@@ -221,7 +128,7 @@ class GuiasController extends Controller{
             'perfil_id' => 'required|numeric',
             'seccion_id' => 'required|numeric',
             'permiso_id' => 'required|numeric',
-            ], 
+            ],
             [
             'perfil_id.required' => 'Por favor, selecciona un perfil.',
             ]
@@ -241,17 +148,11 @@ class GuiasController extends Controller{
         $guia->descripcion = $descripcion;
         $guia->urlvideo = $urlvideo;
         $guia->urlpdf = $urlpdf;
-<<<<<<< HEAD
 
-        // dd($nombre, $descripcion, $urlvideo, $urlpdf, $perfil, $seccion, $permiso);
 
-=======
-        
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
         $guia->save();
         $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
 
-        // dd($guia);
 
         return back()->with('succes', 'Guiá creada con exito');
 
@@ -261,12 +162,6 @@ class GuiasController extends Controller{
         $this->authorize('admin');
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
-<<<<<<< HEAD
-
-=======
-        $status = $request->input('status');
-    
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
         $guia = Guia::find($guiaId);
         if (!$guia) {
             return response()->json(['message' => 'Guia no encontrado'], 404);
@@ -275,11 +170,7 @@ class GuiasController extends Controller{
         $guia->status = $newStatus;
         $guia->save();
 
-<<<<<<< HEAD
         return json_encode(true);
-=======
-        return json_decode(true);
->>>>>>> 908c2fec39647963eee4cca4eae4ccfdce0e6cd5
     }
 
 }
