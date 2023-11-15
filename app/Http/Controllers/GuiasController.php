@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class GuiasController extends Controller{
-    public function index(){    
+    public function index(){
         $user = Auth::user();
         $perfiles = $user->perfiles;
         $secciones = $user->secciones;
         $permisos = $user->permisos;
-        
+
         $guiasIds = [];
 
         return view('guias.index',[
@@ -49,7 +49,7 @@ class GuiasController extends Controller{
         // $guiaspermiso = $guia->permisos;
         
         $guia->load('perfiles');
-        
+
         return view('guias.createGuias', [
             'guia' => $guia,
             'perfiles' => $perfiles,
@@ -63,7 +63,7 @@ class GuiasController extends Controller{
 
     public function updateguia(Guia $guia, Request $request){
         $this->authorize('admin');
-        
+
         $this->validate($request, [
             'nombre' => 'required|string|max:255|unique:guias,nombre,'.$guia->id,
             'descripcion' => 'required|string|unique:guias,descripcion,'.$guia->id,
@@ -101,7 +101,7 @@ class GuiasController extends Controller{
 
 
         $request->session()->flash('succes', 'Guia actualizada');
-        $request->session()->flash('status_expires_at', now()->addSeconds(5)); 
+        $request->session()->flash('status_expires_at', now()->addSeconds(5));
 
 
         return redirect()->route('guias.edit', $guia);
@@ -163,7 +163,6 @@ class GuiasController extends Controller{
         $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion]);
         // , 'permisos_id' => $permiso
 
-        // dd($guia);
 
         return back()->with('succes', 'Guía creada con exito');
 
@@ -173,17 +172,15 @@ class GuiasController extends Controller{
         $this->authorize('admin');
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
-        $status = $request->input('status');
-    
         $guia = Guia::find($guiaId);
         if (!$guia) {
             return response()->json(['message' => 'Guia no encontrado'], 404);
         }
-    
+
         $guia->status = $newStatus;
         $guia->save();
 
-        return json_decode(true);
+        return json_encode(true);
     }
 
 }
