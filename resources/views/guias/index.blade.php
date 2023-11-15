@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="container">
-      <h1 class="text-center py-3">GUIÁS</h1>
+      <h1 class="text-center py-3">GUÍAS</h1>
       @can('admin')
       <div class="d-grid gap-2 d-md-flex justify-content py-3">
           <a href="{{ route('guias.crud')}}" class="btn btn-primary">Gestionar guías</a>
@@ -22,15 +22,19 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
+                                @can('admin')
+                                <th>Perfil</th>
+                                <th>Seccion</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($perfil->secciones as $seccion)
-                                @foreach ($seccion->permisos as $permiso)
-                                    @foreach ($permiso->perfiles as $permisoperfil)
-                                        @if ($permisoperfil->id === $perfil->id)
-                                            @foreach ($permiso->guias as $guia)
-                                                @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && $guia->permisos->contains($permiso) && !in_array($guia->id, $guiasIds) )
+                                {{-- @foreach ($seccion->permisos as $permiso) --}}
+                                    {{-- @foreach ($permiso->perfiles as $permisoperfil) --}}
+                                        {{-- @if ($permisoperfil->id === $perfil->id) --}}
+                                            @foreach ($seccion->guias as $guia)
+                                                @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds) )
                                                     <tr>
                                                         <td class="">{{ $guia->id}}</td>
                                                         <td class="">{{ $guia->nombre }}</td>
@@ -73,13 +77,23 @@
                                                                 </div>
                                                             </div>
 
+                                                            @can('admin')
+                                                            <td>
+                                                                {{$guia->perfiles}}
+                                                            </td>
+                                                            <td>
+                                                                {{$guia->secciones}}
+                                                            </td>
+                                                            
+                                                            @endcan
+
                                                     </tr>
                                                     <?php $guiasIds[] = $guia->id; ?>
                                                 @endif
                                             @endforeach
-                                        @endif
-                                    @endforeach
-                                @endforeach 
+                                        {{-- @endif --}}
+                                    {{-- @endforeach --}}
+                                {{-- @endforeach  --}}
                             @endforeach
                         </tbody>
                     </table>

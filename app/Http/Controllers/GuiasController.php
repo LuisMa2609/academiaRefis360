@@ -46,7 +46,7 @@ class GuiasController extends Controller{
         $permisos = Permiso::all();
         $guiasperfil = $guia->perfiles;
         $guiasseccion = $guia->secciones;
-        $guiaspermiso = $guia->permisos;
+        // $guiaspermiso = $guia->permisos;
         
         $guia->load('perfiles');
         
@@ -57,7 +57,7 @@ class GuiasController extends Controller{
             'permisos' => $permisos,
             'guiasperfil' => $guiasperfil,
             'guiasseccion' => $guiasseccion,
-            'guiaspermiso' => $guiaspermiso,
+            // 'guiaspermiso' => $guiaspermiso,
         ]);
     }
 
@@ -69,35 +69,40 @@ class GuiasController extends Controller{
             'descripcion' => 'required|string|unique:guias,descripcion,'.$guia->id,
             'urlvideo' => 'required|string|max:255|unique:guias,urlvideo,'.$guia->id,
             'urlpdf' => 'required|string|max:255|unique:guias,urlpdf,'.$guia->id,
-            'perfil_id' => 'required|numeric',
+            
+            'perfiles' => 'required|array|min:1',
+            'perfiles.*' => 'exists:perfiles,id',
+
             'seccion_id' => 'required|numeric',
-            'permiso_id' => 'required|numeric',
             
         ]);
+
         $guia->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'urlvideo' => $request->urlvideo,
             'urlpdf' => $request->urlpdf,
-            'updated_at' => now()
         ]);
         
-        $permiso = $request->input('permiso_id');
         $seccion = $request->input('seccion_id');
-        $perfil = $request->input('perfil_id');
+        $perfil = $request->input('perfiles');
 
-        DB::table('relacionguias')->where('guia_id', $guia->id)->update([
-            'perfil_id' => $perfil,
-            'permisos_id' => $permiso,
-            'seccion_id' => $seccion,
-        ]);
+        // dd($guia, $request);
 
-        // dd($permiso, $seccion, $perfil);
+        
+        $guia->perfiles()->sync($perfil, ['seccion_id' => $seccion]);
+
+
+        // DB::table('relacionguias')->where('guia_id', $guia->id)->update([
+        //     'perfil_id' => $perfil,
+        //     // 'permisos_id' => $permiso,
+        //     'seccion_id' => $seccion,
+        // ]);
+
 
         $request->session()->flash('succes', 'Guia actualizada');
         $request->session()->flash('status_expires_at', now()->addSeconds(5)); 
 
-        // dd($perfil);
 
         return redirect()->route('guias.edit', $guia);
     }
@@ -107,13 +112,13 @@ class GuiasController extends Controller{
         $guias = Guia::all();
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
-        $permisos = Permiso::all();
+        // $permisos = Permiso::all();
 
         return view('guias.createGuias',[
             'guias' =>$guias,
             'perfiles' => $perfiles,
             'secciones' => $secciones,
-            'permisos' => $permisos,
+            // 'permisos' => $permisos,
         ]);
     }
 
@@ -123,24 +128,26 @@ class GuiasController extends Controller{
             [
             'nombre' => 'required|string|max:255|unique:guias',
             'descripcion' => 'required|string|max:255|unique:guias',
-            'urlvideo' => 'required|url|max:255|unique:guias',
-            'urlpdf' => 'required|url|max:255|unique:guias',
-            'perfil_id' => 'required|numeric',
+            'urlvideo' => 'required|max:255|unique:guias',
+            'urlpdf' => 'required|max:255|unique:guias',
+            // url en urlvideo & urlpdf
+            'perfiles' => 'required|array|min:1',
+            'perfiles.*' => 'exists:perfiles,id',
             'seccion_id' => 'required|numeric',
-            'permiso_id' => 'required|numeric',
-            ], 
-            [
-            'perfil_id.required' => 'Por favor, selecciona un perfil.',
+            // 'permiso_id' => 'required|numeric',
             ]
         );
+
+        // dd($request);
+
 
         $nombre = $request->input('nombre');
         $descripcion = $request->input('descripcion');
         $urlvideo = $request->input('urlvideo');
         $urlpdf = $request->input('urlpdf');
-        $perfil = $request->input('perfil_id');
+        $perfil = $request->input('perfiles');
         $seccion = $request->input('seccion_id');
-        $permiso = $request->input('permiso_id');
+        // $permiso = $request->input('permiso_id');
         
 
         $guia = new Guia();
@@ -148,13 +155,17 @@ class GuiasController extends Controller{
         $guia->descripcion = $descripcion;
         $guia->urlvideo = $urlvideo;
         $guia->urlpdf = $urlpdf;
+
+        // dd($request);
+
         
         $guia->save();
-        $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion, 'permisos_id' => $permiso]);
+        $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion]);
+        // , 'permisos_id' => $permiso
 
         // dd($guia);
 
-        return back()->with('succes', 'Guiá creada con exito');
+        return back()->with('succes', 'Guía creada con exito');
 
     }
 

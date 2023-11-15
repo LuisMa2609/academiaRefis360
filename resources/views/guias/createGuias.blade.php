@@ -75,16 +75,17 @@
                 <label for="Perfil" class="col-md-4 col-form-label text-md-end">Perfil</label>
                 <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <select class="form-select @error('perfil_id') is-invalid @enderror" id="inputGroupSelect01" name="perfil_id">
-                            <option value="" {{ isset($guia->id) ? 'selected' : '' }}>Selecciona alguno</option>
+
+                        <select class="form-select @error('perfiles') is-invalid @enderror" id="inputGroupSelect01" name="perfiles[]" multiple>
                             @foreach ($perfiles as $perfil)
                                 <option value="{{$perfil->id}}" {{ (isset($guia->id) && in_array($perfil->id, $guiasperfil->pluck('id')->toArray())) ? 'selected' : '' }}>
                                     {{$perfil->nombreperfil}}
                                 </option>
                             @endforeach
                         </select>
+
                     </div>
-                    @error('perfil_id')
+                    @error('perfiles')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -113,26 +114,6 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <label for="Permiso" class="col-md-4 col-form-label text-md-end">Permiso</label>
-                <div class="col-md-6">
-                    <div class="input-group mb-3">
-                        <select class="form-select @error('permiso_id') is-invalid @enderror" id="inputGroupSelect01" name="permiso_id">
-                          <option selected{{ isset($guia->id) ? 'selected' : '' }}>Selecciona alguno</option>
-                            @foreach ($permisos as $permiso)
-                                <option value="{{$permiso->id}}" {{ (isset($guia->id) && in_array($permiso->id, $guiaspermiso->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                    {{$permiso->permiso}}
-                                </option>
-                            @endforeach                          
-                        </select>
-                      </div>
-                    @error('permiso_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
 
 
             <div class="row mb-0">

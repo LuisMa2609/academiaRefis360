@@ -28,5 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user', function($user){
             return $user->rol == '0';
         });
+
+        Gate::define('borrar', function($user){
+            return $user->permisos == '3';
+        });
     }
 }

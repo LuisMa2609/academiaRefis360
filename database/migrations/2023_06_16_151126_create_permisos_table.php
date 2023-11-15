@@ -21,10 +21,10 @@ return new class extends Migration
             $table->foreign('permiso_id')->references('id')->on('permisos');
         });
 
-        Schema::table('relacionguias', function (Blueprint $table){
-            $table->unsignedBigInteger('permisos_id')->after('id');
-            $table->foreign('permisos_id')->references('id')->on('permisos');
-        });
+        // Schema::table('relacionguias', function (Blueprint $table){
+        //     $table->unsignedBigInteger('permisos_id')->after('id');
+        //     $table->foreign('permisos_id')->references('id')->on('permisos');
+        // });
 
 
     }

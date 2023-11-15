@@ -4,7 +4,7 @@
     
 @section('content')
 <div class="container">
-    <h1 class="">Guiás</h1>
+    <h1 class="">GUÍAS</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content py-3">
         <a href="{{ route('guias.create')}}" class="btn btn-primary">Crear nueva guía</a>
@@ -20,9 +20,8 @@
                         <th scope="col">Descripcion</th>
                         <th scope="col">Video</th>
                         <th scope="col">PDF</th>
-                        <th scope="col">Perfil</th>
+                        <th scope="col">Perfil/es</th>
                         <th scope="col">Seccion</th>
-                        <th scope="col">Permiso</th>
                         <th>status</th>
                         <th></th>
                     </tr>
@@ -37,17 +36,13 @@
                             <td class="text-break">{{$guia->urlpdf}}</td>
                             <td class="">
                                 @foreach ($guia->perfiles as $perfil)
-                                    {{$perfil->nombreperfil}}
+                                    -{{$perfil->nombreperfil}} 
+                                    <br>
                                 @endforeach
                             </td>
                             <td class="">
                                 @foreach ($guia->secciones as $seccion)
                                     {{$seccion->nombreseccion}}
-                                @endforeach
-                            </td>
-                            <td class="">
-                                @foreach ($guia->permisos as $permiso)
-                                    {{$permiso->permiso}}
                                 @endforeach
                             </td>
                             <td>

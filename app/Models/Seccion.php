@@ -48,7 +48,7 @@ class Seccion extends Model{
 
     public function guias(){
         return $this->belongsToMany(Guia::class, 'relacionguias', 'seccion_id', 'guia_id')
-        ->withPivot(['permisos_id', 'perfil_id'])
+        ->withPivot(['perfil_id'])
         ->where('status', 1);
     }
 
