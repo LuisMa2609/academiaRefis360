@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('seccion_id')->references('id')->on('secciones');
         });
 
-        Schema::table('relacionguias', function (Blueprint $table){
+        Schema::table('guia_secciones', function (Blueprint $table){
             $table->unsignedBigInteger('seccion_id')->after('id');
             $table->foreign('seccion_id')->references('id')->on('secciones');
         });

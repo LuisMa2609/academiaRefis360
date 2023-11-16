@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });
 
-        Schema::table('relacionguias', function (Blueprint $table){
+        Schema::table('guia_perfiles', function (Blueprint $table){
             $table->unsignedBigInteger('perfil_id')->after('id');
             $table->foreign('perfil_id')->references('id')->on('perfiles');
         });

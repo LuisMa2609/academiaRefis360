@@ -27,19 +27,19 @@ class Guia extends Model
     ];
 
     public function perfiles(): BelongsToMany{
-        return $this->belongsToMany(Perfil::class, 'relacionguias', 'guia_id', 'perfil_id');
-            // ->withPivot(['seccion_id', 'permisos_id']);
+        return $this->belongsToMany(Perfil::class, 'guia_perfiles', 'guia_id', 'perfil_id');
+            // ->withPivot(['seccion_id']);
     }
 
     public function secciones(): BelongsToMany{
-        return $this->belongsToMany(Seccion::class, 'relacionguias', 'guia_id', 'seccion_id');
+        return $this->belongsToMany(Seccion::class, 'guia_secciones', 'guia_id', 'seccion_id');
             // ->withPivot(['perfil_id', 'permisos_id']);
     }
 
-    public function permisos(): BelongsToMany{
-        return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id')
-            ->withPivot(['perfil_id', 'seccion_id']);
-    }
+    // public function permisos(): BelongsToMany{
+    //     return $this->belongsToMany(Permiso::class, 'relacionguias', 'guia_id', 'permisos_id')
+    //         ->withPivot(['perfil_id', 'seccion_id']);
+    // }
     
     public function perfilAsignado(): BelongsToMany{
         return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'perfil_id', 'perfil_id')

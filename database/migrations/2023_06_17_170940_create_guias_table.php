@@ -21,7 +21,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('relacionguias', function (Blueprint $table){
+        Schema::table('guia_perfiles', function (Blueprint $table){
+            $table->unsignedBigInteger('guia_id')->after('id');
+            $table->foreign('guia_id')->references('id')->on('guias');
+        });
+
+        Schema::table('guia_secciones', function (Blueprint $table){
             $table->unsignedBigInteger('guia_id')->after('id');
             $table->foreign('guia_id')->references('id')->on('guias');
         });

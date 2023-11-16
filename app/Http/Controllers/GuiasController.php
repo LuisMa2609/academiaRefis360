@@ -24,10 +24,13 @@ class GuiasController extends Controller{
 
         $guiasIds = [];
 
+        // dd($secciones);
+
         return view('guias.index',[
             'perfiles' => $perfiles,
             'guiasIds' => $guiasIds,
-            'permisos' => $permisos
+            'permisos' => $permisos,
+            'secciones' => $secciones
         ]);
     }
 
@@ -83,19 +86,16 @@ class GuiasController extends Controller{
             'urlvideo' => $request->urlvideo,
             'urlpdf' => $request->urlpdf,
         ]);
-        
         $seccion = $request->input('seccion_id');
         $perfil = $request->input('perfiles');
-
-        // dd($guia, $request);
-
         
-        $guia->perfiles()->sync($perfil, ['seccion_id' => $seccion]);
-
+        // dd($input);
+        
+        $guia->perfiles()->sync($perfil);
+        $guia->secciones()->sync($seccion);
 
         // DB::table('relacionguias')->where('guia_id', $guia->id)->update([
         //     'perfil_id' => $perfil,
-        //     // 'permisos_id' => $permiso,
         //     'seccion_id' => $seccion,
         // ]);
 
@@ -112,13 +112,11 @@ class GuiasController extends Controller{
         $guias = Guia::all();
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
-        // $permisos = Permiso::all();
 
         return view('guias.createGuias',[
             'guias' =>$guias,
             'perfiles' => $perfiles,
             'secciones' => $secciones,
-            // 'permisos' => $permisos,
         ]);
     }
 
@@ -147,7 +145,6 @@ class GuiasController extends Controller{
         $urlpdf = $request->input('urlpdf');
         $perfil = $request->input('perfiles');
         $seccion = $request->input('seccion_id');
-        // $permiso = $request->input('permiso_id');
         
 
         $guia = new Guia();
@@ -160,7 +157,8 @@ class GuiasController extends Controller{
 
         
         $guia->save();
-        $guia->perfiles()->attach($perfil, ['seccion_id' => $seccion]);
+        $guia->perfiles()->attach($perfil);
+        $guia->secciones()->attach($seccion);
         // , 'permisos_id' => $permiso
 
 
