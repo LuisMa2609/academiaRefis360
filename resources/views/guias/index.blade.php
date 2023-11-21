@@ -10,16 +10,11 @@
           <a href="{{ route('guias.crud')}}" class="btn btn-primary">Gestionar guías</a>
         </div>
         @endcan
-
-         {{-- @foreach ($secciones as $seccion)
-            {{$seccion->nombreseccion}} <br>
-        @endforeach --}}
-
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <h2>{{ $perfil->nombreperfil }}</h2>
                 <div class="table-responsive">
-                    <table id="{{$perfil->id}}" class="table tabla-guias table-striped hover">
+                    <table class="table tabla-guias table-striped hover">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -27,15 +22,13 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
-                                @can('admin')
+                                {{-- @can('admin')
                                 <th>Perfil</th>
                                 <th>Seccion</th>
-                                @endcan
+                                @endcan --}}
                             </tr>
                         </thead>
                         <tbody>
-
-                           
                             @foreach ($perfil->secciones as $seccion)
                                  @foreach ($seccion->guias as $guia)
                                      @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds) )
@@ -44,7 +37,6 @@
                                              <td class="">{{ $guia->nombre }}</td>
                                              <td class="text-justify">
                                                  {{ $guia->descripcion }}
-                                                 
                                              </td>
                                              <!-- Videos -->
                                              <td>
@@ -78,21 +70,33 @@
                                                                     </div>
                                                                 </div>
                                                  </div>
-                                                 @can('admin')
+                                                 {{-- @can('admin')
                                                  <td>
                                                      {{$guia->perfiles}}
                                                  </td>
                                                  <td>
                                                      {{$guia->secciones}}
                                                  </td>
-                                                 
-                                                 @endcan
+                                                 @endcan --}}
                                          </tr>
                                          <?php $guiasIds[] = $guia->id; ?>
                                      @endif
                                  @endforeach
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                {{-- @can('admin')
+                                <th>Perfil</th>
+                                <th>Seccion</th>
+                                @endcan --}}
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

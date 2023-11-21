@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('perfiles', function (Blueprint $table) {
             $table->id();
             $table->string('nombreperfil');
+            $table->tinyInteger('status')->default(1);
+
         });
 
         Schema::table('perfiles_users', function (Blueprint $table){

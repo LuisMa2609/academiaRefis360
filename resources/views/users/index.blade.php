@@ -22,7 +22,10 @@
                             <th scope="col" class="text-center"></th>
                             <th scope="col" class="">Status</th>
                         </tr>
-                    </thead>    
+                    </thead>
+                    
+
+
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
@@ -52,6 +55,18 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Apellido</th>
+                                <th class="text-center">Puesto</th>
+                                <th class="text-center">Perfiles</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center"></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
