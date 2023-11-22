@@ -26,6 +26,21 @@
                         <th></th>
                     </tr>
                 </thead>
+                
+                <tfoot>
+                    <tr>
+                        <th >ID</th>
+                        <th >Nombre</th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th >Perfil</th>
+                        <th >Sección</th>
+                        <th ></th>
+                        <th ></th>
+                    </tr>
+                </tfoot>
+
                 <tbody class="table-group-divider">
                     @foreach ($guias as $guia)
                         <tr>
@@ -58,19 +73,6 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tfoot>
-                        <tr>
-                            <th >ID</th>
-                            <th >Nombre</th>
-                            <th ></th>
-                            <th ></th>
-                            <th ></th>
-                            <th >Perfil</th>
-                            <th >Sección</th>
-                            <th ></th>
-                            <th ></th>
-                        </tr>
-                    </tfoot>
 
                 </tbody>
             </table>  

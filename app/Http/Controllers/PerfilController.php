@@ -55,7 +55,7 @@ class PerfilController extends Controller{
         // dd($secciones);
         // dd($perfilesArray);
         // dd($pivotDatos);
-        return view('permisos', compact('perfilesArray'));    
+        return view('permisos', compact('perfilesArray', 'perfiles'));    
     
     }
     
@@ -81,7 +81,23 @@ class PerfilController extends Controller{
         return redirect()->route('permisos')->with('succes', "secciones y permisos actualizados");
     }
 
+    public function updateStatus(Request $request){
+        $this->authorize('admin');
+        $perfilId = $request->input('perfil_id');
+        $newStatus = $request->input('new_status');
 
+    
+        $perfil = Perfil::find($perfilId);
+        if (!$perfil) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+    
+        $perfil->status = $newStatus;
+        $perfil->save();
+
+        return json_decode(true);
+
+    }
 }
 // dd($permisoStatus);
 // dd($permisoId);

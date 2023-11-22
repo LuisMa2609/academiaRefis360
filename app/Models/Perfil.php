@@ -18,6 +18,11 @@ class Perfil extends Model{
      */
     protected $table = 'perfiles';
 
+    protected $fillable = [
+        'nombreperfil',
+        'status'
+    ];
+
     public function usuarios(): BelongsToMany{
         return $this->belongsToMany(usuarios::class, 'perfiles_users', 'perfil_id', 'usuario_id');
     }

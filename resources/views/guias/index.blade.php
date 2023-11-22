@@ -22,12 +22,27 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
-                                {{-- @can('admin')
+                                @can('admin')
                                 <th>Perfil</th>
                                 <th>Seccion</th>
-                                @endcan --}}
+                                @endcan
                             </tr>
                         </thead>
+                        
+                        <tfoot>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                @can('admin')
+                                <th>Perfil</th>
+                                <th>Seccion</th>
+                                @endcan
+                            </tr>
+                        </tfoot>
+
                         <tbody>
                             @foreach ($perfil->secciones as $seccion)
                                  @foreach ($seccion->guias as $guia)
@@ -70,33 +85,20 @@
                                                                     </div>
                                                                 </div>
                                                  </div>
-                                                 {{-- @can('admin')
+                                                 @can('admin')
                                                  <td>
                                                      {{$guia->perfiles}}
                                                  </td>
                                                  <td>
                                                      {{$guia->secciones}}
                                                  </td>
-                                                 @endcan --}}
+                                                 @endcan
                                          </tr>
                                          <?php $guiasIds[] = $guia->id; ?>
                                      @endif
                                  @endforeach
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                                {{-- @can('admin')
-                                <th>Perfil</th>
-                                <th>Seccion</th>
-                                @endcan --}}
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

@@ -9,11 +9,14 @@ const app = createApp({});
 import UserStatusUpdate from './components/UserStatusUpdate.vue';
 app.component('user-status-updater', UserStatusUpdate);
 
-import datatable from './components/datatable.vue';
-app.component('datatable', datatable);
-
 import GuiaStatusUpdate from './components/GuiaStatusUpdate.vue';
 app.component('guia-status-updater', GuiaStatusUpdate);
+
+import PerfilStatusUpdate from './components/PerfilStatusUpdate.vue';
+app.component('perfil-status-updater', PerfilStatusUpdate);
+
+import datatable from './components/datatable.vue';
+app.component('datatable', datatable);
 
 import Partials from './components/Partials.vue';
 app.component('partials', Partials);

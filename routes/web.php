@@ -41,6 +41,7 @@ Route::get('/perfiles', [PerfilController::class, 'index'])->name('permisos');
 
 Route::patch('/perfiles/seccion-asignada', [PerfilController::class, 'asignarSeccion'])->name('asignarSeccion');
 
+Route::post('/perfiles/actualizar-estado', [PerfilController::class, 'updateStatus'])->name('perfiles.updatestatus');
 
 });
 
