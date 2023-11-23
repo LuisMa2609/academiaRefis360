@@ -12,7 +12,8 @@ class PerfilController extends Controller{
 
     public function index(Perfil $perfil){
         $this->authorize('admin');
-        $perfiles = Perfil::with('secciones', 'permisos')->get();
+        $perfiles = Perfil::with('secciones', 'permisos')->where('status', 1)->get();
+        $perfilesAll = Perfil::all();
         $secciones = Seccion::with('permisos')->get();
         $permisos = Permiso::all();
         
@@ -55,7 +56,7 @@ class PerfilController extends Controller{
         // dd($secciones);
         // dd($perfilesArray);
         // dd($pivotDatos);
-        return view('permisos', compact('perfilesArray', 'perfiles'));    
+        return view('permisos', compact('perfilesArray', 'perfiles', 'perfilesAll'));    
     
     }
     
@@ -79,6 +80,39 @@ class PerfilController extends Controller{
         }
     
         return redirect()->route('permisos')->with('succes', "secciones y permisos actualizados");
+    }
+
+    public function storeperfil(Request $request){
+        $this->authorize('admin');
+
+        $request->validate([
+            'nombreperfil' => 'required|string|max:255',
+        ]);
+
+        $nombreperfil = $request->input('nombreperfil');
+
+        $perfil = new Perfil();
+        $perfil-> nombreperfil = $nombreperfil;
+        $perfil->save();
+
+        $permisos = [1, 2, 3]; // Puedes obtener estos valores desde la solicitud o de alguna otra fuente
+        $secciones = [1, 2, 3]; // Puedes obtener estos valores desde la solicitud o de alguna otra fuente
+    
+        // Adjuntar permisos al perfil
+        foreach ($permisos as $permiso_id) {
+            foreach ($secciones as $seccion_id) {
+
+            $perfil->permisos()->attach($permiso_id, ['seccion_id' => $seccion_id, 'status' => 0]);
+            }
+        }
+    
+        return back()->with('succes', 'Perfil creado con exito');
+    }
+
+    public function updateperfil(Request $request, $id){
+        $this->authorize('admin');
+
+        dd("Función para actualizar perfil");
     }
 
     public function updateStatus(Request $request){

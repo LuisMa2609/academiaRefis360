@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 class GuiasController extends Controller{
     public function index(){
         $user = Auth::user();
-        $perfiles = $user->perfiles;
+        $perfiles = $user->perfiles()->where('status', 1)->get();
         $secciones = $user->secciones;
         $permisos = $user->permisos;
 

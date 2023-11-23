@@ -84,7 +84,7 @@ export default {
                 // console.log(data.message); // Manejar la respuesta del servidor si es necesario
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
             });
         }
     }

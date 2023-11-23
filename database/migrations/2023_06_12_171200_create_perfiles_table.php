@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombreperfil');
             $table->tinyInteger('status')->default(1);
+            $table->timestamps();
+
 
         });
 

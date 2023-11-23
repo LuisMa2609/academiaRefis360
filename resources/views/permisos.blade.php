@@ -64,15 +64,46 @@
                 </div>
 
                 {{-- Tab perfiles --}}
-                <div class="tab-pane fade" id="nav-Perfiles" role="tabpanel" aria-labelledby="nav-Perfiles-tab" tabindex="0">
-                    {{-- <button typepe="submit" class="btn btn-primary fs-6 mt-3">Guardar</button> --}}
+                <div class="tab-pane fade " id="nav-Perfiles" role="tabpanel" aria-labelledby="nav-Perfiles-tab" tabindex="0">
 
-                    <table id="perfiles-table" class="table  hover">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#createModal">
+                        Crear perfil
+                    </button>
+                    
+                    <!-- Modal create-->
+                    <div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Nuevo perfil</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            
+                                <form method="POST" action="{{route ('perfiles.storeperfil')}}">
+                                    @csrf @method('GET')
+                                    <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Perfil:</label>
+                                      <input type="text" class="form-control" id="nombreperfil" name="nombreperfil" aria-describedby="emailHelp">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Crear</button>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <table id="perfiles-table" class="table hover">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
                                 <th scope="col" class="text-center">Perfil</th>
-                                <th scope="col" class="">Status</th>
+                                <th scope="col" class=""></th>
                             </tr>
                         </thead>
                         
@@ -85,26 +116,67 @@
                         </tfoot>
 
                             <tbody>
-                                @foreach ($perfiles as $perfil)
+                                @foreach ($perfilesAll as $perfilOff)
                                     <tr>
-                                        <td class="text-center">{{$perfil->id}}</td>
-                                        <td class="text-center">{{$perfil->nombreperfil}}</td>
-                                        <td>
-                                            <perfil-status-updater
-                                                :perfil-id="{{ $perfil->id }}"
-                                                :status="{{ $perfil->status }}"
+                                        <td class="text-center">{{$perfilOff->id}}</td>
+                                        <td class="text-center">{{$perfilOff->nombreperfil}}</td>
+                                        <td class="text-center">
+                                            <perfil-status-updater class="m-3"
+                                                :perfil-id="{{ $perfilOff->id }}"
+                                                :status="{{ $perfilOff->status }}"
                                                 :csrf-token="'{{ csrf_token() }}'"
                                                 :update-url="{{ json_encode(route('perfiles.updatestatus')) }}"
                                             ></perfil-status-updater>
+
+                                            
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$perfilOff->id}}">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal update-->
+                                    <div class="modal fade" id="editModal{{$perfilOff->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editando:</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            
+                                                {{-- <form method="POST" action=" {{route('perfiles.updateperfil')}}">
+                                                    @csrf @method('PATCH')
+                                                    <div class="mb-3">
+                                                      <label for="perfil" class="form-label">Perfil:</label>
+                                                      <input type="text" class="form-control" id="perfil" name="perfil" aria-describedby="editPerfil" value="{{$perfilOff->nombreperfil}}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                </form> --}}
+
+                                                <form method="POST" action="{{ route('perfiles.updateperfil') }}">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="mb-3">
+                                                        <label for="nombreperfil" class="form-label">Perfil:</label>
+                                                        <input type="text" class="form-control" id="nombreperfil" name="nombreperfil" aria-describedby="editPerfil" value="{{ $perfilOff->nombreperfil }}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                </form>
+                
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                     </table>
-                </div>
+
 
             </div>
-
         </div>
     </div>
 </div>

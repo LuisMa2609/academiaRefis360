@@ -23,7 +23,7 @@
 }
 
 .switch {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 36px;
@@ -65,6 +65,10 @@ export default {
     },
     methods: {
         updateStatus() {
+
+        console.log('perfilId:', this.perfilId);
+        console.log('status:', this.status);
+
             const newStatus = this.$refs.perfilCheckBox.checked ? 1 : 0;
 
             fetch(this.updateUrl, {
@@ -84,7 +88,7 @@ export default {
                 // console.log(data.message); // Manejar la respuesta del servidor si es necesario
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
             });
         }
     }
