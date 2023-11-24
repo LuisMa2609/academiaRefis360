@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Permiso;
 use App\Models\RelacionGuias;
 use DB;
+use Illuminate\Support\Facades\Gate;
 use App\Models\PerfilSeccionPermiso;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,13 +44,14 @@ class GuiasController extends Controller{
     }
 
     public function editguia(Guia $guia){
-        $this->authorize('admin');
+        // $this->authorize('admin');
+        Gate::authorize('admin');
+        // Gate::authorize('user');
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
         $permisos = Permiso::all();
         $guiasperfil = $guia->perfiles;
         $guiasseccion = $guia->secciones;
-        // $guiaspermiso = $guia->permisos;
         
         $guia->load('perfiles');
 
@@ -60,7 +62,6 @@ class GuiasController extends Controller{
             'permisos' => $permisos,
             'guiasperfil' => $guiasperfil,
             'guiasseccion' => $guiasseccion,
-            // 'guiaspermiso' => $guiaspermiso,
         ]);
     }
 

@@ -95,10 +95,9 @@ class PerfilController extends Controller{
         $perfil-> nombreperfil = $nombreperfil;
         $perfil->save();
 
-        $permisos = [1, 2, 3]; // Puedes obtener estos valores desde la solicitud o de alguna otra fuente
-        $secciones = [1, 2, 3]; // Puedes obtener estos valores desde la solicitud o de alguna otra fuente
+        $permisos = [1, 2, 3];
+        $secciones = [1, 2, 3];
     
-        // Adjuntar permisos al perfil
         foreach ($permisos as $permiso_id) {
             foreach ($secciones as $seccion_id) {
 
@@ -109,10 +108,18 @@ class PerfilController extends Controller{
         return back()->with('succes', 'Perfil creado con exito');
     }
 
-    public function updateperfil(Request $request, $id){
+    public function updateperfil(Request $request, Perfil $perfil){
         $this->authorize('admin');
 
-        dd("Función para actualizar perfil");
+        $this->validate($request, [
+            'nombreperfil' => 'required|string|max:255,'.$perfil->id
+        ]);
+
+        $perfil->update([
+            'nombreperfil' => $request->nombreperfil
+        ]);
+
+        return back()->with('succes', 'Perfil editado con exito');
     }
 
     public function updateStatus(Request $request){

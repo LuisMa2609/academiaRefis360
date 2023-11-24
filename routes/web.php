@@ -43,7 +43,7 @@ Route::patch('/perfiles/seccion-asignada', [PerfilController::class, 'asignarSec
 
 Route::post('/perfiles/actualizar-estado', [PerfilController::class, 'updateStatus'])->name('perfiles.updatestatus');
 
-Route::patch('/perfiles/perfil-actualizado', [PerfilController::class, 'updateperfil'])->name('perfiles.updateperfil');
+Route::patch('/perfiles/perfil/{perfil}/actualizar', [PerfilController::class, 'updateperfil'])->name('perfiles.updateperfil');
 
 Route::get('/perfiles/perfil/store', [PerfilController::class, 'storeperfil'])->name('perfiles.storeperfil');
 });

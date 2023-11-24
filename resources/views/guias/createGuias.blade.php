@@ -118,7 +118,7 @@
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <a href="{{ route('guias.crud') }}" class="btn btn-danger btnregistrocancel">Cancelar</a>
+                    <a href="{{ route('guias.crud') }}" class="btn btn-danger btnregistrocancel">Regresar</a>
                     <button type="submit" class="btn btn-primary">
                         {{ isset($guia->id) ? 'Actualizar ': 'Crear' }}
                     </button>

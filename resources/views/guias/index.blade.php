@@ -10,6 +10,10 @@
           <a href="{{ route('guias.crud')}}" class="btn btn-primary">Gestionar guías</a>
         </div>
         @endcan
+
+        @can('borrado')
+            <p>Tienes permisos de borrado</p>
+        @endcan
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <h2>{{ $perfil->nombreperfil }}</h2>
@@ -46,7 +50,9 @@
                         <tbody>
                             @foreach ($perfil->secciones as $seccion)
                                  @foreach ($seccion->guias as $guia)
-                                     @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds) )
+                                     @if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds[$perfil->id] ?? []))
+                                     {{-- @can('lectura') --}}
+                                         
                                          <tr>
                                              <td class="">{{ $guia->id}}</td>
                                              <td class="">{{ $guia->nombre }}</td>
@@ -85,16 +91,18 @@
                                                                     </div>
                                                                 </div>
                                                  </div>
-                                                 @can('admin')
+                                                 {{-- @can('admin') --}}
                                                  <td>
-                                                     {{$guia->perfiles}}
+                                                    <a class="btn btn-primary" href="{{route('guias.edit', $guia)}}"><i class="bi bi-gear-fill"></i></a>
+
                                                  </td>
                                                  <td>
                                                      {{$guia->secciones}}
                                                  </td>
-                                                 @endcan
+                                                 {{-- @endcan --}}
                                          </tr>
-                                         <?php $guiasIds[] = $guia->id; ?>
+                                     {{-- @x    endcan --}}
+                                         <?php $guiasIds[$perfil->id][] = $guia->id; ?>
                                      @endif
                                  @endforeach
                             @endforeach

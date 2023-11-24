@@ -116,61 +116,53 @@
                         </tfoot>
 
                             <tbody>
-                                @foreach ($perfilesAll as $perfilOff)
+                                @foreach ($perfilesAll as $perfilAll)
                                     <tr>
-                                        <td class="text-center">{{$perfilOff->id}}</td>
-                                        <td class="text-center">{{$perfilOff->nombreperfil}}</td>
+                                        <td class="text-center">{{$perfilAll->id}}</td>
+                                        <td class="text-center">{{$perfilAll->nombreperfil}}</td>
                                         <td class="text-center">
                                             <perfil-status-updater class="m-3"
-                                                :perfil-id="{{ $perfilOff->id }}"
-                                                :status="{{ $perfilOff->status }}"
+                                                :perfil-id="{{ $perfilAll->id }}"
+                                                :status="{{ $perfilAll->status }}"
                                                 :csrf-token="'{{ csrf_token() }}'"
                                                 :update-url="{{ json_encode(route('perfiles.updatestatus')) }}"
                                             ></perfil-status-updater>
 
                                             
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$perfilOff->id}}">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$perfilAll->id}}">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </button>
+
+                                            <!-- Modal update-->
+                                            <div class="modal fade" id="editModal{{$perfilAll->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editando:</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                            <div class="modal-body">
+
+                                                                <form method="POST" action="{{route('perfiles.updateperfil', ['perfil' => $perfil['id'] ]) }}">
+                                                                    @csrf @method('PATCH')
+                                                                    <div class="mb-3">
+                                                                        <label for="nombreperfil" class="form-label">Perfil:</label>
+                                                                        <input type="text" class="form-control" id="nombreperfil" name="nombreperfil" aria-describedby="editPerfil" value="{{ $perfilAll->nombreperfil }}">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                                </form>
+                                                                
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </td>
                                     </tr>
 
-                                    <!-- Modal update-->
-                                    <div class="modal fade" id="editModal{{$perfilOff->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editando:</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                            
-                                                {{-- <form method="POST" action=" {{route('perfiles.updateperfil')}}">
-                                                    @csrf @method('PATCH')
-                                                    <div class="mb-3">
-                                                      <label for="perfil" class="form-label">Perfil:</label>
-                                                      <input type="text" class="form-control" id="perfil" name="perfil" aria-describedby="editPerfil" value="{{$perfilOff->nombreperfil}}">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                </form> --}}
-
-                                                <form method="POST" action="{{ route('perfiles.updateperfil') }}">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <div class="mb-3">
-                                                        <label for="nombreperfil" class="form-label">Perfil:</label>
-                                                        <input type="text" class="form-control" id="nombreperfil" name="nombreperfil" aria-describedby="editPerfil" value="{{ $perfilOff->nombreperfil }}">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                </form>
-                
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
                                 @endforeach
                             </tbody>
                     </table>
