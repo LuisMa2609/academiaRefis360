@@ -11,9 +11,18 @@
         </div>
         @endcan
 
-        @can('borrado')
-            <p>Tienes permisos de borrado</p>
+        @can('lectura')
+            <p>Tienes los permisos de lectura</p>
         @endcan
+
+        @can('escritura')
+            <p>Tienes permisos para editar</p>
+        @endcan
+
+        @can('borrado')
+            <p>Tienes los permisos para desactivar</p>
+        @endcan
+
         @foreach ($perfiles as $perfil)
             <div class="container bg-white shadow rounded py-3 px-3 mb-4 border-top border-warning border-3">
                 <h2>{{ $perfil->nombreperfil }}</h2>
@@ -24,12 +33,16 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
+                                <th scope="col">Sección</th>  
                                 <th scope="col">Video</th>
                                 <th scope="col">PDF</th>
-                                @can('admin')
-                                <th>Perfil</th>
-                                <th>Seccion</th>
+                                @can('escritura')
+                                <th></th>
                                 @endcan
+                                @can('borrado')
+                                <th>Borrado</th>
+                                @endcan
+
                             </tr>
                         </thead>
                         
@@ -38,12 +51,16 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>  
                                 <th scope="col"></th>
                                 <th scope="col"></th>
-                                @can('admin')
-                                <th>Perfil</th>
-                                <th>Seccion</th>
+                                @can('escritura')
+                                <th></th>
                                 @endcan
+                                @can('borrado')
+                                <th></th>
+                                @endcan
+
                             </tr>
                         </tfoot>
 
@@ -56,9 +73,13 @@
                                          <tr>
                                              <td class="">{{ $guia->id}}</td>
                                              <td class="">{{ $guia->nombre }}</td>
-                                             <td class="text-justify">
-                                                 {{ $guia->descripcion }}
-                                             </td>
+                                             <td class="text-justify">{{ $guia->descripcion }}</td>
+                                             
+                                             @foreach ($guia->secciones as $guiaseccion)
+                                             <td>{{$guiaseccion->nombreseccion}}</td>
+                                                 
+                                             @endforeach
+
                                              <!-- Videos -->
                                              <td>
                                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlvideo{{$guia->id}}" data-guia-id="{{$guia->id}}" data-urlvideo="{{$guia->urlvideo}}">
@@ -91,15 +112,15 @@
                                                                     </div>
                                                                 </div>
                                                  </div>
-                                                 {{-- @can('admin') --}}
+                                                 @can('escritura')
                                                  <td>
                                                     <a class="btn btn-primary" href="{{route('guias.edit', $guia)}}"><i class="bi bi-gear-fill"></i></a>
 
                                                  </td>
-                                                 <td>
-                                                     {{$guia->secciones}}
-                                                 </td>
-                                                 {{-- @endcan --}}
+                                                 @endcan
+                                                @can('borrado')
+                                                <td>Permiso de borrado activo</td>
+                                                @endcan
                                          </tr>
                                      {{-- @x    endcan --}}
                                          <?php $guiasIds[$perfil->id][] = $guia->id; ?>

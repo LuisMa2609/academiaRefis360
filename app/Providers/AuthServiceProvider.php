@@ -29,17 +29,21 @@ class AuthServiceProvider extends ServiceProvider
             return $user->rol == '0';
         });
 
-        Gate::define('lectura', function($user){
-            return $user->permiso_id == '1';
-        });
-
-        // Gate::define('escritura', function($user){
-        //     return $user->permiso_id == '1';
+        // Gate::define('lectura', function($user){
+        //     return $user->permisos->contains('id', 1) && ;
         // });
 
-        Gate::define('borrado', function($user){
-            return $user->permisos->contains('id', 3);
+        Gate::define('escritura', function($user){
+            return 
+            $user->permisos->contains('id', 2);
         });
+
+        Gate::define('borrado', function($user){
+            // return $user->permisos->contains('status', 1) && $user->permisos->contains('permiso_id', 3);
+            
+            // return $user->permisos->contains('id', 3) && $;
+            return $user->secciones->contains('status', 1);
+        }); 
 
     }
 }

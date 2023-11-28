@@ -23,10 +23,6 @@ class GuiasController extends Controller{
         $secciones = $user->secciones;
         $permisos = $user->permisos;
 
-        $guiasIds = [];
-
-        // dd($secciones);
-
         return view('guias.index',[
             'perfiles' => $perfiles,
             'guiasIds' => $guiasIds,
