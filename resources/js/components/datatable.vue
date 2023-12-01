@@ -46,7 +46,7 @@ $(document).ready(function() {
         initComplete: function() {
             $('.dataTables_filter').hide();
             this.api()
-                .columns([0, 1])
+                .columns([0, 1, 3])
                 .every(function() {
                 var column = this;
                 var title = column.footer().textContent;

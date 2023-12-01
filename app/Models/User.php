@@ -60,14 +60,14 @@ class User extends Authenticatable
 
     public function secciones(): BelongsToMany {
         return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
-        ->withPivot('permiso_id', 'status')
-        ->wherePivot('status', 1);
+        ->withPivot('permiso_id');
+        // ->wherePivot('status', 1);
     }
 
     public function permisos(): BelongsToMany{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        // ->withPivot('seccion_id', 'status')
-        ->wherePivot('status', 1);
+        ->withPivot('seccion_id', 'status');
+        // ->wherePivot('status', 1);
     }
 
     // public function guias(){

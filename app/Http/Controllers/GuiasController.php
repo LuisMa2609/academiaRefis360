@@ -19,15 +19,89 @@ use Illuminate\Http\Request;
 class GuiasController extends Controller{
     public function index(){
         $user = Auth::user();
-        $perfiles = $user->perfiles()->where('status', 1)->get();
-        $secciones = $user->secciones;
-        $permisos = $user->permisos;
+        $perfiles = $user->perfiles()->with('secciones', 'permisos')->where('status', 1)->get();
+        $secciones = $user->secciones()->with('permisos')->get();
+        // $permisos = $user->permisos;
+        $permisos = Permiso::all();
 
+        // dd($permisoo->toArray(), $permisos->toArray());
+        // dd($perfiles->toArray());
+
+        // $guias = Guia::with([
+        //     'perfiles' => function ($query) {
+        //         $query->select('perfil_id', 'nombreperfil');
+        //     },
+        //     'secciones' => function ($query) {
+        //         $query->select('seccion_id', 'nombreseccion');
+        //     }
+        // ])->get(['id', 'nombre', 'descripcion']);
+        
+
+        $perfilesArray = [];
+        foreach ($perfiles as $perfil) {
+            $perfilArray = [
+                'id' => $perfil->id,
+                'nombreperfil' => $perfil->nombreperfil,
+                'secciones' => [],
+            ];
+        
+            foreach ($secciones as $seccion) {
+                $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
+        
+                $seccionArray = [
+                    'id' => $seccion->id,
+                    'nombreseccion' => $seccion->nombreseccion,
+                    'checked' => $pivotData->pluck('status')->contains(1),
+                    'permisos' => [],
+                ];
+        
+                foreach ($permisos as $permiso) {
+                    $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
+        
+                    $seccionArray['permisos'][] = [
+                        'id' => $permiso->id,
+                        'permiso' => $permiso->permiso,
+                        'statuspermiso' => $pivotDatos->pluck('status'), 
+                    ];
+                }
+        
+                $perfilArray['secciones'][] = $seccionArray;
+            }
+        
+            $perfilesArray[] = $perfilArray;
+        }
+
+        // dd($perfiles->toArray(), $perfilArray);
+        // dd($perfilArray);
+
+        
+        // $seccionesG = 
+        // $GUIAS = Guia::with('perfiles', 'secciones')->get();
+        
+        // foreach($perfiles as $perfil){
+        //     foreach($perfil->secciones as $seccion){
+        //         foreach($seccion->guias as $guia){
+        //             $todo = [$guia];
+
+        //         }
+        //     }
+        // }
+
+
+        
+        // dd($secciones->toArray(),$permisos->toArray() );
+        // $guias = Guia::with('perfiles', 'secciones')->get();
+        
+
+        $guiasIds = [];
+        
         return view('guias.index',[
             'perfiles' => $perfiles,
             'guiasIds' => $guiasIds,
             'permisos' => $permisos,
-            'secciones' => $secciones
+            'secciones' => $secciones,
+            // 'guias' => $guias,
+            'perfilesArray' => $perfilesArray
         ]);
     }
 

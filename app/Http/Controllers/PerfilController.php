@@ -17,6 +17,7 @@ class PerfilController extends Controller{
         $secciones = Seccion::with('permisos')->get();
         $permisos = Permiso::all();
         
+        // dd($perfiles->toArray());
 
         $perfilesArray = [];
         foreach ($perfiles as $perfil) {
@@ -54,7 +55,7 @@ class PerfilController extends Controller{
         
         
         // dd($secciones);
-        // dd($perfilesArray);
+        // dd($perfilArray);
         // dd($pivotDatos);
         return view('permisos', compact('perfilesArray', 'perfiles', 'perfilesAll'));    
     
