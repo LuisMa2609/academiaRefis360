@@ -54,6 +54,7 @@ class Seccion extends Model{
     
     public function permisosasignados(){
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'seccion_id', 'permiso_id')
-        ->where('status', 1);
+        ->withPivot('status', 'perfil_id')
+        ->wherePivot('status', 1);
     }
 }

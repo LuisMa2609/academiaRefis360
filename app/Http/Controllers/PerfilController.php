@@ -55,7 +55,7 @@ class PerfilController extends Controller{
         
         
         // dd($secciones);
-        // dd($perfilArray);
+        // dd($perfilesArray);
         // dd($pivotDatos);
         return view('permisos', compact('perfilesArray', 'perfiles', 'perfilesAll'));    
     

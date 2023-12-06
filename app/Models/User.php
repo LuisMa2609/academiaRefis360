@@ -57,6 +57,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Perfil::class, 'perfiles_users', 'usuario_id', 'perfil_id');
     }
 
+    // public function perfilesasignados(): BelongsToMany{
+    //     return $this->belongsToMany(Perfil::class, 'perfil_secciones_permisos', 'perfil_id', 'perfil_id');
+    // }
 
     public function secciones(): BelongsToMany {
         return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
@@ -66,8 +69,8 @@ class User extends Authenticatable
 
     public function permisos(): BelongsToMany{
         return $this->belongsToMany(Permiso::class, 'perfil_secciones_permisos', 'perfil_id', 'permiso_id')
-        ->withPivot('seccion_id', 'status');
-        // ->wherePivot('status', 1);
+        ->withPivot('seccion_id', 'status')
+        ->wherePivot('status', 1);
     }
 
     // public function guias(){

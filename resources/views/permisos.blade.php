@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td>
                                                     <input type="hidden" name="perfil_seccion[{{ $perfil['id'] }}][{{ $seccion['id'] }}]" value="0">
-                                                    <input  class="large-checkbox disable" type="checkbox" name="perfil_seccion[{{ $perfil['id'] }}][{{ $seccion['id'] }}]" value="1" @if ($seccion['checked']) checked @endif disabled>
+                                                    <input  class="large-checkbox disable" type="hidden" name="perfil_seccion[{{ $perfil['id'] }}][{{ $seccion['id'] }}]" value="1" @if ($seccion['checked']) checked @endif disabled>
                                                     {{ $seccion['nombreseccion']}}
                                                 </td>
                                                 @foreach ($seccion['permisos'] as $permiso)

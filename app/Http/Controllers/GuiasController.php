@@ -19,13 +19,15 @@ use Illuminate\Http\Request;
 class GuiasController extends Controller{
     public function index(){
         $user = Auth::user();
-        $perfiles = $user->perfiles()->with('secciones', 'permisos')->where('status', 1)->get();
-        $secciones = $user->secciones()->with('permisos')->get();
-        // $permisos = $user->permisos;
-        $permisos = Permiso::all();
+        $perfiles = $user->perfiles()->where('status', 1)->get();
+
+        $secciones = $user->secciones()->with('permisos')->where('status', 1)->get();
+        $permisos = $user->permisos;
+        // $permisos = Permiso::all();
 
         // dd($permisoo->toArray(), $permisos->toArray());
-        // dd($perfiles->toArray());
+        // dd($permisos->toArray());
+
 
         // $guias = Guia::with([
         //     'perfiles' => function ($query) {
@@ -37,42 +39,44 @@ class GuiasController extends Controller{
         // ])->get(['id', 'nombre', 'descripcion']);
         
 
-        $perfilesArray = [];
-        foreach ($perfiles as $perfil) {
-            $perfilArray = [
-                'id' => $perfil->id,
-                'nombreperfil' => $perfil->nombreperfil,
-                'secciones' => [],
-            ];
+        // $perfilesArray = [];
+        // foreach ($perfiles as $perfil) {
+        //     $perfilArray = [
+        //         'id' => $perfil->id,
+        //         'nombreperfil' => $perfil->nombreperfil,
+        //         'secciones' => [],
+        //     ];
         
-            foreach ($secciones as $seccion) {
-                $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
+        //     foreach ($secciones as $seccion) {
+        //         $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
         
-                $seccionArray = [
-                    'id' => $seccion->id,
-                    'nombreseccion' => $seccion->nombreseccion,
-                    'checked' => $pivotData->pluck('status')->contains(1),
-                    'permisos' => [],
-                ];
+        //         $seccionArray = [
+        //             'id' => $seccion->id,
+        //             // 'perfilID' => $perfil->id,
+        //             'nombreseccion' => $seccion->nombreseccion,
+        //             // 'checked' => $pivotData->pluck('status')->contains(1),
+        //             'permisos' => [],
+        //         ];
         
-                foreach ($permisos as $permiso) {
-                    $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
+        //         foreach ($permisos as $permiso) {
+
+        //             $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
         
-                    $seccionArray['permisos'][] = [
-                        'id' => $permiso->id,
-                        'permiso' => $permiso->permiso,
-                        'statuspermiso' => $pivotDatos->pluck('status'), 
-                    ];
-                }
+        //             $seccionArray['permisos'][] = [
+        //                 'id' => $permiso->id,
+        //                 'permiso' => $permiso->permiso,
+        //                 'statuspermiso' => $pivotDatos->pluck('status'), 
+        //             ];
+        //         }
         
-                $perfilArray['secciones'][] = $seccionArray;
-            }
+        //         $perfilArray['secciones'][] = $seccionArray;
+        //     }
         
-            $perfilesArray[] = $perfilArray;
-        }
+        //     $perfilesArray[] = $perfilArray;
+        // }
 
         // dd($perfiles->toArray(), $perfilArray);
-        // dd($perfilArray);
+        // dd($perfilesArray);
 
         
         // $seccionesG = 
@@ -94,14 +98,17 @@ class GuiasController extends Controller{
         
 
         $guiasIds = [];
+        $seccionIds = [];
         
         return view('guias.index',[
             'perfiles' => $perfiles,
             'guiasIds' => $guiasIds,
             'permisos' => $permisos,
             'secciones' => $secciones,
+            'user' => $user,
+            'seccionIds' => $seccionIds,
             // 'guias' => $guias,
-            'perfilesArray' => $perfilesArray
+            // 'perfilesArray' => $perfilesArray
         ]);
     }
 

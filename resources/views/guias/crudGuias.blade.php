@@ -29,13 +29,13 @@
                 
                 <tfoot>
                     <tr>
-                        <th >ID</th>
-                        <th >Nombre</th>
                         <th ></th>
                         <th ></th>
                         <th ></th>
-                        <th >Perfil</th>
-                        <th >Sección</th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
                         <th ></th>
                         <th ></th>
                     </tr>

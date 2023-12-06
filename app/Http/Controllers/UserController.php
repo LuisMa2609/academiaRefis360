@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function detallesDeUsuario(User $user){
         $this->authorize('admin');
-        $perfiles = Perfil::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->where('status', 1)->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
             'user' => $user,
@@ -69,7 +69,7 @@ class UserController extends Controller
 
     public function configurarUsuario(User $user){
         $user = Auth::user();
-        $perfiles = Perfil::with('secciones')->get();
+        $perfiles = Perfil::with('secciones')->where('status', 1)->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         
         return view('users.detallesusuario', [
