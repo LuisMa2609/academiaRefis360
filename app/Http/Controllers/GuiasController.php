@@ -98,7 +98,6 @@ class GuiasController extends Controller{
         
 
         $guiasIds = [];
-        $seccionIds = [];
         
         return view('guias.index',[
             'perfiles' => $perfiles,
@@ -106,7 +105,6 @@ class GuiasController extends Controller{
             'permisos' => $permisos,
             'secciones' => $secciones,
             'user' => $user,
-            'seccionIds' => $seccionIds,
             // 'guias' => $guias,
             // 'perfilesArray' => $perfilesArray
         ]);

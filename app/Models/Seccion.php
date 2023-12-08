@@ -47,8 +47,9 @@ class Seccion extends Model{
     }
 
     public function guias(){
-        return $this->belongsToMany(Guia::class, 'guia_secciones', 'seccion_id', 'guia_id')
-        ->where('status', 1);
+        return $this->belongsToMany(Guia::class, 'guia_secciones', 'seccion_id', 'guia_id');
+        // ->where('status', 1);
+        //*****************************************************************/
     }
 
     

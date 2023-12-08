@@ -35,7 +35,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('escritura', function($user){
             return 
-            $user->permisos->contains('id', 2);
+            $user->permiso_id == 2;
+            // ($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id)
+
         });
 
         Gate::define('borrado', function($user){
