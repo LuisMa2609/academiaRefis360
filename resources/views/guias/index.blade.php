@@ -46,90 +46,161 @@
                             @foreach ($perfil->secciones as $indexseccion => $seccion)
                                 @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
                                     
-                                        
-                                        @foreach($seccion->guias as $guiaU)
-                                            {{-- {{$permiso}} --}}
-                                                @if ($guiaU->perfiles->contains($perfil) && $guiaU->secciones->contains($seccion) && !in_array($guiaU->id, $guiasIds[$perfil->id] ?? []))
+                                    @if ($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id)
 
-                                                        <tr>
-                                                        <td class="">{{ $guiaU->id}}</td>
-                                                        <td class="text-break text-wrap">{{ $guiaU->nombre }} | <br> status: {{$guiaU->status}}</td>
-                                                        <td class="text-break">{{ $guiaU->descripcion }}</td>
-                                                        @foreach ($guiaU->secciones as $guiaUseccion)
-                                                            <td>{{$guiaUseccion->nombreseccion}} </td>
-                                                        @endforeach
-                                                        <!-- Videos -->
-                                                        <td>
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlvideo{{$guiaU->id}}" data-guia-id="{{$guiaU->id}}" data-urlvideo="{{$guiaU->urlvideo}}">
-                                                                <i class="bi bi-play-btn-fill"></i>
-                                                            </button>
-                                                        </td>
-                                                            <!-- Modal video -->
-                                                            <video-modal
-                                                                :guia="{{$guiaU}}"
-                                                            ></video-modal>
-                                                        <!-- PDFs -->
-                                                        <td>
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlpdf{{$guiaU->id}}"><i class="bi bi-file-earmark-fill"></i></button>
-                                                        </td>
-                                                        
-                                                            <!-- Modal PDF -->
-                                                            <div class="modal fade" id="urlpdf{{$guiaU->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" :idguia="{{$guiaU->id}}">
-                                                                    <div class="modal-dialog modal-fullscreen">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$guiaU->nombre}}</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                                                    <iframe id="" width="100%" height="100%" src="{{$guiaU->urlpdf}}" title="" frameborder="0" ></iframe>
+                                            @foreach($seccion->guias as $guiaU)
+                                                    @if ($guiaU->perfiles->contains($perfil) && $guiaU->secciones->contains($seccion) && !in_array($guiaU->id, $guiasIds[$perfil->id] ?? []))
+
+                                                            <tr>
+                                                            <td class="">{{ $guiaU->id}}</td>
+                                                            <td class="text-break text-wrap">{{ $guiaU->nombre }} | <br> status: {{$guiaU->status}}</td>
+                                                            <td class="text-break">{{ $guiaU->descripcion }}</td>
+                                                            @foreach ($guiaU->secciones as $guiaUseccion)
+                                                                <td>{{$guiaUseccion->nombreseccion}} </td>
+                                                            @endforeach
+                                                            <!-- Videos -->
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlvideo{{$guiaU->id}}" data-guia-id="{{$guiaU->id}}" data-urlvideo="{{$guiaU->urlvideo}}">
+                                                                    <i class="bi bi-play-btn-fill"></i>
+                                                                </button>
+                                                            </td>
+                                                                <!-- Modal video -->
+                                                                <video-modal
+                                                                    :guia="{{$guiaU}}"
+                                                                ></video-modal>
+                                                            <!-- PDFs -->
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlpdf{{$guiaU->id}}"><i class="bi bi-file-earmark-fill"></i></button>
+                                                            </td>
+                                                            
+                                                                <!-- Modal PDF -->
+                                                                <div class="modal fade" id="urlpdf{{$guiaU->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" :idguia="{{$guiaU->id}}">
+                                                                        <div class="modal-dialog modal-fullscreen">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{$guiaU->nombre}}</h1>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                                                        <iframe id="" width="100%" height="100%" src="{{$guiaU->urlpdf}}" title="" frameborder="0" ></iframe>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                            </div>
-                                                        <td>
-                                                        @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
-                                                            @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id))
-                                                                @if ($permiso->id == 2 && $permiso->pivot->perfil_id == $perfil->id)
-                                                                    <a class="btn btn-primary " href="{{route('guias.edit', $guiaU)}}"><i class="bi bi-gear-fill"></i></a>
-                                                                    
-                                                                    {{-- {{$permiso}} --}}
-
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                        </td>
-                                                        <td>
+                                                                </div>
+                                                            <td>
                                                             @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
-                                                                @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id) && $guiaU->secciones->contains($seccion))
-                                                                    @if ($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id)
-                                                                    <guia-status-updater
-                                                                    :guia-id="{{$guiaU->id}}"
-                                                                    :status="{{ $guiaU->status }}"
-                                                                    :csrf-token="'{{ csrf_token() }}'"
-                                                                    :update-url="{{ json_encode(route('guias.updatestatus')) }}"
-                                                                    ></guia-status-updater>
-                                                                    
-                                                                    {{-- <p>Tiene permisos para "borrar"!!</p> --}}
-                                                                    {{-- {{$permiso->permiso}} --}}
-                                                                    {{-- {{$guiaU->status}} --}}
+                                                                @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id))
+                                                                    @if ($permiso->id == 2 && $permiso->pivot->perfil_id == $perfil->id)
+                                                                        <a class="btn btn-primary " href="{{route('guias.edit', $guiaU)}}"><i class="bi bi-gear-fill"></i></a>
+                                                                        
+
                                                                     @endif
                                                                 @endif
                                                             @endforeach
-                                                        </td>
-                                                        </tr>
+                                                            </td>
+                                                            <td>
+                                                                @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
+                                                                    @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id) && $guiaU->secciones->contains($seccion))
+                                                                        @if ($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id)
+                                                                        <guia-status-updater
+                                                                        :guia-id="{{$guiaU->id}}"
+                                                                        :status="{{ $guiaU->status }}"
+                                                                        :csrf-token="'{{ csrf_token() }}'"
+                                                                        :update-url="{{ json_encode(route('guias.updatestatus')) }}"
+                                                                        ></guia-status-updater>
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            </tr>
 
-                                                    <?php $guiasIds[$perfil->id][] = $guiaU->id; ?>
-                                                @endif
+                                                        <?php $guiasIds[$perfil->id][] = $guiaU->id; ?>
+                                                    @endif
 
-                                        @endforeach
+                                            @endforeach
 
+                                    @else
+                                            @foreach($seccion->guias->where('status', 1) as $guiaU)
+                                                    @if ($guiaU->perfiles->contains($perfil) && $guiaU->secciones->contains($seccion) && !in_array($guiaU->id, $guiasIds[$perfil->id] ?? []))
+
+                                                            <tr>
+                                                            <td class="">{{ $guiaU->id}}</td>
+                                                            <td class="text-break text-wrap">{{ $guiaU->nombre }} | <br> status: {{$guiaU->status}}</td>
+                                                            <td class="text-break">{{ $guiaU->descripcion }}</td>
+                                                            @foreach ($guiaU->secciones as $guiaUseccion)
+                                                                <td>{{$guiaUseccion->nombreseccion}} </td>
+                                                            @endforeach
+                                                            <!-- Videos -->
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlvideo{{$guiaU->id}}" data-guia-id="{{$guiaU->id}}" data-urlvideo="{{$guiaU->urlvideo}}">
+                                                                    <i class="bi bi-play-btn-fill"></i>
+                                                                </button>
+                                                            </td>
+                                                                <!-- Modal video -->
+                                                                <video-modal
+                                                                    :guia="{{$guiaU}}"
+                                                                ></video-modal>
+                                                            <!-- PDFs -->
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#urlpdf{{$guiaU->id}}"><i class="bi bi-file-earmark-fill"></i></button>
+                                                            </td>
+                                                            
+                                                                <!-- Modal PDF -->
+                                                                <div class="modal fade" id="urlpdf{{$guiaU->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" :idguia="{{$guiaU->id}}">
+                                                                        <div class="modal-dialog modal-fullscreen">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{$guiaU->nombre}}</h1>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                                                        <iframe id="" width="100%" height="100%" src="{{$guiaU->urlpdf}}" title="" frameborder="0" ></iframe>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            <td>
+                                                            @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
+                                                                @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id))
+                                                                    @if ($permiso->id == 2 && $permiso->pivot->perfil_id == $perfil->id)
+                                                                        <a class="btn btn-primary " href="{{route('guias.edit', $guiaU)}}"><i class="bi bi-gear-fill"></i></a>
+                                                                        
+
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                            </td>
+                                                            <td>
+                                                                @foreach ($seccion->permisosasignados as $indexpermiso => $permiso)
+                                                                    @if ($user->perfiles->contains('id', $perfil->id) && $user->secciones->contains('id', $seccion->id) && $guiaU->secciones->contains($seccion))
+                                                                        @if ($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id)
+                                                                        <guia-status-updater
+                                                                        :guia-id="{{$guiaU->id}}"
+                                                                        :status="{{ $guiaU->status }}"
+                                                                        :csrf-token="'{{ csrf_token() }}'"
+                                                                        :update-url="{{ json_encode(route('guias.updatestatus')) }}"
+                                                                        ></guia-status-updater>
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            </tr>
+
+                                                        <?php $guiasIds[$perfil->id][] = $guiaU->id; ?>
+                                                    @endif
+
+                                            @endforeach
                                         
-
+                                    @endif
+                                        
                                 @endforeach
                             @endforeach
                         </tbody>

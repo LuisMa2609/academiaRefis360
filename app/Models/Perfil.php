@@ -30,7 +30,7 @@ class Perfil extends Model{
     public function secciones(): BelongsToMany{
         return $this->belongsToMany(Seccion::class, 'perfil_secciones_permisos', 'perfil_id', 'seccion_id')
         // ->withPivot('status')
-        ->withPivot([ 'status'])
+        ->withPivot(['status'])
         ->where('status', 1);
     }
     
