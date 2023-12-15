@@ -20,29 +20,35 @@ class GuiasController extends Controller{
     public function index(){
         $user = Auth::user();
         $perfiles = $user->perfiles()->where('status', 1)->get();
-
         $secciones = $user->secciones()->with('permisos')->where('status', 1)->get();
         $permisos = $user->permisos;
 
-        $dataArray = [];
+        $GuiasArray = [];
 
         foreach ($perfiles as $perfil) {
+            $guiasIds[$perfil->id] = [];
             $perfilData = [
+                'id' => $perfil->id,
                 'PERFIL' => $perfil->nombreperfil,
                 'SECCIONES' => [],
             ];
         
             foreach ($perfil->secciones as $seccion) {
                 $seccionData = [
+                    'id' => $seccion->id,
                     'seccion' => $seccion->nombreseccion,
                     'PERMISOS' => [],
+                    'Guias' => []
                 ];
         
                 foreach ($seccion->permisos as $permiso) {
                     // $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
                     $permisoData = [
+                        'id'=>$permiso->id,
                         'permiso' => $permiso->permiso,
+                        'perfil_id' => $perfil->id,
                         'PerfilPermiso' => $perfil->nombreperfil,
+                        'seccion_id' => $seccion->id,
                         'SECCION' => $seccion->nombreseccion,
                         // 'statuspermiso' => $pivotDatos->pluck('status'), 
 
@@ -50,56 +56,65 @@ class GuiasController extends Controller{
         
                     $seccionData['PERMISOS'][] = $permisoData;
                 }
-        
+
+                if($permiso->id == 3 && $permiso->pivot->perfil_id == $perfil->id) {
+                    foreach ($seccion->guias as $guia) {
+                        if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds[$perfil->id] ?? [])) {
+                            $guiaData = [
+                            'id' => $guia->id,  
+                            'Guía' => $guia->nombre,
+                            'descripcion'=>$guia->descripcion,
+                            'video'=>$guia->urlvideo,
+                            'pdf'=>$guia->urlpdf,
+                            'status' => $guia->status,
+                            'seccionGuia' => []
+                            ];
+    
+                            foreach ($guia->secciones as $guiaSeccion) {
+                                $guiaseccionData=[
+                                'id'=>$guiaSeccion->id,
+                                'guiaseccion'=>$guiaSeccion->nombreseccion
+                                ];
+                                $guiaData['seccionGuia'][] = $guiaseccionData;
+                            }
+                            $seccionData['Guias'][]= $guiaData;
+    
+                            $guiasIds[$perfil->id][] = $guia->id;
+                        }
+                    }
+                } 
+                else {
+                    foreach ($seccion->guias->where('status', 1) as $guia) {
+                        if ($guia->perfiles->contains($perfil) && $guia->secciones->contains($seccion) && !in_array($guia->id, $guiasIds[$perfil->id] ?? [])) {
+                            $guiaData = [
+                            'id' => $guia->id,  
+                            'Guía' => $guia->nombre,
+                            'descripcion'=>$guia->descripcion,
+                            'video'=>$guia->urlvideo,
+                            'pdf'=>$guia->urlpdf,
+                            'status' => $guia->status,
+                            'seccionGuia' => []
+                            ];
+    
+                            foreach ($guia->secciones as $guiaSeccion) {
+                                $guiaseccionData=[
+                                'id'=>$guiaSeccion->id,
+                                'guiaseccion'=>$guiaSeccion->nombreseccion
+                                ];
+                                $guiaData['seccionGuia'][] = $guiaseccionData;
+                            }
+                            $seccionData['Guias'][]= $guiaData;
+    
+                            $guiasIds[$perfil->id][] = $guia->id;
+                        }
+                    }
+
+                }
+                
                 $perfilData['SECCIONES'][] = $seccionData;
             }
-        
-            $dataArray[] = $perfilData;
+            $GuiasArray[] = $perfilData;
         }
-        // dd($dataArray);
-
-        // $perfilesArray = [];
-        // foreach ($perfiles as $perfil) {
-        //     $perfilArray = [
-        //         'id' => $perfil->id,
-        //         'nombreperfil' => $perfil->nombreperfil,
-        //         'secciones' => [],
-        //     ];
-        
-        //     foreach ($secciones as $seccion) {
-        //         $pivotData = $perfil->secciones->where('id', $seccion->id)->pluck('pivot');
-        
-        //         $seccionArray = [
-        //             'id' => $seccion->id,
-        //             // 'perfilID' => $perfil->id,
-        //             'nombreseccion' => $seccion->nombreseccion,
-        //             // 'checked' => $pivotData->pluck('status')->contains(1),
-        //             'permisos' => [],
-        //         ];
-        
-        //         foreach ($permisos as $permiso) {
-
-        //             $pivotDatos = $perfil->permisos->where('id', $permiso->id)->pluck('pivot');
-        
-        //             $seccionArray['permisos'][] = [
-        //                 'id' => $permiso->id,
-        //                 'permiso' => $permiso->permiso,
-        //                 'statuspermiso' => $pivotDatos->pluck('status'), 
-        //             ];
-        //         }
-        
-        //         $perfilArray['secciones'][] = $seccionArray;
-        //     }
-        
-        //     $perfilesArray[] = $perfilArray;
-        // }
-
-        // dd($perfiles->toArray(), $perfilArray);
-        // dd($perfilesArray);
-        
-        // dd($secciones->toArray(),$permisos->toArray() );
-        // $guias = Guia::with('perfiles', 'secciones')->get();
-        
 
         $guiasIds = [];
         
@@ -109,10 +124,11 @@ class GuiasController extends Controller{
             'permisos' => $permisos,
             'secciones' => $secciones,
             'user' => $user,
-            // 'guias' => $guias,
-            // 'perfilesArray' => $perfilesArray
+            'GuiasArray' => $GuiasArray
         ]);
     }
+
+    
 
     public function crud(){
         $this->authorize('admin');

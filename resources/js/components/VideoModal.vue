@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5">{{ guia.nombre }}</h1>
+            <h1 class="modal-title fs-5">{{ guia.Guía }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -23,7 +23,7 @@
         const modalOpen = document.getElementById('urlvideo' + this.guia.id)
         modalOpen.addEventListener('shown.bs.modal', event => {
           console.log('Se abrio el modal ' + this.guia.id);
-          document.getElementById('videoguia' + this.guia.id).src = this.guia.urlvideo;
+          document.getElementById('videoguia' + this.guia.id).src = this.guia.video;
         })
 
         const modalClose = document.getElementById('urlvideo' + this.guia.id)
