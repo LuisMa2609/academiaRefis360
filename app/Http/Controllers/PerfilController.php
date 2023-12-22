@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class PerfilController extends Controller{
 
     public function index(Perfil $perfil){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $perfiles = Perfil::with('secciones', 'permisos')->where('status', 1)->get();
         $perfilesAll = Perfil::all();
         $secciones = Seccion::with('permisos')->get();
@@ -63,7 +63,7 @@ class PerfilController extends Controller{
     
     
     public function asignarSeccion(Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $perfilSeccionPermisoStatusArray = $request->input('perfil_seccion_permiso_status');
     
         foreach ($perfilSeccionPermisoStatusArray as $perfilId => $secciones) {
@@ -84,7 +84,7 @@ class PerfilController extends Controller{
     }
 
     public function storeperfil(Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
 
         $request->validate([
             'nombreperfil' => 'required|string|max:255',
@@ -124,7 +124,7 @@ class PerfilController extends Controller{
     }
 
     public function updateStatus(Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $perfilId = $request->input('perfil_id');
         $newStatus = $request->input('new_status');
 

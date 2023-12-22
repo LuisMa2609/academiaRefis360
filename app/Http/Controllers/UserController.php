@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $users = User::latest()->get();
         return view('users.index', [
             'users' => $users,
@@ -22,7 +22,7 @@ class UserController extends Controller
     }
 
     public function register(){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $perfiles = Perfil::all();
         return view('auth.register', [
             'perfiles' => $perfiles,
@@ -57,7 +57,7 @@ class UserController extends Controller
     }
 
     public function detallesDeUsuario(User $user){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $perfiles = Perfil::with('secciones')->where('status', 1)->get();
         $perfiles_users = $user->perfiles->pluck('id')->toArray();
         return view('users.detallesusuario', [
@@ -94,7 +94,7 @@ class UserController extends Controller
     }
     
     public function updateStatus(Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
         $userId = $request->input('user_id');
         $newStatus = $request->input('new_status');
     

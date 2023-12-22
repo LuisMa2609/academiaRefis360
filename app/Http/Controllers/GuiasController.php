@@ -133,7 +133,7 @@ class GuiasController extends Controller{
     
 
     public function crud(){
-        $this->authorize('admin');
+         $this->authorize('admin', User::class);
         $guias = Guia::all();
         return view('guias.crudGuias',[
             'guias' =>$guias
@@ -141,9 +141,8 @@ class GuiasController extends Controller{
     }
 
     public function editguia(Guia $guia){
-        // $this->authorize('admin');
-        Gate::authorize('admin');
-        // Gate::authorize('user');
+        $this->authorize('adminOrUser', User::class);
+       
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
         $permisos = Permiso::all();
@@ -163,7 +162,8 @@ class GuiasController extends Controller{
     }
 
     public function updateguia(Guia $guia, Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
+
 
         $this->validate($request, [
             'nombre' => 'required|string|max:255|unique:guias,nombre,'.$guia->id,
@@ -206,7 +206,8 @@ class GuiasController extends Controller{
     }
 
     public function createGuia(){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
+
         $guias = Guia::all();
         $perfiles = Perfil::all();
         $secciones = Seccion::all();
@@ -219,7 +220,8 @@ class GuiasController extends Controller{
     }
 
     public function store(Request $request){
-        $this->authorize('admin');
+        $this->authorize('admin', User::class);
+
         $request->validate(
             [
             'nombre' => 'required|string|max:255|unique:guias',
@@ -265,7 +267,7 @@ class GuiasController extends Controller{
     }
 
     public function updateStatus(Request $request){
-        $this->authorize('admin');
+         $this->authorize('admin', User::class);
         $guiaId = $request->input('guia_id');
         $newStatus = $request->input('new_status');
         $guia = Guia::find($guiaId);

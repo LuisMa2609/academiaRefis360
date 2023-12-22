@@ -118,7 +118,17 @@
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <a href="{{ route('guias.crud') }}" class="btn btn-danger btnregistrocancel">Regresar</a>
+                    <a href="{{ URL::previous() }}" class="btn btn-danger btnregistrocancel">Volver</a>
+
+                    @can('admin')
+                        <a href="{{ route('guias.crud') }}" class="btn btn-danger btnregistrocancel">Regresar</a>
+                    @endcan
+
+                    @can('user')
+                    <a href="{{ route('index') }}" class="btn btn-danger btnregistrocancel">Regresar</a>
+                        
+                    @endcan
+
                     <button type="submit" class="btn btn-primary">
                         {{ isset($guia->id) ? 'Actualizar ': 'Crear' }}
                     </button>

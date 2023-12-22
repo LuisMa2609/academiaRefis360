@@ -5,7 +5,7 @@
 @section('content')
   <div class="container">
       <h1 class="text-center py-3">GUÍAS</h1>
-      @can('admin')
+      @can('admin', \App\Models\User::class)
       <div class="d-grid gap-2 d-md-flex justify-content py-3">
           <a    href="{{ route('guias.crud')}}" class="btn btn-primary">Gestionar guías</a>
         </div>
@@ -47,7 +47,7 @@
                                 @foreach ($seccion['Guias'] as $guia)
                                         <tr>
                                             <td class="">{{$guia['id']}}</td>
-                                            <td class="text-break text-wrap">{{$guia['Guía']}}   | | {{$guia['status']}}</td>
+                                            <td class="text-break text-wrap">{{$guia['Guía']}}</td>
                                             <td class="text-break">{{$guia['descripcion']}}</td>
                                                 @foreach ($guia['seccionGuia'] as $guiaseccion)
                                                 <td>{{$guiaseccion['guiaseccion']}}</td>
@@ -90,7 +90,7 @@
                                             <td>
                                                 @foreach ($seccion['PERMISOS'] as $permiso)
                                                         @if ($perfil['id'] == $permiso['perfil_id'] && $user->secciones->contains('id', $seccion['id']) && $permiso['id'] == 2  && $permiso['seccion_id'] == $seccion['id'])
-                                                                <a class="btn btn-primary " href=""><i class="bi bi-gear-fill"></i></a>
+                                                                <a class="btn btn-primary " href="{{route('guias.edit', $guia['id'])}}"><i class="bi bi-gear-fill"></i></a>
                                                                 @break
                                                         @endif
                                                 @endforeach
